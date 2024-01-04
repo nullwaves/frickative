@@ -61,6 +61,11 @@
                 return Symbol;
             }
         }
+
+        public override string ToString()
+        {
+            return Symbol;
+        }
     }
 
     public class Vowel : IPALetter
@@ -155,11 +160,6 @@
             Voiced = voiced;
             LetterType = ltype;
             All.Add(this);
-        }
-
-        public override string ToString()
-        {
-            return Symbol;
         }
 
         #region Pulmonic Consonants

@@ -29,71 +29,61 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            splitContainer1 = new SplitContainer();
-            splitContainer2 = new SplitContainer();
+            splitContainerPulmonicConsonants = new SplitContainer();
             flowLayoutPanel1 = new FlowLayoutPanel();
             SelectAllPulmonicConsonants = new Button();
             SelectNonePulmonicConsonants = new Button();
             PulmonicConsonants = new CheckedListBox();
-            splitContainer3 = new SplitContainer();
+            splitContainerVowels = new SplitContainer();
             flowLayoutPanel2 = new FlowLayoutPanel();
             SelectAllVowels = new Button();
             SelectNoneVowels = new Button();
             Vowels = new CheckedListBox();
             phoneticLetterBindingSource = new BindingSource(components);
+            tableLayoutPanel1 = new TableLayoutPanel();
+            splitContainer1 = new SplitContainer();
+            flowLayoutPanel3 = new FlowLayoutPanel();
+            SyllableShape = new TextBox();
+            GenerateSyllables = new Button();
+            SyllableOutput = new ListBox();
+            ((System.ComponentModel.ISupportInitialize)splitContainerPulmonicConsonants).BeginInit();
+            splitContainerPulmonicConsonants.Panel1.SuspendLayout();
+            splitContainerPulmonicConsonants.Panel2.SuspendLayout();
+            splitContainerPulmonicConsonants.SuspendLayout();
+            flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainerVowels).BeginInit();
+            splitContainerVowels.Panel1.SuspendLayout();
+            splitContainerVowels.Panel2.SuspendLayout();
+            splitContainerVowels.SuspendLayout();
+            flowLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)phoneticLetterBindingSource).BeginInit();
+            tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)splitContainer2).BeginInit();
-            splitContainer2.Panel1.SuspendLayout();
-            splitContainer2.Panel2.SuspendLayout();
-            splitContainer2.SuspendLayout();
-            flowLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)splitContainer3).BeginInit();
-            splitContainer3.Panel1.SuspendLayout();
-            splitContainer3.Panel2.SuspendLayout();
-            splitContainer3.SuspendLayout();
-            flowLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)phoneticLetterBindingSource).BeginInit();
+            flowLayoutPanel3.SuspendLayout();
             SuspendLayout();
             // 
-            // splitContainer1
+            // splitContainerPulmonicConsonants
             // 
-            splitContainer1.Dock = DockStyle.Fill;
-            splitContainer1.Location = new Point(0, 0);
-            splitContainer1.Name = "splitContainer1";
+            splitContainerPulmonicConsonants.Dock = DockStyle.Fill;
+            splitContainerPulmonicConsonants.FixedPanel = FixedPanel.Panel1;
+            splitContainerPulmonicConsonants.IsSplitterFixed = true;
+            splitContainerPulmonicConsonants.Location = new Point(525, 3);
+            splitContainerPulmonicConsonants.Name = "splitContainerPulmonicConsonants";
+            splitContainerPulmonicConsonants.Orientation = Orientation.Horizontal;
             // 
-            // splitContainer1.Panel1
+            // splitContainerPulmonicConsonants.Panel1
             // 
-            splitContainer1.Panel1.Controls.Add(splitContainer2);
+            splitContainerPulmonicConsonants.Panel1.Controls.Add(flowLayoutPanel1);
             // 
-            // splitContainer1.Panel2
+            // splitContainerPulmonicConsonants.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(splitContainer3);
-            splitContainer1.Size = new Size(800, 450);
-            splitContainer1.SplitterDistance = 350;
-            splitContainer1.TabIndex = 0;
-            // 
-            // splitContainer2
-            // 
-            splitContainer2.Dock = DockStyle.Fill;
-            splitContainer2.FixedPanel = FixedPanel.Panel1;
-            splitContainer2.IsSplitterFixed = true;
-            splitContainer2.Location = new Point(0, 0);
-            splitContainer2.Name = "splitContainer2";
-            splitContainer2.Orientation = Orientation.Horizontal;
-            // 
-            // splitContainer2.Panel1
-            // 
-            splitContainer2.Panel1.Controls.Add(flowLayoutPanel1);
-            // 
-            // splitContainer2.Panel2
-            // 
-            splitContainer2.Panel2.Controls.Add(PulmonicConsonants);
-            splitContainer2.Size = new Size(350, 450);
-            splitContainer2.SplitterDistance = 40;
-            splitContainer2.TabIndex = 0;
+            splitContainerPulmonicConsonants.Panel2.Controls.Add(PulmonicConsonants);
+            splitContainerPulmonicConsonants.Size = new Size(516, 803);
+            splitContainerPulmonicConsonants.SplitterDistance = 40;
+            splitContainerPulmonicConsonants.TabIndex = 0;
             // 
             // flowLayoutPanel1
             // 
@@ -103,7 +93,7 @@
             flowLayoutPanel1.Dock = DockStyle.Fill;
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(350, 40);
+            flowLayoutPanel1.Size = new Size(516, 40);
             flowLayoutPanel1.TabIndex = 0;
             // 
             // SelectAllPulmonicConsonants
@@ -133,29 +123,30 @@
             PulmonicConsonants.Dock = DockStyle.Fill;
             PulmonicConsonants.Font = new Font("Times New Roman", 18F, FontStyle.Bold);
             PulmonicConsonants.FormattingEnabled = true;
+            PulmonicConsonants.HorizontalScrollbar = true;
             PulmonicConsonants.Location = new Point(0, 0);
             PulmonicConsonants.Name = "PulmonicConsonants";
-            PulmonicConsonants.Size = new Size(350, 406);
+            PulmonicConsonants.Size = new Size(516, 759);
             PulmonicConsonants.TabIndex = 2;
             // 
-            // splitContainer3
+            // splitContainerVowels
             // 
-            splitContainer3.Dock = DockStyle.Fill;
-            splitContainer3.FixedPanel = FixedPanel.Panel1;
-            splitContainer3.Location = new Point(0, 0);
-            splitContainer3.Name = "splitContainer3";
-            splitContainer3.Orientation = Orientation.Horizontal;
+            splitContainerVowels.Dock = DockStyle.Fill;
+            splitContainerVowels.FixedPanel = FixedPanel.Panel1;
+            splitContainerVowels.Location = new Point(3, 3);
+            splitContainerVowels.Name = "splitContainerVowels";
+            splitContainerVowels.Orientation = Orientation.Horizontal;
             // 
-            // splitContainer3.Panel1
+            // splitContainerVowels.Panel1
             // 
-            splitContainer3.Panel1.Controls.Add(flowLayoutPanel2);
+            splitContainerVowels.Panel1.Controls.Add(flowLayoutPanel2);
             // 
-            // splitContainer3.Panel2
+            // splitContainerVowels.Panel2
             // 
-            splitContainer3.Panel2.Controls.Add(Vowels);
-            splitContainer3.Size = new Size(446, 450);
-            splitContainer3.SplitterDistance = 40;
-            splitContainer3.TabIndex = 0;
+            splitContainerVowels.Panel2.Controls.Add(Vowels);
+            splitContainerVowels.Size = new Size(516, 803);
+            splitContainerVowels.SplitterDistance = 40;
+            splitContainerVowels.TabIndex = 0;
             // 
             // flowLayoutPanel2
             // 
@@ -165,7 +156,7 @@
             flowLayoutPanel2.Dock = DockStyle.Fill;
             flowLayoutPanel2.Location = new Point(0, 0);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(446, 40);
+            flowLayoutPanel2.Size = new Size(516, 40);
             flowLayoutPanel2.TabIndex = 1;
             // 
             // SelectAllVowels
@@ -195,60 +186,151 @@
             Vowels.Dock = DockStyle.Fill;
             Vowels.Font = new Font("Times New Roman", 18F, FontStyle.Bold);
             Vowels.FormattingEnabled = true;
+            Vowels.HorizontalScrollbar = true;
             Vowels.Location = new Point(0, 0);
             Vowels.Name = "Vowels";
-            Vowels.Size = new Size(446, 406);
+            Vowels.Size = new Size(516, 759);
             Vowels.TabIndex = 3;
             // 
             // phoneticLetterBindingSource
             // 
             phoneticLetterBindingSource.DataSource = typeof(Consonant);
             // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 3;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.34F));
+            tableLayoutPanel1.Controls.Add(splitContainerVowels, 0, 0);
+            tableLayoutPanel1.Controls.Add(splitContainerPulmonicConsonants, 1, 0);
+            tableLayoutPanel1.Controls.Add(splitContainer1, 2, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Size = new Size(1567, 809);
+            tableLayoutPanel1.TabIndex = 1;
+            // 
+            // splitContainer1
+            // 
+            splitContainer1.Dock = DockStyle.Fill;
+            splitContainer1.FixedPanel = FixedPanel.Panel1;
+            splitContainer1.IsSplitterFixed = true;
+            splitContainer1.Location = new Point(1047, 3);
+            splitContainer1.Name = "splitContainer1";
+            splitContainer1.Orientation = Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            splitContainer1.Panel1.Controls.Add(flowLayoutPanel3);
+            // 
+            // splitContainer1.Panel2
+            // 
+            splitContainer1.Panel2.Controls.Add(SyllableOutput);
+            splitContainer1.Size = new Size(517, 803);
+            splitContainer1.SplitterDistance = 40;
+            splitContainer1.TabIndex = 1;
+            // 
+            // flowLayoutPanel3
+            // 
+            flowLayoutPanel3.AutoSize = true;
+            flowLayoutPanel3.Controls.Add(SyllableShape);
+            flowLayoutPanel3.Controls.Add(GenerateSyllables);
+            flowLayoutPanel3.Dock = DockStyle.Fill;
+            flowLayoutPanel3.Location = new Point(0, 0);
+            flowLayoutPanel3.Name = "flowLayoutPanel3";
+            flowLayoutPanel3.Size = new Size(517, 40);
+            flowLayoutPanel3.TabIndex = 1;
+            // 
+            // SyllableShape
+            // 
+            SyllableShape.Anchor = AnchorStyles.Left;
+            SyllableShape.Location = new Point(3, 5);
+            SyllableShape.Name = "SyllableShape";
+            SyllableShape.PlaceholderText = "Syllable Shape";
+            SyllableShape.Size = new Size(292, 31);
+            SyllableShape.TabIndex = 1;
+            // 
+            // GenerateSyllables
+            // 
+            GenerateSyllables.Anchor = AnchorStyles.Left;
+            GenerateSyllables.AutoSize = true;
+            GenerateSyllables.Location = new Point(301, 3);
+            GenerateSyllables.Name = "GenerateSyllables";
+            GenerateSyllables.Size = new Size(184, 35);
+            GenerateSyllables.TabIndex = 0;
+            GenerateSyllables.Text = "Generate Syllables";
+            GenerateSyllables.UseVisualStyleBackColor = true;
+            GenerateSyllables.Click += GenerateSyllables_Click;
+            // 
+            // SyllableOutput
+            // 
+            SyllableOutput.BackColor = SystemColors.ControlDark;
+            SyllableOutput.Dock = DockStyle.Fill;
+            SyllableOutput.Font = new Font("Times New Roman", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SyllableOutput.ForeColor = SystemColors.ControlText;
+            SyllableOutput.FormattingEnabled = true;
+            SyllableOutput.ItemHeight = 41;
+            SyllableOutput.Location = new Point(0, 0);
+            SyllableOutput.Name = "SyllableOutput";
+            SyllableOutput.Size = new Size(517, 759);
+            SyllableOutput.TabIndex = 0;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDark;
-            ClientSize = new Size(800, 450);
-            Controls.Add(splitContainer1);
+            ClientSize = new Size(1567, 809);
+            Controls.Add(tableLayoutPanel1);
             Name = "Main";
             Text = "Frickative";
             Load += Main_Load;
-            splitContainer1.Panel1.ResumeLayout(false);
-            splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
-            splitContainer1.ResumeLayout(false);
-            splitContainer2.Panel1.ResumeLayout(false);
-            splitContainer2.Panel1.PerformLayout();
-            splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)splitContainer2).EndInit();
-            splitContainer2.ResumeLayout(false);
+            splitContainerPulmonicConsonants.Panel1.ResumeLayout(false);
+            splitContainerPulmonicConsonants.Panel1.PerformLayout();
+            splitContainerPulmonicConsonants.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainerPulmonicConsonants).EndInit();
+            splitContainerPulmonicConsonants.ResumeLayout(false);
             flowLayoutPanel1.ResumeLayout(false);
             flowLayoutPanel1.PerformLayout();
-            splitContainer3.Panel1.ResumeLayout(false);
-            splitContainer3.Panel1.PerformLayout();
-            splitContainer3.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)splitContainer3).EndInit();
-            splitContainer3.ResumeLayout(false);
+            splitContainerVowels.Panel1.ResumeLayout(false);
+            splitContainerVowels.Panel1.PerformLayout();
+            splitContainerVowels.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainerVowels).EndInit();
+            splitContainerVowels.ResumeLayout(false);
             flowLayoutPanel2.ResumeLayout(false);
             flowLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)phoneticLetterBindingSource).EndInit();
+            tableLayoutPanel1.ResumeLayout(false);
+            splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel1.PerformLayout();
+            splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
+            flowLayoutPanel3.ResumeLayout(false);
+            flowLayoutPanel3.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
-
-        private SplitContainer splitContainer1;
         private FlowLayoutPanel flowLayoutPanel1;
         private Button SelectAllPulmonicConsonants;
         private Button SelectNonePulmonicConsonants;
         private CheckedListBox PulmonicConsonants;
         private BindingSource phoneticLetterBindingSource;
-        private SplitContainer splitContainer2;
-        private SplitContainer splitContainer3;
+        private SplitContainer splitContainerPulmonicConsonants;
+        private SplitContainer splitContainerVowels;
         private FlowLayoutPanel flowLayoutPanel2;
         private Button SelectAllVowels;
         private Button SelectNoneVowels;
         private CheckedListBox Vowels;
+        private TableLayoutPanel tableLayoutPanel1;
+        private SplitContainer splitContainer1;
+        private FlowLayoutPanel flowLayoutPanel3;
+        private TextBox SyllableShape;
+        private Button GenerateSyllables;
+        private ListBox SyllableOutput;
     }
 }
