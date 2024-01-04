@@ -120,6 +120,7 @@
             // 
             // PulmonicConsonants
             // 
+            PulmonicConsonants.CheckOnClick = true;
             PulmonicConsonants.Dock = DockStyle.Fill;
             PulmonicConsonants.Font = new Font("Times New Roman", 18F, FontStyle.Bold);
             PulmonicConsonants.FormattingEnabled = true;
@@ -183,6 +184,7 @@
             // 
             // Vowels
             // 
+            Vowels.CheckOnClick = true;
             Vowels.Dock = DockStyle.Fill;
             Vowels.Font = new Font("Times New Roman", 18F, FontStyle.Bold);
             Vowels.FormattingEnabled = true;
