@@ -149,7 +149,7 @@
         public Place Place { get; set; }
         public Manner Manner { get; set; }
         public bool Voiced { get; set; }
-        public ConsonantType LetterType { get; set; }
+        public ConsonantType SoundType { get; set; }
         public override string DisplayString => $"{Symbol} - Voice{(Voiced ? "ed" : "less")} {Place} {Manner}";
 
         public Consonant(string symbol, Place place, Manner manner, bool voiced, ConsonantType ltype = ConsonantType.Pulmonic)
@@ -158,7 +158,7 @@
             Place = place;
             Manner = manner;
             Voiced = voiced;
-            LetterType = ltype;
+            SoundType = ltype;
             All.Add(this);
         }
 
