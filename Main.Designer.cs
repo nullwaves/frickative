@@ -35,15 +35,26 @@
             SelectAllPulmonicConsonants = new Button();
             SelectNonePulmonicConsonants = new Button();
             PulmonicConsonants = new CheckedListBox();
+            splitContainer3 = new SplitContainer();
+            flowLayoutPanel2 = new FlowLayoutPanel();
+            SelectAllVowels = new Button();
+            SelectNoneVowels = new Button();
+            Vowels = new CheckedListBox();
             phoneticLetterBindingSource = new BindingSource(components);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer2).BeginInit();
             splitContainer2.Panel1.SuspendLayout();
             splitContainer2.Panel2.SuspendLayout();
             splitContainer2.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer3).BeginInit();
+            splitContainer3.Panel1.SuspendLayout();
+            splitContainer3.Panel2.SuspendLayout();
+            splitContainer3.SuspendLayout();
+            flowLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)phoneticLetterBindingSource).BeginInit();
             SuspendLayout();
             // 
@@ -56,6 +67,10 @@
             // splitContainer1.Panel1
             // 
             splitContainer1.Panel1.Controls.Add(splitContainer2);
+            // 
+            // splitContainer1.Panel2
+            // 
+            splitContainer1.Panel2.Controls.Add(splitContainer3);
             splitContainer1.Size = new Size(800, 450);
             splitContainer1.SplitterDistance = 350;
             splitContainer1.TabIndex = 0;
@@ -123,9 +138,71 @@
             PulmonicConsonants.Size = new Size(350, 406);
             PulmonicConsonants.TabIndex = 2;
             // 
+            // splitContainer3
+            // 
+            splitContainer3.Dock = DockStyle.Fill;
+            splitContainer3.FixedPanel = FixedPanel.Panel1;
+            splitContainer3.Location = new Point(0, 0);
+            splitContainer3.Name = "splitContainer3";
+            splitContainer3.Orientation = Orientation.Horizontal;
+            // 
+            // splitContainer3.Panel1
+            // 
+            splitContainer3.Panel1.Controls.Add(flowLayoutPanel2);
+            // 
+            // splitContainer3.Panel2
+            // 
+            splitContainer3.Panel2.Controls.Add(Vowels);
+            splitContainer3.Size = new Size(446, 450);
+            splitContainer3.SplitterDistance = 40;
+            splitContainer3.TabIndex = 0;
+            // 
+            // flowLayoutPanel2
+            // 
+            flowLayoutPanel2.AutoSize = true;
+            flowLayoutPanel2.Controls.Add(SelectAllVowels);
+            flowLayoutPanel2.Controls.Add(SelectNoneVowels);
+            flowLayoutPanel2.Dock = DockStyle.Fill;
+            flowLayoutPanel2.Location = new Point(0, 0);
+            flowLayoutPanel2.Name = "flowLayoutPanel2";
+            flowLayoutPanel2.Size = new Size(446, 40);
+            flowLayoutPanel2.TabIndex = 1;
+            // 
+            // SelectAllVowels
+            // 
+            SelectAllVowels.AutoSize = true;
+            SelectAllVowels.Location = new Point(3, 3);
+            SelectAllVowels.Name = "SelectAllVowels";
+            SelectAllVowels.Size = new Size(112, 35);
+            SelectAllVowels.TabIndex = 0;
+            SelectAllVowels.Text = "Select All";
+            SelectAllVowels.UseVisualStyleBackColor = true;
+            SelectAllVowels.Click += SelectAllVowels_Click;
+            // 
+            // SelectNoneVowels
+            // 
+            SelectNoneVowels.AutoSize = true;
+            SelectNoneVowels.Location = new Point(121, 3);
+            SelectNoneVowels.Name = "SelectNoneVowels";
+            SelectNoneVowels.Size = new Size(116, 35);
+            SelectNoneVowels.TabIndex = 1;
+            SelectNoneVowels.Text = "Select None";
+            SelectNoneVowels.UseVisualStyleBackColor = true;
+            SelectNoneVowels.Click += SelectNoneVowels_Click;
+            // 
+            // Vowels
+            // 
+            Vowels.Dock = DockStyle.Fill;
+            Vowels.Font = new Font("Times New Roman", 18F, FontStyle.Bold);
+            Vowels.FormattingEnabled = true;
+            Vowels.Location = new Point(0, 0);
+            Vowels.Name = "Vowels";
+            Vowels.Size = new Size(446, 406);
+            Vowels.TabIndex = 3;
+            // 
             // phoneticLetterBindingSource
             // 
-            phoneticLetterBindingSource.DataSource = typeof(PhoneticLetter);
+            phoneticLetterBindingSource.DataSource = typeof(Consonant);
             // 
             // Main
             // 
@@ -138,6 +215,7 @@
             Text = "Frickative";
             Load += Main_Load;
             splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
             splitContainer2.Panel1.ResumeLayout(false);
@@ -147,6 +225,13 @@
             splitContainer2.ResumeLayout(false);
             flowLayoutPanel1.ResumeLayout(false);
             flowLayoutPanel1.PerformLayout();
+            splitContainer3.Panel1.ResumeLayout(false);
+            splitContainer3.Panel1.PerformLayout();
+            splitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainer3).EndInit();
+            splitContainer3.ResumeLayout(false);
+            flowLayoutPanel2.ResumeLayout(false);
+            flowLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)phoneticLetterBindingSource).EndInit();
             ResumeLayout(false);
         }
@@ -160,5 +245,10 @@
         private CheckedListBox PulmonicConsonants;
         private BindingSource phoneticLetterBindingSource;
         private SplitContainer splitContainer2;
+        private SplitContainer splitContainer3;
+        private FlowLayoutPanel flowLayoutPanel2;
+        private Button SelectAllVowels;
+        private Button SelectNoneVowels;
+        private CheckedListBox Vowels;
     }
 }

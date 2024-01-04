@@ -9,8 +9,10 @@ namespace frickative
 
         private void Main_Load(object sender, EventArgs e)
         {
-            PulmonicConsonants.DataSource = PhoneticLetter.All;
+            PulmonicConsonants.DataSource = Consonant.All;
             PulmonicConsonants.DisplayMember = "DisplayString";
+            Vowels.DataSource = Vowel.All;
+            Vowels.DisplayMember = "DisplayString";
         }
 
         private void SelectAllPulmonicConsonants_Click(object sender, EventArgs e)
@@ -26,6 +28,22 @@ namespace frickative
             for (int i = 0; i < PulmonicConsonants.Items.Count; i++)
             {
                 PulmonicConsonants.SetItemChecked(i, false);
+            }
+        }
+
+        private void SelectAllVowels_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < Vowels.Items.Count; i++)
+            {
+                Vowels.SetItemChecked(i, true);
+            }
+        }
+
+        private void SelectNoneVowels_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < Vowels.Items.Count; i++)
+            {
+                Vowels.SetItemChecked(i, false);
             }
         }
     }
