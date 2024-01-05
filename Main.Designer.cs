@@ -50,7 +50,7 @@
             flowLayoutPanel3 = new FlowLayoutPanel();
             SyllableShape = new TextBox();
             GenerateSyllables = new Button();
-            SyllableOutput = new ListBox();
+            SyllableOutput = new TextBox();
             ((System.ComponentModel.ISupportInitialize)splitContainerPulmonicConsonants).BeginInit();
             splitContainerPulmonicConsonants.Panel1.SuspendLayout();
             splitContainerPulmonicConsonants.Panel2.SuspendLayout();
@@ -80,7 +80,7 @@
             splitContainerPulmonicConsonants.Dock = DockStyle.Fill;
             splitContainerPulmonicConsonants.FixedPanel = FixedPanel.Panel1;
             splitContainerPulmonicConsonants.IsSplitterFixed = true;
-            splitContainerPulmonicConsonants.Location = new Point(453, 3);
+            splitContainerPulmonicConsonants.Location = new Point(441, 3);
             splitContainerPulmonicConsonants.Name = "splitContainerPulmonicConsonants";
             splitContainerPulmonicConsonants.Orientation = Orientation.Horizontal;
             // 
@@ -91,7 +91,7 @@
             // splitContainerPulmonicConsonants.Panel2
             // 
             splitContainerPulmonicConsonants.Panel2.Controls.Add(PulmonicConsonants);
-            splitContainerPulmonicConsonants.Size = new Size(474, 803);
+            splitContainerPulmonicConsonants.Size = new Size(552, 803);
             splitContainerPulmonicConsonants.SplitterDistance = 40;
             splitContainerPulmonicConsonants.TabIndex = 0;
             // 
@@ -104,7 +104,7 @@
             flowLayoutPanel1.Dock = DockStyle.Fill;
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(474, 40);
+            flowLayoutPanel1.Size = new Size(552, 40);
             flowLayoutPanel1.TabIndex = 0;
             // 
             // label3
@@ -132,7 +132,7 @@
             // SelectNonePulmonicConsonants
             // 
             SelectNonePulmonicConsonants.AutoSize = true;
-            SelectNonePulmonicConsonants.Location = new Point(3, 44);
+            SelectNonePulmonicConsonants.Location = new Point(427, 3);
             SelectNonePulmonicConsonants.Name = "SelectNonePulmonicConsonants";
             SelectNonePulmonicConsonants.Size = new Size(116, 35);
             SelectNonePulmonicConsonants.TabIndex = 1;
@@ -149,7 +149,7 @@
             PulmonicConsonants.HorizontalScrollbar = true;
             PulmonicConsonants.Location = new Point(0, 0);
             PulmonicConsonants.Name = "PulmonicConsonants";
-            PulmonicConsonants.Size = new Size(474, 759);
+            PulmonicConsonants.Size = new Size(552, 759);
             PulmonicConsonants.TabIndex = 2;
             // 
             // splitContainerVowels
@@ -167,7 +167,7 @@
             // splitContainerVowels.Panel2
             // 
             splitContainerVowels.Panel2.Controls.Add(Vowels);
-            splitContainerVowels.Size = new Size(444, 803);
+            splitContainerVowels.Size = new Size(432, 803);
             splitContainerVowels.SplitterDistance = 40;
             splitContainerVowels.TabIndex = 0;
             // 
@@ -180,7 +180,7 @@
             flowLayoutPanel2.Dock = DockStyle.Fill;
             flowLayoutPanel2.Location = new Point(0, 0);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(444, 40);
+            flowLayoutPanel2.Size = new Size(432, 40);
             flowLayoutPanel2.TabIndex = 1;
             // 
             // label2
@@ -225,7 +225,7 @@
             Vowels.HorizontalScrollbar = true;
             Vowels.Location = new Point(0, 0);
             Vowels.Name = "Vowels";
-            Vowels.Size = new Size(444, 759);
+            Vowels.Size = new Size(432, 759);
             Vowels.TabIndex = 3;
             // 
             // phoneticLetterBindingSource
@@ -235,9 +235,9 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.ColumnCount = 3;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 28.7172947F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.63178F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40.6509247F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 27.9515F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35.67326F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 36.37524F));
             tableLayoutPanel1.Controls.Add(splitContainerVowels, 0, 0);
             tableLayoutPanel1.Controls.Add(splitContainerPulmonicConsonants, 1, 0);
             tableLayoutPanel1.Controls.Add(splitContainer1, 2, 0);
@@ -252,7 +252,7 @@
             // splitContainer1
             // 
             splitContainer1.Dock = DockStyle.Fill;
-            splitContainer1.Location = new Point(933, 3);
+            splitContainer1.Location = new Point(999, 3);
             splitContainer1.Name = "splitContainer1";
             splitContainer1.Orientation = Orientation.Horizontal;
             // 
@@ -263,8 +263,8 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(SyllableOutput);
-            splitContainer1.Size = new Size(631, 803);
-            splitContainer1.SplitterDistance = 346;
+            splitContainer1.Size = new Size(565, 803);
+            splitContainer1.SplitterDistance = 299;
             splitContainer1.TabIndex = 1;
             // 
             // splitContainer2
@@ -283,8 +283,8 @@
             // splitContainer2.Panel2
             // 
             splitContainer2.Panel2.Controls.Add(flowLayoutPanel3);
-            splitContainer2.Size = new Size(631, 346);
-            splitContainer2.SplitterDistance = 275;
+            splitContainer2.Size = new Size(565, 299);
+            splitContainer2.SplitterDistance = 243;
             splitContainer2.SplitterWidth = 10;
             splitContainer2.TabIndex = 0;
             // 
@@ -303,7 +303,7 @@
             ClusterMatrix.RowCount = 2;
             ClusterMatrix.RowStyles.Add(new RowStyle());
             ClusterMatrix.RowStyles.Add(new RowStyle());
-            ClusterMatrix.Size = new Size(631, 275);
+            ClusterMatrix.Size = new Size(565, 243);
             ClusterMatrix.TabIndex = 0;
             // 
             // label1
@@ -322,7 +322,7 @@
             flowLayoutPanel3.Dock = DockStyle.Fill;
             flowLayoutPanel3.Location = new Point(0, 0);
             flowLayoutPanel3.Name = "flowLayoutPanel3";
-            flowLayoutPanel3.Size = new Size(631, 61);
+            flowLayoutPanel3.Size = new Size(565, 46);
             flowLayoutPanel3.TabIndex = 1;
             // 
             // SyllableShape
@@ -352,11 +352,12 @@
             SyllableOutput.Dock = DockStyle.Fill;
             SyllableOutput.Font = new Font("Times New Roman", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             SyllableOutput.ForeColor = SystemColors.ControlText;
-            SyllableOutput.FormattingEnabled = true;
-            SyllableOutput.ItemHeight = 41;
             SyllableOutput.Location = new Point(0, 0);
+            SyllableOutput.Multiline = true;
             SyllableOutput.Name = "SyllableOutput";
-            SyllableOutput.Size = new Size(631, 453);
+            SyllableOutput.ReadOnly = true;
+            SyllableOutput.ScrollBars = ScrollBars.Vertical;
+            SyllableOutput.Size = new Size(565, 500);
             SyllableOutput.TabIndex = 0;
             // 
             // Main
@@ -387,6 +388,7 @@
             tableLayoutPanel1.ResumeLayout(false);
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);
+            splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
             splitContainer2.Panel1.ResumeLayout(false);
@@ -417,7 +419,7 @@
         private FlowLayoutPanel flowLayoutPanel3;
         private TextBox SyllableShape;
         private Button GenerateSyllables;
-        private ListBox SyllableOutput;
+        private TextBox SyllableOutput;
         private SplitContainer splitContainer2;
         private TableLayoutPanel ClusterMatrix;
         private SplitContainer splitContainer1;

@@ -127,7 +127,7 @@ namespace frickative
             }
 
             var random = new Random();
-            SyllableOutput.DataSource = Array.Empty<string>();
+            SyllableOutput.Clear();
             List<string> strings = [];
 
             for (int i = 0; i < 1000; i++)
@@ -164,7 +164,7 @@ namespace frickative
                     strings.Add(s);
             }
             strings.Sort();
-            SyllableOutput.DataSource = strings;
+            SyllableOutput.Lines = strings.ToArray();
         }
 
         private List<Manner> GetAcceptedFollowerTypes(Manner manner)
