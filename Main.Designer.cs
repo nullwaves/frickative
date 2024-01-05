@@ -31,17 +31,22 @@
             components = new System.ComponentModel.Container();
             splitContainerPulmonicConsonants = new SplitContainer();
             flowLayoutPanel1 = new FlowLayoutPanel();
+            label3 = new Label();
             SelectAllPulmonicConsonants = new Button();
             SelectNonePulmonicConsonants = new Button();
             PulmonicConsonants = new CheckedListBox();
             splitContainerVowels = new SplitContainer();
             flowLayoutPanel2 = new FlowLayoutPanel();
+            label2 = new Label();
             SelectAllVowels = new Button();
             SelectNoneVowels = new Button();
             Vowels = new CheckedListBox();
             phoneticLetterBindingSource = new BindingSource(components);
             tableLayoutPanel1 = new TableLayoutPanel();
             splitContainer1 = new SplitContainer();
+            splitContainer2 = new SplitContainer();
+            ClusterMatrix = new TableLayoutPanel();
+            label1 = new Label();
             flowLayoutPanel3 = new FlowLayoutPanel();
             SyllableShape = new TextBox();
             GenerateSyllables = new Button();
@@ -62,6 +67,11 @@
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer2).BeginInit();
+            splitContainer2.Panel1.SuspendLayout();
+            splitContainer2.Panel2.SuspendLayout();
+            splitContainer2.SuspendLayout();
+            ClusterMatrix.SuspendLayout();
             flowLayoutPanel3.SuspendLayout();
             SuspendLayout();
             // 
@@ -70,7 +80,7 @@
             splitContainerPulmonicConsonants.Dock = DockStyle.Fill;
             splitContainerPulmonicConsonants.FixedPanel = FixedPanel.Panel1;
             splitContainerPulmonicConsonants.IsSplitterFixed = true;
-            splitContainerPulmonicConsonants.Location = new Point(525, 3);
+            splitContainerPulmonicConsonants.Location = new Point(453, 3);
             splitContainerPulmonicConsonants.Name = "splitContainerPulmonicConsonants";
             splitContainerPulmonicConsonants.Orientation = Orientation.Horizontal;
             // 
@@ -81,25 +91,37 @@
             // splitContainerPulmonicConsonants.Panel2
             // 
             splitContainerPulmonicConsonants.Panel2.Controls.Add(PulmonicConsonants);
-            splitContainerPulmonicConsonants.Size = new Size(516, 803);
+            splitContainerPulmonicConsonants.Size = new Size(474, 803);
             splitContainerPulmonicConsonants.SplitterDistance = 40;
             splitContainerPulmonicConsonants.TabIndex = 0;
             // 
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.AutoSize = true;
+            flowLayoutPanel1.Controls.Add(label3);
             flowLayoutPanel1.Controls.Add(SelectAllPulmonicConsonants);
             flowLayoutPanel1.Controls.Add(SelectNonePulmonicConsonants);
             flowLayoutPanel1.Dock = DockStyle.Fill;
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(516, 40);
+            flowLayoutPanel1.Size = new Size(474, 40);
             flowLayoutPanel1.TabIndex = 0;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Location = new Point(3, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(300, 38);
+            label3.TabIndex = 3;
+            label3.Text = "Pulmonic Consonants";
+            label3.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // SelectAllPulmonicConsonants
             // 
             SelectAllPulmonicConsonants.AutoSize = true;
-            SelectAllPulmonicConsonants.Location = new Point(3, 3);
+            SelectAllPulmonicConsonants.Location = new Point(309, 3);
             SelectAllPulmonicConsonants.Name = "SelectAllPulmonicConsonants";
             SelectAllPulmonicConsonants.Size = new Size(112, 35);
             SelectAllPulmonicConsonants.TabIndex = 0;
@@ -110,7 +132,7 @@
             // SelectNonePulmonicConsonants
             // 
             SelectNonePulmonicConsonants.AutoSize = true;
-            SelectNonePulmonicConsonants.Location = new Point(121, 3);
+            SelectNonePulmonicConsonants.Location = new Point(3, 44);
             SelectNonePulmonicConsonants.Name = "SelectNonePulmonicConsonants";
             SelectNonePulmonicConsonants.Size = new Size(116, 35);
             SelectNonePulmonicConsonants.TabIndex = 1;
@@ -127,7 +149,7 @@
             PulmonicConsonants.HorizontalScrollbar = true;
             PulmonicConsonants.Location = new Point(0, 0);
             PulmonicConsonants.Name = "PulmonicConsonants";
-            PulmonicConsonants.Size = new Size(516, 759);
+            PulmonicConsonants.Size = new Size(474, 759);
             PulmonicConsonants.TabIndex = 2;
             // 
             // splitContainerVowels
@@ -145,25 +167,37 @@
             // splitContainerVowels.Panel2
             // 
             splitContainerVowels.Panel2.Controls.Add(Vowels);
-            splitContainerVowels.Size = new Size(516, 803);
+            splitContainerVowels.Size = new Size(444, 803);
             splitContainerVowels.SplitterDistance = 40;
             splitContainerVowels.TabIndex = 0;
             // 
             // flowLayoutPanel2
             // 
             flowLayoutPanel2.AutoSize = true;
+            flowLayoutPanel2.Controls.Add(label2);
             flowLayoutPanel2.Controls.Add(SelectAllVowels);
             flowLayoutPanel2.Controls.Add(SelectNoneVowels);
             flowLayoutPanel2.Dock = DockStyle.Fill;
             flowLayoutPanel2.Location = new Point(0, 0);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(516, 40);
+            flowLayoutPanel2.Size = new Size(444, 40);
             flowLayoutPanel2.TabIndex = 1;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(3, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(108, 38);
+            label2.TabIndex = 2;
+            label2.Text = "Vowels";
+            label2.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // SelectAllVowels
             // 
             SelectAllVowels.AutoSize = true;
-            SelectAllVowels.Location = new Point(3, 3);
+            SelectAllVowels.Location = new Point(117, 3);
             SelectAllVowels.Name = "SelectAllVowels";
             SelectAllVowels.Size = new Size(112, 35);
             SelectAllVowels.TabIndex = 0;
@@ -174,7 +208,7 @@
             // SelectNoneVowels
             // 
             SelectNoneVowels.AutoSize = true;
-            SelectNoneVowels.Location = new Point(121, 3);
+            SelectNoneVowels.Location = new Point(235, 3);
             SelectNoneVowels.Name = "SelectNoneVowels";
             SelectNoneVowels.Size = new Size(116, 35);
             SelectNoneVowels.TabIndex = 1;
@@ -191,7 +225,7 @@
             Vowels.HorizontalScrollbar = true;
             Vowels.Location = new Point(0, 0);
             Vowels.Name = "Vowels";
-            Vowels.Size = new Size(516, 759);
+            Vowels.Size = new Size(444, 759);
             Vowels.TabIndex = 3;
             // 
             // phoneticLetterBindingSource
@@ -201,9 +235,9 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.ColumnCount = 3;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.34F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 28.7172947F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.63178F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40.6509247F));
             tableLayoutPanel1.Controls.Add(splitContainerVowels, 0, 0);
             tableLayoutPanel1.Controls.Add(splitContainerPulmonicConsonants, 1, 0);
             tableLayoutPanel1.Controls.Add(splitContainer1, 2, 0);
@@ -218,22 +252,67 @@
             // splitContainer1
             // 
             splitContainer1.Dock = DockStyle.Fill;
-            splitContainer1.FixedPanel = FixedPanel.Panel1;
-            splitContainer1.IsSplitterFixed = true;
-            splitContainer1.Location = new Point(1047, 3);
+            splitContainer1.Location = new Point(933, 3);
             splitContainer1.Name = "splitContainer1";
             splitContainer1.Orientation = Orientation.Horizontal;
             // 
             // splitContainer1.Panel1
             // 
-            splitContainer1.Panel1.Controls.Add(flowLayoutPanel3);
+            splitContainer1.Panel1.Controls.Add(splitContainer2);
             // 
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(SyllableOutput);
-            splitContainer1.Size = new Size(517, 803);
-            splitContainer1.SplitterDistance = 40;
+            splitContainer1.Size = new Size(631, 803);
+            splitContainer1.SplitterDistance = 346;
             splitContainer1.TabIndex = 1;
+            // 
+            // splitContainer2
+            // 
+            splitContainer2.Dock = DockStyle.Fill;
+            splitContainer2.FixedPanel = FixedPanel.Panel2;
+            splitContainer2.IsSplitterFixed = true;
+            splitContainer2.Location = new Point(0, 0);
+            splitContainer2.Name = "splitContainer2";
+            splitContainer2.Orientation = Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            splitContainer2.Panel1.Controls.Add(ClusterMatrix);
+            // 
+            // splitContainer2.Panel2
+            // 
+            splitContainer2.Panel2.Controls.Add(flowLayoutPanel3);
+            splitContainer2.Size = new Size(631, 346);
+            splitContainer2.SplitterDistance = 275;
+            splitContainer2.SplitterWidth = 10;
+            splitContainer2.TabIndex = 0;
+            // 
+            // ClusterMatrix
+            // 
+            ClusterMatrix.AutoScroll = true;
+            ClusterMatrix.AutoSize = true;
+            ClusterMatrix.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            ClusterMatrix.ColumnCount = 2;
+            ClusterMatrix.ColumnStyles.Add(new ColumnStyle());
+            ClusterMatrix.ColumnStyles.Add(new ColumnStyle());
+            ClusterMatrix.Controls.Add(label1, 0, 0);
+            ClusterMatrix.Dock = DockStyle.Fill;
+            ClusterMatrix.Location = new Point(0, 0);
+            ClusterMatrix.Name = "ClusterMatrix";
+            ClusterMatrix.RowCount = 2;
+            ClusterMatrix.RowStyles.Add(new RowStyle());
+            ClusterMatrix.RowStyles.Add(new RowStyle());
+            ClusterMatrix.Size = new Size(631, 275);
+            ClusterMatrix.TabIndex = 0;
+            // 
+            // label1
+            // 
+            label1.Location = new Point(3, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(153, 101);
+            label1.TabIndex = 0;
+            label1.Text = "Checked values indicate that Column can follow Row.";
             // 
             // flowLayoutPanel3
             // 
@@ -243,7 +322,7 @@
             flowLayoutPanel3.Dock = DockStyle.Fill;
             flowLayoutPanel3.Location = new Point(0, 0);
             flowLayoutPanel3.Name = "flowLayoutPanel3";
-            flowLayoutPanel3.Size = new Size(517, 40);
+            flowLayoutPanel3.Size = new Size(631, 61);
             flowLayoutPanel3.TabIndex = 1;
             // 
             // SyllableShape
@@ -277,7 +356,7 @@
             SyllableOutput.ItemHeight = 41;
             SyllableOutput.Location = new Point(0, 0);
             SyllableOutput.Name = "SyllableOutput";
-            SyllableOutput.Size = new Size(517, 759);
+            SyllableOutput.Size = new Size(631, 453);
             SyllableOutput.TabIndex = 0;
             // 
             // Main
@@ -307,10 +386,16 @@
             ((System.ComponentModel.ISupportInitialize)phoneticLetterBindingSource).EndInit();
             tableLayoutPanel1.ResumeLayout(false);
             splitContainer1.Panel1.ResumeLayout(false);
-            splitContainer1.Panel1.PerformLayout();
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
+            splitContainer2.Panel1.ResumeLayout(false);
+            splitContainer2.Panel1.PerformLayout();
+            splitContainer2.Panel2.ResumeLayout(false);
+            splitContainer2.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer2).EndInit();
+            splitContainer2.ResumeLayout(false);
+            ClusterMatrix.ResumeLayout(false);
             flowLayoutPanel3.ResumeLayout(false);
             flowLayoutPanel3.PerformLayout();
             ResumeLayout(false);
@@ -329,10 +414,15 @@
         private Button SelectNoneVowels;
         private CheckedListBox Vowels;
         private TableLayoutPanel tableLayoutPanel1;
-        private SplitContainer splitContainer1;
         private FlowLayoutPanel flowLayoutPanel3;
         private TextBox SyllableShape;
         private Button GenerateSyllables;
         private ListBox SyllableOutput;
+        private SplitContainer splitContainer2;
+        private TableLayoutPanel ClusterMatrix;
+        private SplitContainer splitContainer1;
+        private Label label1;
+        private Label label3;
+        private Label label2;
     }
 }

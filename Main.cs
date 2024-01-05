@@ -1,10 +1,11 @@
-using System.DirectoryServices;
 using System.Text.RegularExpressions;
 
 namespace frickative
 {
     public partial class Main : Form
     {
+        public CheckBox[,] AcceptedClusters;
+
         public Main()
         {
             InitializeComponent();
@@ -12,51 +13,92 @@ namespace frickative
             PulmonicConsonants.DisplayMember = "DisplayString";
             Vowels.DataSource = Vowel.All;
             Vowels.DisplayMember = "DisplayString";
+            PopulateClusterMatrix();
+        }
+
+        private void PopulateClusterMatrix()
+        { 
+            // Cluster Matrix
+            var manners = (Manner[])Enum.GetValues(typeof(Manner));
+            AcceptedClusters = new CheckBox[manners.Length, manners.Length];
+            ClusterMatrix.RowCount = ClusterMatrix.ColumnCount = manners.Length + 1;
+            foreach (var m in manners)
+            {
+                Label onset = new()
+                {
+                    Text = m.ToString(),
+                    AutoSize = true,
+                    Font = new(DefaultFont, FontStyle.Bold)
+                };
+                VerticalLabel coda = new()
+                {
+                    Text = m.ToString(),
+                    AutoSize = false,
+                    Anchor = AnchorStyles.Bottom,
+                    Font = new(DefaultFont, FontStyle.Bold)
+                };
+                coda.Width = coda.PreferredHeight;
+                coda.Height = coda.PreferredWidth;
+                coda.Dock = DockStyle.Fill;
+                var x = (int)m;
+                ClusterMatrix.Controls.Add(onset, 0, x + 1);
+                ClusterMatrix.Controls.Add(coda, x + 1, 0);
+                foreach (var n in manners)
+                {
+                    var y = (int)n;
+                    CheckBox checkbox = new() { Checked = true };
+                    AcceptedClusters[x, y] = checkbox;
+                    ClusterMatrix.Controls.Add(checkbox, y + 1, x + 1);
+                }
+            }
+            ClusterMatrix.ColumnStyles.Clear();
+            ClusterMatrix.RowStyles.Clear();
+            ClusterMatrix.ColumnStyles.Add(new(SizeType.AutoSize));
+            ClusterMatrix.RowStyles.Add(new(SizeType.AutoSize));
+            for (int i = 1; i < ClusterMatrix.ColumnCount; i++)
+            {
+                ClusterMatrix.ColumnStyles.Add(new(SizeType.Absolute, 30));
+                ClusterMatrix.RowStyles.Add(new(SizeType.AutoSize));
+            }
+        }
+
+        static void SetAllItemsChecked(CheckedListBox box, bool state)
+        {
+            for (int i = 0; i < box.Items.Count; i++)
+            {
+                box.SetItemChecked(i, state);
+            }
         }
 
         private void Main_Load(object sender, EventArgs e)
         {
-            for (int i = 0; i < PulmonicConsonants.Items.Count; i++)
-            {
-                PulmonicConsonants.SetItemChecked(i, true);
-            }
-            for (int i = 0; i < Vowels.Items.Count; i++)
-            {
-                Vowels.SetItemChecked(i, true);
-            }
+            SetAllItemsChecked(PulmonicConsonants, true);
+            SetAllItemsChecked(Vowels, true);
         }
+
+        #region Select All/None Buttons
 
         private void SelectAllPulmonicConsonants_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < PulmonicConsonants.Items.Count; i++)
-            {
-                PulmonicConsonants.SetItemChecked(i, true);
-            }
+            SetAllItemsChecked(PulmonicConsonants, true);
         }
 
         private void SelectNonePulmonicConsonants_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < PulmonicConsonants.Items.Count; i++)
-            {
-                PulmonicConsonants.SetItemChecked(i, false);
-            }
+            SetAllItemsChecked(PulmonicConsonants, false);
         }
 
         private void SelectAllVowels_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < Vowels.Items.Count; i++)
-            {
-                Vowels.SetItemChecked(i, true);
-            }
+            SetAllItemsChecked(Vowels, true);
         }
 
         private void SelectNoneVowels_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < Vowels.Items.Count; i++)
-            {
-                Vowels.SetItemChecked(i, false);
-            }
+            SetAllItemsChecked(Vowels, false);
         }
+
+        #endregion
 
         private void GenerateSyllables_Click(object sender, EventArgs e)
         {

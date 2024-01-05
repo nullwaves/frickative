@@ -20,26 +20,26 @@
     {
         Nasal,
         Plosive,
+        SibilantAffricate,
+        NonSibilantAffricate,
         SibilantFricative,
         NonSibilantFricative,
         Approximant,
         TapFlap,
         Trill,
+        LateralAffricate,
         LateralFricative,
         LateralApproximant,
         LateralTapFlap,
-        Stop,
-        Fricative,
-        Tenuis,
-        Voiced,
-        TenuisLateral,
-        VoicedLateral,
-        NasalLateral,
-        Voiceless,
-        SibilantAffricate,
-        NonSibilantAffricate,
-        LateralAffricate,
-        Central
+        //Stop,
+        //Fricative,
+        //Tenuis,
+        //Voiced,
+        //TenuisLateral,
+        //VoicedLateral,
+        //NasalLateral,
+        //Voiceless,
+        //Central
     }
 
     public enum ConsonantType
