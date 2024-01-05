@@ -5,6 +5,7 @@ namespace frickative
 {
     public partial class Main : Form
     {
+        public static Manner[] Manners = (Manner[])Enum.GetValues(typeof(Manner));
         public CheckBox[,] AcceptedClusters;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -22,10 +23,9 @@ namespace frickative
         private void PopulateClusterMatrix()
         {
             // Cluster Matrix
-            var manners = (Manner[])Enum.GetValues(typeof(Manner));
-            AcceptedClusters = new CheckBox[manners.Length, manners.Length];
-            ClusterMatrix.RowCount = ClusterMatrix.ColumnCount = manners.Length + 1;
-            foreach (var m in manners)
+            AcceptedClusters = new CheckBox[Manners.Length, Manners.Length];
+            ClusterMatrix.RowCount = ClusterMatrix.ColumnCount = Manners.Length + 1;
+            foreach (var m in Manners)
             {
                 Label onset = new()
                 {
@@ -46,7 +46,7 @@ namespace frickative
                 var x = (int)m;
                 ClusterMatrix.Controls.Add(onset, 0, x + 1);
                 ClusterMatrix.Controls.Add(coda, x + 1, 0);
-                foreach (var n in manners)
+                foreach (var n in Manners)
                 {
                     var y = (int)n;
                     CheckBox checkbox = new() { Checked = true };
@@ -169,7 +169,7 @@ namespace frickative
 
         private List<Manner> GetAcceptedFollowerTypes(Manner manner)
         {
-            var len = Enum.GetValues(typeof(Manner)).Length;
+            var len = Manners.Length;
             List<Manner> accepts = [];
             for (int i = 0; i < len; i++)
                 if (AcceptedClusters[(int)manner, i].Checked)
