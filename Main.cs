@@ -6,7 +6,9 @@ namespace frickative
     {
         public CheckBox[,] AcceptedClusters;
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public Main()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             InitializeComponent();
             PulmonicConsonants.DataSource = Consonant.All;
@@ -17,7 +19,7 @@ namespace frickative
         }
 
         private void PopulateClusterMatrix()
-        { 
+        {
             // Cluster Matrix
             var manners = (Manner[])Enum.GetValues(typeof(Manner));
             AcceptedClusters = new CheckBox[manners.Length, manners.Length];
@@ -103,44 +105,45 @@ namespace frickative
         private void GenerateSyllables_Click(object sender, EventArgs e)
         {
             var shapeInput = SyllableShape.Text.Trim().ToLower();
-            if (Regex.IsMatch(shapeInput, "^c*v{1}c*$"))
-            {
-                var sParts = shapeInput.Split('v');
-                var onset = sParts[0].Length;
-                var coda = sParts[1].Length;
-                var consonants = PulmonicConsonants.CheckedItems.Cast<Consonant>().ToList();
-                var vowels = Vowels.CheckedItems.Cast<Vowel>().ToList();
-                if (vowels.Count < 1 || consonants.Count < 1)
-                    return;
-
-                var random = new Random();
-                SyllableOutput.DataSource = new string[0];
-                List<string> strings = new();
-
-                for(int i = 0; i < 1000; i++)
-                {
-                    var s = string.Empty;
-                    do
-                    {
-                        IPALetter[] word = new IPALetter[coda + onset + 1];
-                        var pos = 0;
-                        for (; pos < onset; pos++)
-                            word[pos] = consonants[random.Next(0, consonants.Count)];
-                        word[pos] = vowels[random.Next(0, vowels.Count)];
-                        pos++;
-                        for (; pos < onset + 1 + coda; pos++)
-                            word[pos] = consonants[random.Next(0, consonants.Count)];
-                        s = string.Join<IPALetter>("", word);
-                    } while (strings.Contains(s));
-                    strings.Add(s);
-                }
-                strings.Sort();
-                SyllableOutput.DataSource = strings;
-            }
-            else
+            if (!SyllableShapePattern().IsMatch(shapeInput))
             {
                 MessageBox.Show("Syllable shape must be in format \"CVC\", and is not case-sensitve.");
+                return;
             }
+            var sParts = shapeInput.Split('v');
+            var onset = sParts[0].Length;
+            var coda = sParts[1].Length;
+            var consonants = PulmonicConsonants.CheckedItems.Cast<Consonant>().ToList();
+            var vowels = Vowels.CheckedItems.Cast<Vowel>().ToList();
+            if (vowels.Count < 1 || consonants.Count < 1)
+                return;
+
+            var random = new Random();
+            SyllableOutput.DataSource = Array.Empty<string>();
+            List<string> strings = [];
+
+            for (int i = 0; i < 1000; i++)
+            {
+                var s = string.Empty;
+                do
+                {
+                    IPALetter[] word = new IPALetter[coda + onset + 1];
+                    var pos = 0;
+                    for (; pos < onset; pos++)
+                        word[pos] = consonants[random.Next(0, consonants.Count)];
+                    word[pos] = vowels[random.Next(0, vowels.Count)];
+                    pos++;
+                    for (; pos < onset + 1 + coda; pos++)
+                        word[pos] = consonants[random.Next(0, consonants.Count)];
+                    s = string.Join<IPALetter>("", word);
+                } while (strings.Contains(s));
+                strings.Add(s);
+            }
+            strings.Sort();
+            SyllableOutput.DataSource = strings;
         }
+
+        [GeneratedRegex("^c*v{1}c*$")]
+        private static partial Regex SyllableShapePattern();
     }
 }

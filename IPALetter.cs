@@ -52,7 +52,7 @@
 
     public abstract class IPALetter
     {
-        public string Symbol { get; set; }
+        public string Symbol { get; set; } = string.Empty;
 
         public virtual string DisplayString 
         {
