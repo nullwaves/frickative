@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace frickative
@@ -118,6 +119,13 @@ namespace frickative
             if (vowels.Count < 1 || consonants.Count < 1)
                 return;
 
+            Dictionary<Manner, List<Manner>> acceptableFollowers = [];
+            var manners = (Manner[])Enum.GetValues(typeof(Manner));
+            foreach (var m in manners)
+            {
+                acceptableFollowers[m] = GetAcceptedFollowerTypes(m);
+            }
+
             var random = new Random();
             SyllableOutput.DataSource = Array.Empty<string>();
             List<string> strings = [];
@@ -132,7 +140,20 @@ namespace frickative
                     IPALetter[] word = new IPALetter[coda + onset + 1];
                     var pos = 0;
                     for (; pos < onset; pos++)
-                        word[pos] = consonants[random.Next(0, consonants.Count)];
+                        if (pos > 0)
+                        {
+                            var prevManner = ((Consonant)word[pos-1]).Manner;
+                            var acceptable = consonants.Where((x => acceptableFollowers[prevManner].Contains(x.Manner))).ToArray();
+                            if (acceptable.Length < 1)
+                            {
+                                MessageBox.Show($"{prevManner} consonants have no acceptable followers.");
+                                return;
+                            }
+                            word[pos] = acceptable[random.Next(0, acceptable.Length)];
+                        } else
+                        {
+                            word[pos] = consonants[random.Next(0, consonants.Count)];
+                        }
                     word[pos] = vowels[random.Next(0, vowels.Count)];
                     pos++;
                     for (; pos < onset + 1 + coda; pos++)
@@ -144,6 +165,16 @@ namespace frickative
             }
             strings.Sort();
             SyllableOutput.DataSource = strings;
+        }
+
+        private List<Manner> GetAcceptedFollowerTypes(Manner manner)
+        {
+            var len = Enum.GetValues(typeof(Manner)).Length;
+            List<Manner> accepts = [];
+            for (int i = 0; i < len; i++)
+                if (AcceptedClusters[(int)manner, i].Checked)
+                    accepts.Add((Manner)i);
+            return accepts;
         }
 
         [GeneratedRegex("^c*v{1}c*$")]
