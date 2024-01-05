@@ -125,8 +125,10 @@ namespace frickative
             for (int i = 0; i < 1000; i++)
             {
                 var s = string.Empty;
+                var tries = 0;
                 do
                 {
+                    tries++;
                     IPALetter[] word = new IPALetter[coda + onset + 1];
                     var pos = 0;
                     for (; pos < onset; pos++)
@@ -136,8 +138,9 @@ namespace frickative
                     for (; pos < onset + 1 + coda; pos++)
                         word[pos] = consonants[random.Next(0, consonants.Count)];
                     s = string.Join<IPALetter>("", word);
-                } while (strings.Contains(s));
-                strings.Add(s);
+                } while (strings.Contains(s) && tries < 10);
+                if (tries < 10)
+                    strings.Add(s);
             }
             strings.Sort();
             SyllableOutput.DataSource = strings;
