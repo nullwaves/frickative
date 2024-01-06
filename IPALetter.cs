@@ -92,7 +92,7 @@
         public TongueHeight Position { get; set; }
         public TongueTip PositionTip { get; set; }
         public bool Rounded { get; set; }
-        public override string DisplayString => $"{Symbol} - {Position} {PositionTip} {(Rounded ? "R" : "Unr")}ounded Vowel";
+        public override string DisplayString => $"{Symbol} - {Position} {PositionTip} {(Rounded ? "R" : "Unr")}ounded";
 
         public Vowel(string symbol, TongueHeight position, TongueTip tipPosition, bool round)
         {
@@ -150,7 +150,7 @@
         public Manner Manner { get; set; }
         public bool Voiced { get; set; }
         public ConsonantType SoundType { get; set; }
-        public override string DisplayString => $"{Symbol} - Voice{(Voiced ? "ed" : "less")} {Place} {Manner}";
+        public override string DisplayString => $"{Symbol} - Voice{(Voiced ? "ed" : "less")} {Place}";
 
         public Consonant(string symbol, Place place, Manner manner, bool voiced, ConsonantType ltype = ConsonantType.Pulmonic)
         {
@@ -288,16 +288,16 @@
         public static readonly Consonant ʡ̆ = new("ʡ̆", Place.Pharyngeal, Manner.TapFlap, true);
 
         // Trills
-        public static readonly Consonant ʙ̥ = new("ʙ̥", Place.Bilabial, Manner.TapFlap, false);
-        public static readonly Consonant ʙ = new("ʙ", Place.Bilabial, Manner.TapFlap, true);
-        public static readonly Consonant r̥ = new("r̥", Place.Alveolar, Manner.TapFlap, false);
-        public static readonly Consonant r = new("r", Place.Alveolar, Manner.TapFlap, true);
-        public static readonly Consonant ɽ̊r̥ = new("ɽ̊r̥", Place.Retroflex, Manner.TapFlap, false);
-        public static readonly Consonant ɽr = new("ɽr", Place.Retroflex, Manner.TapFlap, true);
-        public static readonly Consonant ʀ̥ = new("ʀ̥", Place.Uvular, Manner.TapFlap, false);
-        public static readonly Consonant ʀ = new("ʀ", Place.Uvular, Manner.TapFlap, true);
-        public static readonly Consonant ʜ = new("ʜ", Place.Pharyngeal, Manner.TapFlap, false);
-        public static readonly Consonant ʢ = new("ʢ", Place.Pharyngeal, Manner.TapFlap, true);
+        public static readonly Consonant ʙ̥ = new("ʙ̥", Place.Bilabial, Manner.Trill, false);
+        public static readonly Consonant ʙ = new("ʙ", Place.Bilabial, Manner.Trill, true);
+        public static readonly Consonant r̥ = new("r̥", Place.Alveolar, Manner.Trill, false);
+        public static readonly Consonant r = new("r", Place.Alveolar, Manner.Trill, true);
+        public static readonly Consonant ɽ̊r̥ = new("ɽ̊r̥", Place.Retroflex, Manner.Trill, false);
+        public static readonly Consonant ɽr = new("ɽr", Place.Retroflex, Manner.Trill, true);
+        public static readonly Consonant ʀ̥ = new("ʀ̥", Place.Uvular, Manner.Trill, false);
+        public static readonly Consonant ʀ = new("ʀ", Place.Uvular, Manner.Trill, true);
+        public static readonly Consonant ʜ = new("ʜ", Place.Pharyngeal, Manner.Trill, false);
+        public static readonly Consonant ʢ = new("ʢ", Place.Pharyngeal, Manner.Trill, true);
 
         // Lateral Affricates
         public static readonly Consonant tɬ = new("tɬ", Place.Alveolar, Manner.LateralAffricate, false);

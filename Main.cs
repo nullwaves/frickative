@@ -1,23 +1,110 @@
-using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace frickative
 {
     public partial class Main : Form
     {
-        public static Manner[] Manners = (Manner[])Enum.GetValues(typeof(Manner));
+        public static Manner[] Manners => (Manner[])Enum.GetValues(typeof(Manner));
         public CheckBox[,] AcceptedClusters;
+        public List<CheckedListBox> ConsonantBoxes;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public Main()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             InitializeComponent();
-            PulmonicConsonants.DataSource = Consonant.All;
-            PulmonicConsonants.DisplayMember = "DisplayString";
+            ConsonantBoxes = [];
             Vowels.DataSource = Vowel.All;
             Vowels.DisplayMember = "DisplayString";
+            PopulateConsonants();
             PopulateClusterMatrix();
+        }
+
+        private void PopulateConsonants()
+        {
+            foreach (var manner in Manners)
+            {
+                LetterSelectonPanel.Controls.Add(CreateConsonantsBox(manner));
+            }
+        }
+
+        private GroupBox CreateConsonantsBox(Manner manner)
+        {
+            var data = Consonant.All.Where(x => x.Manner == manner).ToArray();
+
+            GroupBox container = new()
+            {
+                Text = $"Pulmonic Consonants - {manner}",
+                Height = 350,
+                Width = 400,
+                Font = new("Segue UI Semibold", 9, FontStyle.Bold),
+            };
+            SplitContainer split = new()
+            {
+                Orientation = Orientation.Horizontal,
+                FixedPanel = FixedPanel.Panel1,
+                SplitterDistance = 40,
+                Dock = DockStyle.Fill
+            };
+            FlowLayoutPanel buttonContainer = new()
+            {
+                Dock = DockStyle.Fill,
+            };
+            Button selectAll = new()
+            {
+                AutoSize = true,
+                BackColor = SystemColors.ButtonFace,
+                Text = "Select All",
+                Font = new("Segoe UI", 9),
+            };
+            selectAll.Click += ConsonantBoxSelectAll_Click;
+            Button selectNone = new()
+            {
+                AutoSize = true,
+                BackColor = SystemColors.ButtonFace,
+                Text = "Select None",
+                Font = new("Segoe UI", 9),
+            };
+            selectNone.Click += ConsonantBoxSelectNone_Click;
+            CheckedListBox checkbox = new()
+            {
+                CheckOnClick = true,
+                Dock = DockStyle.Fill,
+                Font = new("Times New Roman", 12, FontStyle.Bold),
+                HorizontalScrollbar = true,
+                DataSource = data,
+                DisplayMember = "DisplayString",
+            };
+
+            ConsonantBoxes.Add(checkbox);
+
+            buttonContainer.Controls.AddRange([selectAll, selectNone]);
+            split.Panel1.Controls.Add(buttonContainer);
+            split.Panel2.Controls.Add(checkbox);
+            container.Controls.Add(split);
+            return container;
+        }
+
+        private void ConsonantBoxSelectAll_Click(object? sender, EventArgs e)
+        {
+            if (sender is null) return;
+            var checkbox = GetBoxFromButton((Button)sender);
+            if (checkbox is not null)
+                SetAllItemsChecked(checkbox, true);
+        }
+        private void ConsonantBoxSelectNone_Click(object? sender, EventArgs e)
+        {
+            if (sender is null) return;
+            var checkbox = GetBoxFromButton((Button)sender);
+            if (checkbox is not null)
+                SetAllItemsChecked(checkbox, false);
+        }
+
+        private CheckedListBox? GetBoxFromButton(Button btn)
+        {
+            if (btn is null || btn.Parent is null || btn.Parent.Parent is null) return null;
+            var split = (SplitContainer)btn.Parent.Parent.Parent;
+            return split.Panel2.Controls.OfType<CheckedListBox>().First();
         }
 
         private void PopulateClusterMatrix()
@@ -75,21 +162,12 @@ namespace frickative
 
         private void Main_Load(object sender, EventArgs e)
         {
-            SetAllItemsChecked(PulmonicConsonants, true);
             SetAllItemsChecked(Vowels, true);
+            foreach (var box in ConsonantBoxes)
+                SetAllItemsChecked(box, true);
         }
 
         #region Select All/None Buttons
-
-        private void SelectAllPulmonicConsonants_Click(object sender, EventArgs e)
-        {
-            SetAllItemsChecked(PulmonicConsonants, true);
-        }
-
-        private void SelectNonePulmonicConsonants_Click(object sender, EventArgs e)
-        {
-            SetAllItemsChecked(PulmonicConsonants, false);
-        }
 
         private void SelectAllVowels_Click(object sender, EventArgs e)
         {
@@ -114,7 +192,9 @@ namespace frickative
             var sParts = shapeInput.Split('v');
             var onset = sParts[0].Length;
             var coda = sParts[1].Length;
-            var consonants = PulmonicConsonants.CheckedItems.Cast<Consonant>().ToList();
+            var consonants = new List<Consonant>();
+            foreach(var box in ConsonantBoxes)
+                consonants.AddRange(box.CheckedItems.Cast<Consonant>().ToList());
             var vowels = Vowels.CheckedItems.Cast<Vowel>().ToList();
             if (vowels.Count < 1 || consonants.Count < 1)
                 return;
@@ -142,7 +222,7 @@ namespace frickative
                     for (; pos < onset; pos++)
                         if (pos > 0)
                         {
-                            var prevManner = ((Consonant)word[pos-1]).Manner;
+                            var prevManner = ((Consonant)word[pos - 1]).Manner;
                             var acceptable = consonants.Where((x => acceptableFollowers[prevManner].Contains(x.Manner))).ToArray();
                             if (acceptable.Length < 1)
                             {
@@ -150,7 +230,8 @@ namespace frickative
                                 return;
                             }
                             word[pos] = acceptable[random.Next(0, acceptable.Length)];
-                        } else
+                        }
+                        else
                         {
                             word[pos] = consonants[random.Next(0, consonants.Count)];
                         }
@@ -164,7 +245,7 @@ namespace frickative
                     strings.Add(s);
             }
             strings.Sort();
-            SyllableOutput.Lines = strings.ToArray();
+            SyllableOutput.Lines = [.. strings];
         }
 
         private List<Manner> GetAcceptedFollowerTypes(Manner manner)
