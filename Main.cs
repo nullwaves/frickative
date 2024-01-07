@@ -102,9 +102,7 @@ namespace frickative
 
         private CheckedListBox? GetBoxFromButton(Button btn)
         {
-            if (btn is null || btn.Parent is null || btn.Parent.Parent is null) return null;
-            var split = (SplitContainer)btn.Parent.Parent.Parent;
-            return split.Panel2.Controls.OfType<CheckedListBox>().First();
+            return btn.Parent?.Parent?.Parent?.FindControl<CheckedListBox>();
         }
 
         private void PopulateClusterMatrix()
