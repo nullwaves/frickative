@@ -243,7 +243,7 @@ namespace frickative
             SyllableOutput.Lines = [.. strings];
         }
 
-        private Consonant[] GenerateCluster(
+        private static Consonant[] GenerateCluster(
             int length,
             List<Consonant> consonants,
             Dictionary<Manner, List<Manner>> followerManners)

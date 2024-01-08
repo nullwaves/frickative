@@ -155,7 +155,7 @@
             // 
             ClusterAndOutputContainer.Panel2.Controls.Add(SyllableOutput);
             ClusterAndOutputContainer.Size = new Size(557, 809);
-            ClusterAndOutputContainer.SplitterDistance = 325;
+            ClusterAndOutputContainer.SplitterDistance = 292;
             ClusterAndOutputContainer.SplitterWidth = 10;
             ClusterAndOutputContainer.TabIndex = 1;
             // 
@@ -170,33 +170,35 @@
             // 
             // splitContainer2.Panel1
             // 
+            splitContainer2.Panel1.AllowDrop = true;
+            splitContainer2.Panel1.AutoScroll = true;
+            splitContainer2.Panel1.BackColor = SystemColors.ControlDark;
             splitContainer2.Panel1.Controls.Add(ClusterMatrix);
             // 
             // splitContainer2.Panel2
             // 
-            splitContainer2.Panel2.BackColor = SystemColors.ControlDark;
             splitContainer2.Panel2.Controls.Add(flowLayoutPanel3);
-            splitContainer2.Size = new Size(557, 325);
-            splitContainer2.SplitterDistance = 251;
+            splitContainer2.Size = new Size(557, 292);
+            splitContainer2.SplitterDistance = 231;
             splitContainer2.SplitterWidth = 10;
             splitContainer2.TabIndex = 0;
             // 
             // ClusterMatrix
             // 
-            ClusterMatrix.AutoScroll = true;
+            ClusterMatrix.AutoSize = true;
+            ClusterMatrix.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClusterMatrix.BackColor = SystemColors.ControlDark;
             ClusterMatrix.ColumnCount = 2;
             ClusterMatrix.ColumnStyles.Add(new ColumnStyle());
             ClusterMatrix.ColumnStyles.Add(new ColumnStyle());
             ClusterMatrix.ContextMenuStrip = ClusterMatrixContextMenu;
             ClusterMatrix.Controls.Add(label1, 0, 0);
-            ClusterMatrix.Dock = DockStyle.Fill;
             ClusterMatrix.Location = new Point(0, 0);
             ClusterMatrix.Name = "ClusterMatrix";
             ClusterMatrix.RowCount = 2;
             ClusterMatrix.RowStyles.Add(new RowStyle());
             ClusterMatrix.RowStyles.Add(new RowStyle());
-            ClusterMatrix.Size = new Size(557, 251);
+            ClusterMatrix.Size = new Size(159, 101);
             ClusterMatrix.TabIndex = 0;
             // 
             // ClusterMatrixContextMenu
@@ -240,12 +242,13 @@
             // flowLayoutPanel3
             // 
             flowLayoutPanel3.AutoSize = true;
+            flowLayoutPanel3.BackColor = SystemColors.ControlDark;
             flowLayoutPanel3.Controls.Add(SyllableShape);
             flowLayoutPanel3.Controls.Add(GenerateSyllables);
             flowLayoutPanel3.Dock = DockStyle.Fill;
             flowLayoutPanel3.Location = new Point(0, 0);
             flowLayoutPanel3.Name = "flowLayoutPanel3";
-            flowLayoutPanel3.Size = new Size(557, 64);
+            flowLayoutPanel3.Size = new Size(557, 51);
             flowLayoutPanel3.TabIndex = 1;
             // 
             // SyllableShape
@@ -281,7 +284,7 @@
             SyllableOutput.Name = "SyllableOutput";
             SyllableOutput.ReadOnly = true;
             SyllableOutput.ScrollBars = ScrollBars.Vertical;
-            SyllableOutput.Size = new Size(557, 474);
+            SyllableOutput.Size = new Size(557, 507);
             SyllableOutput.TabIndex = 0;
             // 
             // groupBox1
@@ -345,6 +348,7 @@
             ((System.ComponentModel.ISupportInitialize)ClusterAndOutputContainer).EndInit();
             ClusterAndOutputContainer.ResumeLayout(false);
             splitContainer2.Panel1.ResumeLayout(false);
+            splitContainer2.Panel1.PerformLayout();
             splitContainer2.Panel2.ResumeLayout(false);
             splitContainer2.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer2).EndInit();
