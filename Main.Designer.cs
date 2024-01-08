@@ -28,13 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             splitContainerVowels = new SplitContainer();
             flowLayoutPanel2 = new FlowLayoutPanel();
             SelectAllVowels = new Button();
             SelectNoneVowels = new Button();
             Vowels = new CheckedListBox();
-            phoneticLetterBindingSource = new BindingSource(components);
             ClusterAndOutputContainer = new SplitContainer();
             splitContainer2 = new SplitContainer();
             ClusterMatrix = new TableLayoutPanel();
@@ -51,7 +49,6 @@
             splitContainerVowels.Panel2.SuspendLayout();
             splitContainerVowels.SuspendLayout();
             flowLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)phoneticLetterBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ClusterAndOutputContainer).BeginInit();
             ClusterAndOutputContainer.Panel1.SuspendLayout();
             ClusterAndOutputContainer.Panel2.SuspendLayout();
@@ -135,10 +132,6 @@
             Vowels.Name = "Vowels";
             Vowels.Size = new Size(394, 276);
             Vowels.TabIndex = 3;
-            // 
-            // phoneticLetterBindingSource
-            // 
-            phoneticLetterBindingSource.DataSource = typeof(Consonant);
             // 
             // ClusterAndOutputContainer
             // 
@@ -311,7 +304,6 @@
             splitContainerVowels.ResumeLayout(false);
             flowLayoutPanel2.ResumeLayout(false);
             flowLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)phoneticLetterBindingSource).EndInit();
             ClusterAndOutputContainer.Panel1.ResumeLayout(false);
             ClusterAndOutputContainer.Panel2.ResumeLayout(false);
             ClusterAndOutputContainer.Panel2.PerformLayout();
@@ -338,7 +330,6 @@
         #endregion
         private Button SelectAllPulmonicConsonants;
         private Button SelectNonePulmonicConsonants;
-        private BindingSource phoneticLetterBindingSource;
         private SplitContainer splitContainerPulmonicConsonants;
         private SplitContainer splitContainerVowels;
         private FlowLayoutPanel flowLayoutPanel2;
