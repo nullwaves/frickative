@@ -5,6 +5,7 @@ namespace frickative
     public partial class Main : Form
     {
         public static Manner[] Manners => (Manner[])Enum.GetValues(typeof(Manner));
+        public static readonly Random Random = new();
         public CheckBox[,] AcceptedClusters;
         public List<CheckedListBox> ConsonantBoxes;
 
@@ -141,12 +142,12 @@ namespace frickative
             }
             ClusterMatrix.ColumnStyles.Clear();
             ClusterMatrix.RowStyles.Clear();
-            ClusterMatrix.ColumnStyles.Add(new(SizeType.AutoSize));
-            ClusterMatrix.RowStyles.Add(new(SizeType.AutoSize));
+            _ = ClusterMatrix.ColumnStyles.Add(new(SizeType.AutoSize));
+            _ = ClusterMatrix.RowStyles.Add(new(SizeType.AutoSize));
             for (int i = 1; i < ClusterMatrix.ColumnCount; i++)
             {
-                ClusterMatrix.ColumnStyles.Add(new(SizeType.Absolute, 30));
-                ClusterMatrix.RowStyles.Add(new(SizeType.AutoSize));
+                _ = ClusterMatrix.ColumnStyles.Add(new(SizeType.Absolute, 30));
+                _ = ClusterMatrix.RowStyles.Add(new(SizeType.AutoSize));
             }
         }
 
@@ -184,7 +185,7 @@ namespace frickative
             var shapeInput = SyllableShape.Text.Trim().ToLower();
             if (!SyllableShapePattern().IsMatch(shapeInput))
             {
-                MessageBox.Show("Syllable shape must be in format \"CVC\", and is not case-sensitve.");
+                _ = MessageBox.Show("Syllable shape must be in format \"CVC\", and is not case-sensitve.");
                 return;
             }
             var sParts = shapeInput.Split('v');
@@ -198,13 +199,19 @@ namespace frickative
                 return;
 
             Dictionary<Manner, List<Manner>> acceptableFollowers = [];
-            var manners = (Manner[])Enum.GetValues(typeof(Manner));
+            var manners = consonants.Select(x => x.Manner).Distinct().ToList();
+            if (manners is null) return;
             foreach (var m in manners)
             {
-                acceptableFollowers[m] = GetAcceptedFollowerTypes(m);
+                var localManners = GetAcceptedFollowerTypes(m);
+                localManners = localManners.Where(manners.Contains).ToList();
+                if (localManners.Count < 1)
+                {
+                    _ = MessageBox.Show($"{m} consonants have no acceptable followers.");
+                    return;
+                }
+                acceptableFollowers[m] = localManners;
             }
-
-            var random = new Random();
             SyllableOutput.Clear();
             List<string> strings = [];
 
@@ -215,35 +222,44 @@ namespace frickative
                 do
                 {
                     tries++;
-                    IPALetter[] word = new IPALetter[coda + onset + 1];
+                    List<IPALetter> word = [];
                     var pos = 0;
-                    for (; pos < onset; pos++)
-                        if (pos > 0)
-                        {
-                            var prevManner = ((Consonant)word[pos - 1]).Manner;
-                            var acceptable = consonants.Where((x => acceptableFollowers[prevManner].Contains(x.Manner))).ToArray();
-                            if (acceptable.Length < 1)
-                            {
-                                MessageBox.Show($"{prevManner} consonants have no acceptable followers.");
-                                return;
-                            }
-                            word[pos] = acceptable[random.Next(0, acceptable.Length)];
-                        }
-                        else
-                        {
-                            word[pos] = consonants[random.Next(0, consonants.Count)];
-                        }
-                    word[pos] = vowels[random.Next(0, vowels.Count)];
+
+                    // Onset
+                    word.AddRange(GenerateCluster(onset, consonants, acceptableFollowers));
+                    // Vowel
+                    word.Add(vowels[Random.Next(0, vowels.Count)]);
                     pos++;
-                    for (; pos < onset + 1 + coda; pos++)
-                        word[pos] = consonants[random.Next(0, consonants.Count)];
-                    s = string.Join<IPALetter>("", word);
+                    // Coda
+                    word.AddRange(GenerateCluster(coda, consonants, acceptableFollowers));
+
+                    s = string.Join("", word);
                 } while (strings.Contains(s) && tries < 10);
                 if (tries < 10)
                     strings.Add(s);
             }
             strings.Sort();
             SyllableOutput.Lines = [.. strings];
+        }
+
+        private Consonant[] GenerateCluster(
+            int length,
+            List<Consonant> consonants,
+            Dictionary<Manner,List<Manner>> followerManners)
+        {
+            Consonant[] word = new Consonant[length];
+            for (int pos = 0; pos < length; pos++)
+                if (pos > 0)
+                {
+                    var prevManner = ((Consonant)word[pos - 1]).Manner;
+                    var acceptable = consonants.Where(x => followerManners[prevManner].Contains(x.Manner)).ToArray();
+                    word[pos] = acceptable[Random.Next(0, acceptable.Length)];
+                }
+                else
+                {
+                    word[pos] = consonants[Random.Next(0, consonants.Count)];
+                }
+            return word;
         }
 
         private List<Manner> GetAcceptedFollowerTypes(Manner manner)
