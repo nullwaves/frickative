@@ -336,7 +336,6 @@
         }
 
         #endregion
-        private FlowLayoutPanel flowLayoutPanel1;
         private Button SelectAllPulmonicConsonants;
         private Button SelectNonePulmonicConsonants;
         private BindingSource phoneticLetterBindingSource;
