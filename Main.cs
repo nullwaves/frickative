@@ -93,7 +93,7 @@ namespace frickative
             if (checkbox is not null)
                 SetAllItemsChecked(checkbox, true);
         }
-        
+
         private void ConsonantBoxSelectNone_Click(object? sender, EventArgs e)
         {
             if (sender is null) return;
@@ -193,7 +193,7 @@ namespace frickative
             var onset = sParts[0].Length;
             var coda = sParts[1].Length;
             var consonants = new List<Consonant>();
-            foreach(var box in ConsonantBoxes)
+            foreach (var box in ConsonantBoxes)
                 consonants.AddRange(box.CheckedItems.Cast<Consonant>().ToList());
             var vowels = Vowels.CheckedItems.Cast<Vowel>().ToList();
             if (vowels.Count < 1 || consonants.Count < 1)
@@ -246,7 +246,7 @@ namespace frickative
         private Consonant[] GenerateCluster(
             int length,
             List<Consonant> consonants,
-            Dictionary<Manner,List<Manner>> followerManners)
+            Dictionary<Manner, List<Manner>> followerManners)
         {
             Consonant[] word = new Consonant[length];
             for (int pos = 0; pos < length; pos++)
@@ -275,5 +275,31 @@ namespace frickative
 
         [GeneratedRegex("^c*v{1}c*$")]
         private static partial Regex SyllableShapePattern();
+
+        private void SelectAllClusters_Click(object sender, EventArgs e)
+        {
+            foreach (CheckBox box in AcceptedClusters)
+            {
+                box.Checked = true;
+            }
+        }
+
+        private void SelectNoneClusters_Click(object sender, EventArgs e)
+        {
+            foreach (CheckBox box in AcceptedClusters)
+            {
+                box.Checked = false;
+            }
+        }
+
+        private void ResetClusters_Click(object sender, EventArgs e)
+        {
+            foreach (CheckBox box in AcceptedClusters)
+            {
+                box.Checked = true;
+            }
+            for (int i = 0; i < Manners.Length; i++)
+                AcceptedClusters[i,i].Checked = false;
+        }
     }
 }
