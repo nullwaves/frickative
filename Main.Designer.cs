@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             splitContainerVowels = new SplitContainer();
             flowLayoutPanel2 = new FlowLayoutPanel();
             SelectAllVowels = new Button();
@@ -36,6 +37,10 @@
             ClusterAndOutputContainer = new SplitContainer();
             splitContainer2 = new SplitContainer();
             ClusterMatrix = new TableLayoutPanel();
+            ClusterMatrixContextMenu = new ContextMenuStrip(components);
+            selectAllClustersToolStripMenuItem = new ToolStripMenuItem();
+            selectNoneClustersToolStripMenuItem = new ToolStripMenuItem();
+            ResetClustersMenuItem = new ToolStripMenuItem();
             label1 = new Label();
             flowLayoutPanel3 = new FlowLayoutPanel();
             SyllableShape = new TextBox();
@@ -58,6 +63,7 @@
             splitContainer2.Panel2.SuspendLayout();
             splitContainer2.SuspendLayout();
             ClusterMatrix.SuspendLayout();
+            ClusterMatrixContextMenu.SuspendLayout();
             flowLayoutPanel3.SuspendLayout();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)MainContainer).BeginInit();
@@ -171,19 +177,18 @@
             splitContainer2.Panel2.BackColor = SystemColors.ControlDark;
             splitContainer2.Panel2.Controls.Add(flowLayoutPanel3);
             splitContainer2.Size = new Size(557, 325);
-            splitContainer2.SplitterDistance = 271;
+            splitContainer2.SplitterDistance = 251;
             splitContainer2.SplitterWidth = 10;
             splitContainer2.TabIndex = 0;
             // 
             // ClusterMatrix
             // 
             ClusterMatrix.AutoScroll = true;
-            ClusterMatrix.AutoSize = true;
-            ClusterMatrix.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClusterMatrix.BackColor = SystemColors.ControlDark;
             ClusterMatrix.ColumnCount = 2;
             ClusterMatrix.ColumnStyles.Add(new ColumnStyle());
             ClusterMatrix.ColumnStyles.Add(new ColumnStyle());
+            ClusterMatrix.ContextMenuStrip = ClusterMatrixContextMenu;
             ClusterMatrix.Controls.Add(label1, 0, 0);
             ClusterMatrix.Dock = DockStyle.Fill;
             ClusterMatrix.Location = new Point(0, 0);
@@ -191,8 +196,38 @@
             ClusterMatrix.RowCount = 2;
             ClusterMatrix.RowStyles.Add(new RowStyle());
             ClusterMatrix.RowStyles.Add(new RowStyle());
-            ClusterMatrix.Size = new Size(557, 271);
+            ClusterMatrix.Size = new Size(557, 251);
             ClusterMatrix.TabIndex = 0;
+            // 
+            // ClusterMatrixContextMenu
+            // 
+            ClusterMatrixContextMenu.ImageScalingSize = new Size(24, 24);
+            ClusterMatrixContextMenu.Items.AddRange(new ToolStripItem[] { selectAllClustersToolStripMenuItem, selectNoneClustersToolStripMenuItem, ResetClustersMenuItem });
+            ClusterMatrixContextMenu.Name = "ClusterMatrixContextMenu";
+            ClusterMatrixContextMenu.Size = new Size(179, 100);
+            ClusterMatrixContextMenu.Text = "Cluster Matrix";
+            // 
+            // selectAllClustersToolStripMenuItem
+            // 
+            selectAllClustersToolStripMenuItem.Name = "selectAllClustersToolStripMenuItem";
+            selectAllClustersToolStripMenuItem.ShortcutKeyDisplayString = "";
+            selectAllClustersToolStripMenuItem.Size = new Size(178, 32);
+            selectAllClustersToolStripMenuItem.Text = "Select All";
+            selectAllClustersToolStripMenuItem.Click += SelectAllClusters_Click;
+            // 
+            // selectNoneClustersToolStripMenuItem
+            // 
+            selectNoneClustersToolStripMenuItem.Name = "selectNoneClustersToolStripMenuItem";
+            selectNoneClustersToolStripMenuItem.Size = new Size(178, 32);
+            selectNoneClustersToolStripMenuItem.Text = "Select None";
+            selectNoneClustersToolStripMenuItem.Click += SelectNoneClusters_Click;
+            // 
+            // ResetClustersMenuItem
+            // 
+            ResetClustersMenuItem.Name = "ResetClustersMenuItem";
+            ResetClustersMenuItem.Size = new Size(178, 32);
+            ResetClustersMenuItem.Text = "Reset";
+            ResetClustersMenuItem.Click += ResetClusters_Click;
             // 
             // label1
             // 
@@ -210,7 +245,7 @@
             flowLayoutPanel3.Dock = DockStyle.Fill;
             flowLayoutPanel3.Location = new Point(0, 0);
             flowLayoutPanel3.Name = "flowLayoutPanel3";
-            flowLayoutPanel3.Size = new Size(557, 44);
+            flowLayoutPanel3.Size = new Size(557, 64);
             flowLayoutPanel3.TabIndex = 1;
             // 
             // SyllableShape
@@ -310,12 +345,12 @@
             ((System.ComponentModel.ISupportInitialize)ClusterAndOutputContainer).EndInit();
             ClusterAndOutputContainer.ResumeLayout(false);
             splitContainer2.Panel1.ResumeLayout(false);
-            splitContainer2.Panel1.PerformLayout();
             splitContainer2.Panel2.ResumeLayout(false);
             splitContainer2.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer2).EndInit();
             splitContainer2.ResumeLayout(false);
             ClusterMatrix.ResumeLayout(false);
+            ClusterMatrixContextMenu.ResumeLayout(false);
             flowLayoutPanel3.ResumeLayout(false);
             flowLayoutPanel3.PerformLayout();
             groupBox1.ResumeLayout(false);
@@ -349,5 +384,9 @@
         private GroupBox groupBox1;
         private SplitContainer MainContainer;
         private FlowLayoutPanel LetterSelectonPanel;
+        private ContextMenuStrip ClusterMatrixContextMenu;
+        private ToolStripMenuItem selectAllClustersToolStripMenuItem;
+        private ToolStripMenuItem selectNoneClustersToolStripMenuItem;
+        private ToolStripMenuItem ResetClustersMenuItem;
     }
 }
