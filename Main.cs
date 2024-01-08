@@ -86,22 +86,6 @@ namespace frickative
             return container;
         }
 
-        private void ConsonantBoxSelectAll_Click(object? sender, EventArgs e)
-        {
-            if (sender is null) return;
-            var checkbox = GetBoxFromButton((Button)sender);
-            if (checkbox is not null)
-                SetAllItemsChecked(checkbox, true);
-        }
-
-        private void ConsonantBoxSelectNone_Click(object? sender, EventArgs e)
-        {
-            if (sender is null) return;
-            var checkbox = GetBoxFromButton((Button)sender);
-            if (checkbox is not null)
-                SetAllItemsChecked(checkbox, false);
-        }
-
         private CheckedListBox? GetBoxFromButton(Button btn)
         {
             return btn.Parent?.Parent?.Parent?.FindControl<CheckedListBox>();
@@ -152,31 +136,69 @@ namespace frickative
             }
         }
 
-        static void SetAllItemsChecked(CheckedListBox box, bool state)
+        private void SetInitialState()
         {
-            for (int i = 0; i < box.Items.Count; i++)
+            Vowels.SetAllChecked(true);
+            foreach (var box in ConsonantBoxes)
+                box.SetAllChecked(true);
+            SetInitialClusterState();
+        }
+
+        private void SetInitialClusterState()
+        {
+            foreach (CheckBox box in AcceptedClusters)
             {
-                box.SetItemChecked(i, state);
+                box.Checked = true;
             }
+            for (int i = 0; i < Manners.Length; i++)
+                AcceptedClusters[i, i].Checked = false;
         }
 
         private void Main_Load(object sender, EventArgs e)
         {
-            SetAllItemsChecked(Vowels, true);
-            foreach (var box in ConsonantBoxes)
-                SetAllItemsChecked(box, true);
+            SetInitialState();
         }
 
         #region Select All/None Buttons
 
+        private void ConsonantBoxSelectAll_Click(object? sender, EventArgs e)
+        {
+            if (sender is null) return;
+            var checkbox = GetBoxFromButton((Button)sender);
+            checkbox?.SetAllChecked(true);
+        }
+
+        private void ConsonantBoxSelectNone_Click(object? sender, EventArgs e)
+        {
+            if (sender is null) return;
+            var checkbox = GetBoxFromButton((Button)sender);
+            checkbox?.SetAllChecked(false);
+        }
+
         private void SelectAllVowels_Click(object sender, EventArgs e)
         {
-            SetAllItemsChecked(Vowels, true);
+            Vowels.SetAllChecked(true);
         }
 
         private void SelectNoneVowels_Click(object sender, EventArgs e)
         {
-            SetAllItemsChecked(Vowels, false);
+            Vowels.SetAllChecked(false);
+        }
+
+        private void SelectAllClusters_Click(object sender, EventArgs e)
+        {
+            foreach (CheckBox box in AcceptedClusters)
+            {
+                box.Checked = true;
+            }
+        }
+
+        private void SelectNoneClusters_Click(object sender, EventArgs e)
+        {
+            foreach (CheckBox box in AcceptedClusters)
+            {
+                box.Checked = false;
+            }
         }
 
         #endregion
@@ -276,30 +298,30 @@ namespace frickative
         [GeneratedRegex("^c*v{1}c*$")]
         private static partial Regex SyllableShapePattern();
 
-        private void SelectAllClusters_Click(object sender, EventArgs e)
+        private void ResetClusters_Click(object sender, EventArgs e) => SetInitialClusterState();
+
+        private void Exit_Click(object sender, EventArgs e)
         {
-            foreach (CheckBox box in AcceptedClusters)
-            {
-                box.Checked = true;
-            }
+            var result = MessageBox.Show("Are you sure you'd like to quit?", "frickative", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes) { Application.Exit(); }
         }
 
-        private void SelectNoneClusters_Click(object sender, EventArgs e)
+        private void NewLanguage_Click(object sender, EventArgs e)
         {
-            foreach (CheckBox box in AcceptedClusters)
-            {
-                box.Checked = false;
-            }
+            var result = MessageBox.Show("Are you sure you'd like to clear all changes?", "frickative", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes) { SetInitialState(); }
         }
 
-        private void ResetClusters_Click(object sender, EventArgs e)
+        private void SelectAllConsonats_Click(object sender, EventArgs e)
         {
-            foreach (CheckBox box in AcceptedClusters)
-            {
-                box.Checked = true;
-            }
-            for (int i = 0; i < Manners.Length; i++)
-                AcceptedClusters[i,i].Checked = false;
+            foreach (var box in ConsonantBoxes)
+                box.SetAllChecked(true);
+        }
+
+        private void SelectNoneConsonats_Click(object sender, EventArgs e)
+        {
+            foreach (var box in ConsonantBoxes)
+                box.SetAllChecked(false);
         }
     }
 }
