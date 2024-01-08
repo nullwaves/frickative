@@ -49,6 +49,18 @@
             groupBox1 = new GroupBox();
             MainContainer = new SplitContainer();
             LetterSelectonPanel = new FlowLayoutPanel();
+            MainMenuStrip = new MenuStrip();
+            fileToolStripMenuItem = new ToolStripMenuItem();
+            newToolStripMenuItem = new ToolStripMenuItem();
+            openToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator2 = new ToolStripSeparator();
+            saveToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator1 = new ToolStripSeparator();
+            exitToolStripMenuItem = new ToolStripMenuItem();
+            soundsToolStripMenuItem = new ToolStripMenuItem();
+            consonantsToolStripMenuItem = new ToolStripMenuItem();
+            selectAllConsonantsToolStripMenuItem = new ToolStripMenuItem();
+            selectNoneToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)splitContainerVowels).BeginInit();
             splitContainerVowels.Panel1.SuspendLayout();
             splitContainerVowels.Panel2.SuspendLayout();
@@ -71,6 +83,7 @@
             MainContainer.Panel2.SuspendLayout();
             MainContainer.SuspendLayout();
             LetterSelectonPanel.SuspendLayout();
+            MainMenuStrip.SuspendLayout();
             SuspendLayout();
             // 
             // splitContainerVowels
@@ -154,8 +167,8 @@
             // ClusterAndOutputContainer.Panel2
             // 
             ClusterAndOutputContainer.Panel2.Controls.Add(SyllableOutput);
-            ClusterAndOutputContainer.Size = new Size(557, 809);
-            ClusterAndOutputContainer.SplitterDistance = 292;
+            ClusterAndOutputContainer.Size = new Size(557, 776);
+            ClusterAndOutputContainer.SplitterDistance = 280;
             ClusterAndOutputContainer.SplitterWidth = 10;
             ClusterAndOutputContainer.TabIndex = 1;
             // 
@@ -178,8 +191,8 @@
             // splitContainer2.Panel2
             // 
             splitContainer2.Panel2.Controls.Add(flowLayoutPanel3);
-            splitContainer2.Size = new Size(557, 292);
-            splitContainer2.SplitterDistance = 231;
+            splitContainer2.Size = new Size(557, 280);
+            splitContainer2.SplitterDistance = 215;
             splitContainer2.SplitterWidth = 10;
             splitContainer2.TabIndex = 0;
             // 
@@ -248,7 +261,7 @@
             flowLayoutPanel3.Dock = DockStyle.Fill;
             flowLayoutPanel3.Location = new Point(0, 0);
             flowLayoutPanel3.Name = "flowLayoutPanel3";
-            flowLayoutPanel3.Size = new Size(557, 51);
+            flowLayoutPanel3.Size = new Size(557, 55);
             flowLayoutPanel3.TabIndex = 1;
             // 
             // SyllableShape
@@ -284,7 +297,7 @@
             SyllableOutput.Name = "SyllableOutput";
             SyllableOutput.ReadOnly = true;
             SyllableOutput.ScrollBars = ScrollBars.Vertical;
-            SyllableOutput.Size = new Size(557, 507);
+            SyllableOutput.Size = new Size(557, 486);
             SyllableOutput.TabIndex = 0;
             // 
             // groupBox1
@@ -301,7 +314,7 @@
             // MainContainer
             // 
             MainContainer.Dock = DockStyle.Fill;
-            MainContainer.Location = new Point(0, 0);
+            MainContainer.Location = new Point(0, 33);
             MainContainer.Name = "MainContainer";
             // 
             // MainContainer.Panel1
@@ -311,7 +324,7 @@
             // MainContainer.Panel2
             // 
             MainContainer.Panel2.Controls.Add(ClusterAndOutputContainer);
-            MainContainer.Size = new Size(1567, 809);
+            MainContainer.Size = new Size(1567, 776);
             MainContainer.SplitterDistance = 1006;
             MainContainer.TabIndex = 4;
             // 
@@ -322,8 +335,93 @@
             LetterSelectonPanel.Dock = DockStyle.Fill;
             LetterSelectonPanel.Location = new Point(0, 0);
             LetterSelectonPanel.Name = "LetterSelectonPanel";
-            LetterSelectonPanel.Size = new Size(1006, 809);
+            LetterSelectonPanel.Size = new Size(1006, 776);
             LetterSelectonPanel.TabIndex = 0;
+            // 
+            // MainMenuStrip
+            // 
+            MainMenuStrip.ImageScalingSize = new Size(24, 24);
+            MainMenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, soundsToolStripMenuItem });
+            MainMenuStrip.Location = new Point(0, 0);
+            MainMenuStrip.Name = "MainMenuStrip";
+            MainMenuStrip.Size = new Size(1567, 33);
+            MainMenuStrip.TabIndex = 5;
+            MainMenuStrip.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newToolStripMenuItem, openToolStripMenuItem, toolStripSeparator2, saveToolStripMenuItem, toolStripSeparator1, exitToolStripMenuItem });
+            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            fileToolStripMenuItem.Size = new Size(54, 29);
+            fileToolStripMenuItem.Text = "File";
+            // 
+            // newToolStripMenuItem
+            // 
+            newToolStripMenuItem.Name = "newToolStripMenuItem";
+            newToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.N;
+            newToolStripMenuItem.Size = new Size(213, 34);
+            newToolStripMenuItem.Text = "New";
+            newToolStripMenuItem.Click += NewLanguage_Click;
+            // 
+            // openToolStripMenuItem
+            // 
+            openToolStripMenuItem.Enabled = false;
+            openToolStripMenuItem.Name = "openToolStripMenuItem";
+            openToolStripMenuItem.Size = new Size(213, 34);
+            openToolStripMenuItem.Text = "Open";
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(210, 6);
+            // 
+            // saveToolStripMenuItem
+            // 
+            saveToolStripMenuItem.Enabled = false;
+            saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            saveToolStripMenuItem.Size = new Size(213, 34);
+            saveToolStripMenuItem.Text = "Save";
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(210, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            exitToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.F4;
+            exitToolStripMenuItem.Size = new Size(213, 34);
+            exitToolStripMenuItem.Text = "Exit";
+            exitToolStripMenuItem.Click += Exit_Click;
+            // 
+            // soundsToolStripMenuItem
+            // 
+            soundsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { consonantsToolStripMenuItem });
+            soundsToolStripMenuItem.Name = "soundsToolStripMenuItem";
+            soundsToolStripMenuItem.Size = new Size(88, 29);
+            soundsToolStripMenuItem.Text = "Sounds";
+            // 
+            // consonantsToolStripMenuItem
+            // 
+            consonantsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { selectAllConsonantsToolStripMenuItem, selectNoneToolStripMenuItem });
+            consonantsToolStripMenuItem.Name = "consonantsToolStripMenuItem";
+            consonantsToolStripMenuItem.Size = new Size(270, 34);
+            consonantsToolStripMenuItem.Text = "Consonants";
+            // 
+            // selectAllConsonantsToolStripMenuItem
+            // 
+            selectAllConsonantsToolStripMenuItem.Name = "selectAllConsonantsToolStripMenuItem";
+            selectAllConsonantsToolStripMenuItem.Size = new Size(270, 34);
+            selectAllConsonantsToolStripMenuItem.Text = "Select All";
+            selectAllConsonantsToolStripMenuItem.Click += SelectAllConsonats_Click;
+            // 
+            // selectNoneToolStripMenuItem
+            // 
+            selectNoneToolStripMenuItem.Name = "selectNoneToolStripMenuItem";
+            selectNoneToolStripMenuItem.Size = new Size(270, 34);
+            selectNoneToolStripMenuItem.Text = "Select None";
+            selectNoneToolStripMenuItem.Click += SelectNoneConsonats_Click;
             // 
             // Main
             // 
@@ -332,6 +430,7 @@
             BackColor = SystemColors.ControlDark;
             ClientSize = new Size(1567, 809);
             Controls.Add(MainContainer);
+            Controls.Add(MainMenuStrip);
             Name = "Main";
             Text = "Frickative";
             Load += Main_Load;
@@ -363,7 +462,10 @@
             ((System.ComponentModel.ISupportInitialize)MainContainer).EndInit();
             MainContainer.ResumeLayout(false);
             LetterSelectonPanel.ResumeLayout(false);
+            MainMenuStrip.ResumeLayout(false);
+            MainMenuStrip.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -392,5 +494,17 @@
         private ToolStripMenuItem selectAllClustersToolStripMenuItem;
         private ToolStripMenuItem selectNoneClustersToolStripMenuItem;
         private ToolStripMenuItem ResetClustersMenuItem;
+        private MenuStrip MainMenuStrip;
+        private ToolStripMenuItem fileToolStripMenuItem;
+        private ToolStripMenuItem newToolStripMenuItem;
+        private ToolStripMenuItem openToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator2;
+        private ToolStripMenuItem saveToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem exitToolStripMenuItem;
+        private ToolStripMenuItem soundsToolStripMenuItem;
+        private ToolStripMenuItem consonantsToolStripMenuItem;
+        private ToolStripMenuItem selectAllConsonantsToolStripMenuItem;
+        private ToolStripMenuItem selectNoneToolStripMenuItem;
     }
 }

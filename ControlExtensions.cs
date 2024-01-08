@@ -18,5 +18,13 @@
             }
             return null;
         }
+
+        public static void SetAllChecked(this CheckedListBox box, bool state)
+        {
+            for (int i = 0; i < box.Items.Count; i++)
+            {
+                box.SetItemChecked(i, state);
+            }
+        }
     }
 }
