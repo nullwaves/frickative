@@ -93,6 +93,7 @@ namespace frickative
             if (checkbox is not null)
                 SetAllItemsChecked(checkbox, true);
         }
+        
         private void ConsonantBoxSelectNone_Click(object? sender, EventArgs e)
         {
             if (sender is null) return;
@@ -135,7 +136,7 @@ namespace frickative
                 foreach (var n in Manners)
                 {
                     var y = (int)n;
-                    CheckBox checkbox = new() { Checked = true };
+                    CheckBox checkbox = new() { Checked = x != y };
                     AcceptedClusters[x, y] = checkbox;
                     ClusterMatrix.Controls.Add(checkbox, y + 1, x + 1);
                 }
