@@ -6,10 +6,15 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Version>0.0.0-alpha</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\conlanger\conlanger.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace frickative
+﻿namespace conlanger
 {
     public enum Place
     {
@@ -54,7 +54,7 @@
     {
         public string Symbol { get; set; } = string.Empty;
 
-        public virtual string DisplayString 
+        public virtual string DisplayString
         {
             get
             {
@@ -238,8 +238,8 @@
         public static readonly Consonant d̪ð = new("d̪ð", Place.Dental, Manner.NonSibilantAffricate, true);
         public static readonly Consonant tɹ̝̊ = new("tɹ̝̊", Place.Alveolar, Manner.NonSibilantAffricate, false);
         public static readonly Consonant dɹ̝ = new("dɹ̝", Place.Alveolar, Manner.NonSibilantAffricate, true);
-        public static readonly Consonant t̠ɹ̠̊ = new ("tɹ̝̊", Place.Postalveolar, Manner.NonSibilantAffricate, false);
-        public static readonly Consonant d̠ɹ̠ = new ("dɹ̝", Place.Postalveolar, Manner.NonSibilantAffricate, true);
+        public static readonly Consonant t̠ɹ̠̊ = new("tɹ̝̊", Place.Postalveolar, Manner.NonSibilantAffricate, false);
+        public static readonly Consonant d̠ɹ̠ = new("dɹ̝", Place.Postalveolar, Manner.NonSibilantAffricate, true);
         public static readonly Consonant cç = new("cç", Place.Palatal, Manner.NonSibilantAffricate, false);
         public static readonly Consonant ɟʝ = new("ɟʝ", Place.Palatal, Manner.NonSibilantAffricate, true);
         public static readonly Consonant kx = new("kx", Place.Velar, Manner.NonSibilantAffricate, false);
@@ -271,10 +271,10 @@
         public static readonly Consonant ð = new("ð", Place.Dental, Manner.NonSibilantFricative, true);
         public static readonly Consonant θ̠ = new("θ", Place.Alveolar, Manner.NonSibilantFricative, false);
         public static readonly Consonant ð̠ = new("ð", Place.Alveolar, Manner.NonSibilantFricative, true);
-        public static readonly Consonant ɹ̠̊ = new ("ɹ̠̊˔", Place.Postalveolar, Manner.NonSibilantFricative, false);
-        public static readonly Consonant ɹ̠  = new ("ɹ̠˔", Place.Postalveolar, Manner.NonSibilantFricative, true);
-        public static readonly Consonant ɻ̊ = new ("ɻ̊˔", Place.Retroflex, Manner.NonSibilantFricative, false);
-        public static readonly Consonant ɻn = new ("ɻ˔", Place.Retroflex, Manner.NonSibilantFricative, true);
+        public static readonly Consonant ɹ̠̊ = new("ɹ̠̊˔", Place.Postalveolar, Manner.NonSibilantFricative, false);
+        public static readonly Consonant ɹ̠ = new("ɹ̠˔", Place.Postalveolar, Manner.NonSibilantFricative, true);
+        public static readonly Consonant ɻ̊ = new("ɻ̊˔", Place.Retroflex, Manner.NonSibilantFricative, false);
+        public static readonly Consonant ɻn = new("ɻ˔", Place.Retroflex, Manner.NonSibilantFricative, true);
         public static readonly Consonant ç = new("ç", Place.Palatal, Manner.NonSibilantFricative, false);
         public static readonly Consonant ʝ = new("ʝ", Place.Palatal, Manner.NonSibilantFricative, true);
         public static readonly Consonant x = new("x", Place.Velar, Manner.NonSibilantFricative, false);
@@ -321,20 +321,20 @@
         public static readonly Consonant tɬ = new("tɬ", Place.Alveolar, Manner.LateralAffricate, false);
         public static readonly Consonant dɮ = new("dɮ", Place.Alveolar, Manner.LateralAffricate, true);
         public static readonly Consonant tꞎ = new("tꞎ", Place.Retroflex, Manner.LateralAffricate, false);
-        public static readonly Consonant drla = new ("d𝼅", Place.Retroflex, Manner.LateralAffricate, true);
-        public static readonly Consonant cpla = new ("c𝼆", Place.Palatal, Manner.LateralAffricate, false);
+        public static readonly Consonant drla = new("d𝼅", Place.Retroflex, Manner.LateralAffricate, true);
+        public static readonly Consonant cpla = new("c𝼆", Place.Palatal, Manner.LateralAffricate, false);
         public static readonly Consonant ɟʎ̝ = new("ɟʎ̝", Place.Palatal, Manner.LateralAffricate, true);
-        public static readonly Consonant kvla = new ("k𝼄", Place.Velar, Manner.LateralAffricate, false);
+        public static readonly Consonant kvla = new("k𝼄", Place.Velar, Manner.LateralAffricate, false);
         public static readonly Consonant ɡʟ̝ = new("ɡʟ̝", Place.Velar, Manner.LateralAffricate, true);
 
         // Lateral Fricatives
         public static readonly Consonant ɬ = new("ɬ", Place.Alveolar, Manner.LateralFricative, false);
         public static readonly Consonant ɮ = new("ɮ", Place.Alveolar, Manner.LateralFricative, true);
         public static readonly Consonant ꞎ = new("ꞎ", Place.Retroflex, Manner.LateralFricative, false);
-        public static readonly Consonant drlf = new ("𝼅", Place.Retroflex, Manner.LateralFricative, true);
+        public static readonly Consonant drlf = new("𝼅", Place.Retroflex, Manner.LateralFricative, true);
         public static readonly Consonant cplf = new("𝼆", Place.Palatal, Manner.LateralFricative, false);
         public static readonly Consonant ʎ̝ = new("ʎ̝", Place.Palatal, Manner.LateralFricative, true);
-        public static readonly Consonant kvlf = new ("𝼄", Place.Velar, Manner.LateralFricative, false);
+        public static readonly Consonant kvlf = new("𝼄", Place.Velar, Manner.LateralFricative, false);
         public static readonly Consonant ʟ̝ = new("ʟ̝", Place.Velar, Manner.LateralFricative, true);
 
         // Lateral Approximant
@@ -345,10 +345,10 @@
         public static readonly Consonant ʟ̠ = new("ʟ̠", Place.Uvular, Manner.LateralApproximant, true);
 
         // Lateral Tap/Flaps
-        public static readonly Consonant ɺ̥  = new("ɺ̥", Place.Alveolar, Manner.LateralTapFlap, false);
+        public static readonly Consonant ɺ̥ = new("ɺ̥", Place.Alveolar, Manner.LateralTapFlap, false);
         public static readonly Consonant ɺ = new("ɺ", Place.Alveolar, Manner.LateralTapFlap, true);
-        public static readonly Consonant vlrltf  = new ("𝼈̥", Place.Retroflex, Manner.LateralTapFlap, false);
-        public static readonly Consonant vrltf = new ("𝼈", Place.Retroflex, Manner.LateralTapFlap, true);
+        public static readonly Consonant vlrltf = new("𝼈̥", Place.Retroflex, Manner.LateralTapFlap, false);
+        public static readonly Consonant vrltf = new("𝼈", Place.Retroflex, Manner.LateralTapFlap, true);
         public static readonly Consonant ʎ̆ = new("ʎ̆", Place.Palatal, Manner.LateralTapFlap, true);
         public static readonly Consonant ʟ̆ = new("ʟ̆", Place.Velar, Manner.LateralTapFlap, true);
 

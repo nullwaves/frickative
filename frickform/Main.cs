@@ -1,6 +1,6 @@
-using System.Text.RegularExpressions;
+using conlanger;
 
-namespace frickative
+namespace frickform
 {
     public partial class Main : Form
     {
@@ -14,6 +14,7 @@ namespace frickative
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             InitializeComponent();
+            Text = $"Frickative v{Application.ProductVersion}";
             ConsonantBoxes = [];
             Vowels.DataSource = Vowel.All;
             Vowels.DisplayMember = "DisplayString";
@@ -87,7 +88,7 @@ namespace frickative
             return container;
         }
 
-        private CheckedListBox? GetBoxFromButton(Button btn)
+        private static CheckedListBox? GetBoxFromButton(Button btn)
         {
             return btn.Parent?.Parent?.Parent?.FindControl<CheckedListBox>();
         }
@@ -206,15 +207,11 @@ namespace frickative
 
         private void GenerateSyllables_Click(object sender, EventArgs e)
         {
-            var shapeInput = SyllableShape.Text.Trim().ToLower();
-            if (!SyllableShapePattern().IsMatch(shapeInput))
+            if (!SyllableShape.TryParse(SyllableShapeInput.Text.Trim().ToLower(), out var shape))
             {
-                _ = MessageBox.Show("Syllable shape must be in format \"CVC\", and is not case-sensitve.");
-                return;
+                _ = MessageBox.Show("Syllable shape must be in format \"cvc\", and is not case-sensitve.");
             }
-            var sParts = shapeInput.Split('v');
-            var onset = sParts[0].Length;
-            var coda = sParts[1].Length;
+            
             var consonants = new List<Consonant>();
             foreach (var box in ConsonantBoxes)
                 consonants.AddRange(box.CheckedItems.Cast<Consonant>().ToList());
@@ -237,6 +234,16 @@ namespace frickative
                 }
                 acceptableFollowers[m] = localManners;
             }
+
+            var settings = new SyllableFactorySettings()
+            {
+                Shape = shape,
+                Consonants = consonants,
+                Vowels = vowels,
+                AllowCrowding = !DisallowVoiceCrowding.Checked,
+                Clusters = acceptableFollowers
+            };
+
             SyllableOutput.Clear();
             List<string> strings = [];
 
@@ -247,52 +254,14 @@ namespace frickative
                 do
                 {
                     tries++;
-                    List<IPALetter> word = [];
-                    var pos = 0;
-
-                    // Onset
-                    word.AddRange(GenerateCluster(onset, consonants, acceptableFollowers, DisallowVoiceCrowding.Checked));
-                    // Vowel
-                    word.Add(vowels[Random.Next(0, vowels.Count)]);
-                    pos++;
-                    // Coda
-                    word.AddRange(GenerateCluster(coda, consonants, acceptableFollowers, DisallowVoiceCrowding.Checked));
-
-                    s = string.Join("", word);
+                    s = SyllableFactory.MakeSyllableString(settings);
+                    
                 } while (strings.Contains(s) && tries < 10);
                 if (tries < 10)
                     strings.Add(s);
             }
             strings.Sort();
             SyllableOutput.Lines = [.. strings];
-        }
-
-        private static Consonant[] GenerateCluster(
-            int length,
-            List<Consonant> consonants,
-            Dictionary<Manner, List<Manner>> followerManners,
-            bool preventCrowding
-            )
-        {
-            Consonant[] word = new Consonant[length];
-            for (int pos = 0; pos < length; pos++)
-                if (pos > 0)
-                {
-                    var lastletter = word[pos - 1];
-                    var acceptable = consonants.Where(x => followerManners[lastletter.Manner].Contains(x.Manner)).ToList();
-                    if (preventCrowding && lastletter.Voiced)
-                    {
-                        var unvoiced = acceptable.Where(x => !x.Voiced).ToList();
-                        foreach (var v in unvoiced)
-                            acceptable.Remove(v);
-                    }
-                    word[pos] = acceptable[Random.Next(0, acceptable.Count)];
-                }
-                else
-                {
-                    word[pos] = consonants[Random.Next(0, consonants.Count)];
-                }
-            return word;
         }
 
         private List<Manner> GetAcceptedFollowerTypes(Manner manner)
@@ -305,20 +274,17 @@ namespace frickative
             return accepts;
         }
 
-        [GeneratedRegex("^c*v{1}c*$")]
-        private static partial Regex SyllableShapePattern();
-
         private void ResetClusters_Click(object sender, EventArgs e) => SetInitialClusterState();
 
         private void Exit_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you'd like to quit?", "frickative", MessageBoxButtons.YesNo);
+            var result = MessageBox.Show("Are you sure you'd like to quit?", "frickform", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes) { Application.Exit(); }
         }
 
         private void NewLanguage_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you'd like to clear all changes?", "frickative", MessageBoxButtons.YesNo);
+            var result = MessageBox.Show("Are you sure you'd like to clear all changes?", "frickform", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes) { SetInitialState(); }
         }
 
