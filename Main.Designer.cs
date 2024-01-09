@@ -49,7 +49,13 @@
             groupBox1 = new GroupBox();
             MainContainer = new SplitContainer();
             LetterSelectonPanel = new FlowLayoutPanel();
-            MainMenuStrip = new MenuStrip();
+            groupBox2 = new GroupBox();
+            splitContainer1 = new SplitContainer();
+            flowLayoutPanel1 = new FlowLayoutPanel();
+            SelectAllDipthongs = new Button();
+            SelectNoneDipthongs = new Button();
+            Dipthongs = new CheckedListBox();
+            mainMenuStrip = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             newToolStripMenuItem = new ToolStripMenuItem();
             openToolStripMenuItem = new ToolStripMenuItem();
@@ -83,7 +89,13 @@
             MainContainer.Panel2.SuspendLayout();
             MainContainer.SuspendLayout();
             LetterSelectonPanel.SuspendLayout();
-            MainMenuStrip.SuspendLayout();
+            groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.Panel2.SuspendLayout();
+            splitContainer1.SuspendLayout();
+            flowLayoutPanel1.SuspendLayout();
+            mainMenuStrip.SuspendLayout();
             SuspendLayout();
             // 
             // splitContainerVowels
@@ -151,6 +163,7 @@
             Vowels.Name = "Vowels";
             Vowels.Size = new Size(394, 276);
             Vowels.TabIndex = 3;
+            Vowels.ItemCheck += Vowels_ItemCheck;
             // 
             // ClusterAndOutputContainer
             // 
@@ -332,21 +345,98 @@
             // 
             LetterSelectonPanel.AutoScroll = true;
             LetterSelectonPanel.Controls.Add(groupBox1);
+            LetterSelectonPanel.Controls.Add(groupBox2);
             LetterSelectonPanel.Dock = DockStyle.Fill;
             LetterSelectonPanel.Location = new Point(0, 0);
             LetterSelectonPanel.Name = "LetterSelectonPanel";
             LetterSelectonPanel.Size = new Size(1006, 776);
             LetterSelectonPanel.TabIndex = 0;
             // 
-            // MainMenuStrip
+            // groupBox2
             // 
-            MainMenuStrip.ImageScalingSize = new Size(24, 24);
-            MainMenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, soundsToolStripMenuItem });
-            MainMenuStrip.Location = new Point(0, 0);
-            MainMenuStrip.Name = "MainMenuStrip";
-            MainMenuStrip.Size = new Size(1567, 33);
-            MainMenuStrip.TabIndex = 5;
-            MainMenuStrip.Text = "menuStrip1";
+            groupBox2.Controls.Add(splitContainer1);
+            groupBox2.Location = new Point(409, 3);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(400, 350);
+            groupBox2.TabIndex = 6;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Dipthongs";
+            // 
+            // splitContainer1
+            // 
+            splitContainer1.Dock = DockStyle.Fill;
+            splitContainer1.FixedPanel = FixedPanel.Panel1;
+            splitContainer1.Location = new Point(3, 27);
+            splitContainer1.Name = "splitContainer1";
+            splitContainer1.Orientation = Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            splitContainer1.Panel1.Controls.Add(flowLayoutPanel1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            splitContainer1.Panel2.Controls.Add(Dipthongs);
+            splitContainer1.Size = new Size(394, 320);
+            splitContainer1.SplitterDistance = 40;
+            splitContainer1.TabIndex = 1;
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.AutoSize = true;
+            flowLayoutPanel1.Controls.Add(SelectAllDipthongs);
+            flowLayoutPanel1.Controls.Add(SelectNoneDipthongs);
+            flowLayoutPanel1.Dock = DockStyle.Fill;
+            flowLayoutPanel1.Location = new Point(0, 0);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(394, 40);
+            flowLayoutPanel1.TabIndex = 1;
+            // 
+            // SelectAllDipthongs
+            // 
+            SelectAllDipthongs.AutoSize = true;
+            SelectAllDipthongs.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SelectAllDipthongs.Location = new Point(3, 3);
+            SelectAllDipthongs.Name = "SelectAllDipthongs";
+            SelectAllDipthongs.Size = new Size(112, 35);
+            SelectAllDipthongs.TabIndex = 0;
+            SelectAllDipthongs.Text = "Select All";
+            SelectAllDipthongs.UseVisualStyleBackColor = true;
+            SelectAllDipthongs.Click += SelectAllDipthongs_Click;
+            // 
+            // SelectNoneDipthongs
+            // 
+            SelectNoneDipthongs.AutoSize = true;
+            SelectNoneDipthongs.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SelectNoneDipthongs.Location = new Point(121, 3);
+            SelectNoneDipthongs.Name = "SelectNoneDipthongs";
+            SelectNoneDipthongs.Size = new Size(123, 35);
+            SelectNoneDipthongs.TabIndex = 1;
+            SelectNoneDipthongs.Text = "Select None";
+            SelectNoneDipthongs.UseVisualStyleBackColor = true;
+            SelectNoneDipthongs.Click += SelectNoneDipthongs_Click;
+            // 
+            // Dipthongs
+            // 
+            Dipthongs.CheckOnClick = true;
+            Dipthongs.Dock = DockStyle.Fill;
+            Dipthongs.Font = new Font("Times New Roman", 12F, FontStyle.Bold);
+            Dipthongs.FormattingEnabled = true;
+            Dipthongs.HorizontalScrollbar = true;
+            Dipthongs.Location = new Point(0, 0);
+            Dipthongs.Name = "Dipthongs";
+            Dipthongs.Size = new Size(394, 276);
+            Dipthongs.TabIndex = 3;
+            // 
+            // mainMenuStrip
+            // 
+            mainMenuStrip.ImageScalingSize = new Size(24, 24);
+            mainMenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, soundsToolStripMenuItem });
+            mainMenuStrip.Location = new Point(0, 0);
+            mainMenuStrip.Name = "mainMenuStrip";
+            mainMenuStrip.Size = new Size(1567, 33);
+            mainMenuStrip.TabIndex = 5;
+            mainMenuStrip.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
@@ -406,20 +496,20 @@
             // 
             consonantsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { selectAllConsonantsToolStripMenuItem, selectNoneToolStripMenuItem });
             consonantsToolStripMenuItem.Name = "consonantsToolStripMenuItem";
-            consonantsToolStripMenuItem.Size = new Size(270, 34);
+            consonantsToolStripMenuItem.Size = new Size(208, 34);
             consonantsToolStripMenuItem.Text = "Consonants";
             // 
             // selectAllConsonantsToolStripMenuItem
             // 
             selectAllConsonantsToolStripMenuItem.Name = "selectAllConsonantsToolStripMenuItem";
-            selectAllConsonantsToolStripMenuItem.Size = new Size(270, 34);
+            selectAllConsonantsToolStripMenuItem.Size = new Size(208, 34);
             selectAllConsonantsToolStripMenuItem.Text = "Select All";
             selectAllConsonantsToolStripMenuItem.Click += SelectAllConsonats_Click;
             // 
             // selectNoneToolStripMenuItem
             // 
             selectNoneToolStripMenuItem.Name = "selectNoneToolStripMenuItem";
-            selectNoneToolStripMenuItem.Size = new Size(270, 34);
+            selectNoneToolStripMenuItem.Size = new Size(208, 34);
             selectNoneToolStripMenuItem.Text = "Select None";
             selectNoneToolStripMenuItem.Click += SelectNoneConsonats_Click;
             // 
@@ -430,7 +520,7 @@
             BackColor = SystemColors.ControlDark;
             ClientSize = new Size(1567, 809);
             Controls.Add(MainContainer);
-            Controls.Add(MainMenuStrip);
+            Controls.Add(mainMenuStrip);
             Name = "Main";
             Text = "Frickative";
             Load += Main_Load;
@@ -462,16 +552,21 @@
             ((System.ComponentModel.ISupportInitialize)MainContainer).EndInit();
             MainContainer.ResumeLayout(false);
             LetterSelectonPanel.ResumeLayout(false);
-            MainMenuStrip.ResumeLayout(false);
-            MainMenuStrip.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel1.PerformLayout();
+            splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
+            flowLayoutPanel1.ResumeLayout(false);
+            flowLayoutPanel1.PerformLayout();
+            mainMenuStrip.ResumeLayout(false);
+            mainMenuStrip.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private Button SelectAllPulmonicConsonants;
-        private Button SelectNonePulmonicConsonants;
-        private SplitContainer splitContainerPulmonicConsonants;
         private SplitContainer splitContainerVowels;
         private FlowLayoutPanel flowLayoutPanel2;
         private Button SelectAllVowels;
@@ -481,7 +576,6 @@
         private FlowLayoutPanel flowLayoutPanel3;
         private TextBox SyllableShape;
         private Button GenerateSyllables;
-        private TextBox SyllableOutput;
         private SplitContainer splitContainer2;
         private TableLayoutPanel ClusterMatrix;
         private SplitContainer ClusterAndOutputContainer;
@@ -494,7 +588,7 @@
         private ToolStripMenuItem selectAllClustersToolStripMenuItem;
         private ToolStripMenuItem selectNoneClustersToolStripMenuItem;
         private ToolStripMenuItem ResetClustersMenuItem;
-        private MenuStrip MainMenuStrip;
+        private MenuStrip mainMenuStrip;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem newToolStripMenuItem;
         private ToolStripMenuItem openToolStripMenuItem;
@@ -506,5 +600,12 @@
         private ToolStripMenuItem consonantsToolStripMenuItem;
         private ToolStripMenuItem selectAllConsonantsToolStripMenuItem;
         private ToolStripMenuItem selectNoneToolStripMenuItem;
+        private GroupBox groupBox2;
+        private SplitContainer splitContainer1;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private Button SelectAllDipthongs;
+        private Button SelectNoneDipthongs;
+        private CheckedListBox Dipthongs;
+        private TextBox SyllableOutput;
     }
 }

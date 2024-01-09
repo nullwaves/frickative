@@ -103,6 +103,7 @@
             All.Add(this);
         }
 
+        #region Static Declarations
         // Fronts
         public static readonly Vowel i = new("i", TongueHeight.Close, TongueTip.Front, false);
         public static readonly Vowel y = new("y", TongueHeight.Close, TongueTip.Front, true);
@@ -141,6 +142,23 @@
         public static readonly Vowel ɔ = new("ɔ", TongueHeight.OpenMid, TongueTip.Back, true);
         public static readonly Vowel ɑ = new("ɑ", TongueHeight.Open, TongueTip.Back, false);
         public static readonly Vowel ɒ = new("ɒ", TongueHeight.Open, TongueTip.Back, true);
+
+        #endregion
+    }
+
+    public class Dipthong : IPALetter
+    {
+        public Vowel[] ParentVowels { get; set; } = new Vowel[2];
+
+        public Dipthong(Vowel onsetVowel, Vowel codaVowel)
+        {
+            if (onsetVowel == codaVowel)
+                throw new InvalidDataException("Cannot create dipthong from same onset and coda vowel.");
+            ParentVowels = [onsetVowel, codaVowel];
+            Symbol = DisplayString;
+        }
+
+        public override string DisplayString => $"{ParentVowels[0]}\u203F{ParentVowels[1]}";
     }
 
     public class Consonant : IPALetter

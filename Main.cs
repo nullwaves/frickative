@@ -17,6 +17,7 @@ namespace frickative
             ConsonantBoxes = [];
             Vowels.DataSource = Vowel.All;
             Vowels.DisplayMember = "DisplayString";
+            Dipthongs.DisplayMember = "DisplayString";
             PopulateConsonants();
             PopulateClusterMatrix();
         }
@@ -217,7 +218,8 @@ namespace frickative
             var consonants = new List<Consonant>();
             foreach (var box in ConsonantBoxes)
                 consonants.AddRange(box.CheckedItems.Cast<Consonant>().ToList());
-            var vowels = Vowels.CheckedItems.Cast<Vowel>().ToList();
+            var vowels = Vowels.CheckedItems.Cast<IPALetter>().ToList();
+            vowels.AddRange(Dipthongs.CheckedItems.Cast<IPALetter>().ToList());
             if (vowels.Count < 1 || consonants.Count < 1)
                 return;
 
@@ -322,6 +324,45 @@ namespace frickative
         {
             foreach (var box in ConsonantBoxes)
                 box.SetAllChecked(false);
+        }
+
+        private void Vowels_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            var box = sender as CheckedListBox;
+            if (box?.Items[e.Index] is not Vowel vowel || box is null)
+                throw new NullReferenceException("Vowel with checkstate to be changed was null");
+            if (e.NewValue == CheckState.Checked)
+            {
+                // Add new dipthongs to Dipthongs list
+                List<Dipthong> possible = [];
+                var vowels = box.CheckedItems.Cast<Vowel>();
+                foreach (var coda in vowels)
+                {
+                    var dip = new Dipthong(vowel, coda);
+                    if (!Dipthongs.Items.Contains(dip))
+                        Dipthongs.Items.Add(dip);
+                    var rdip = new Dipthong(coda, vowel);
+                    if (!Dipthongs.Items.Contains(rdip))
+                        Dipthongs.Items.Add(rdip);
+                }
+            }
+            else if (e.NewValue == CheckState.Unchecked)
+            {
+                // Remove unavailable dipthongs from list
+                var noLongerAvailable = Dipthongs.Items.Cast<Dipthong>().Where(x => x.ParentVowels.Contains(vowel)).ToList();
+                foreach (var dip in noLongerAvailable)
+                    Dipthongs.Items.Remove(dip);
+            }
+        }
+
+        private void SelectAllDipthongs_Click(object sender, EventArgs e)
+        {
+            Dipthongs.SetAllChecked(true);
+        }
+
+        private void SelectNoneDipthongs_Click(object sender, EventArgs e)
+        {
+            Dipthongs.SetAllChecked(false);
         }
     }
 }
