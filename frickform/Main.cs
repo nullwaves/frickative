@@ -239,6 +239,17 @@ namespace frickform
                 }
                 acceptableFollowers[m] = localManners;
             }
+
+            var settings = new SyllableFactorySettings()
+            {
+                OnsetLength = onset,
+                CodaLength = coda,
+                Consonants = consonants,
+                Vowels = vowels,
+                AllowCrowding = !DisallowVoiceCrowding.Checked,
+                Clusters = acceptableFollowers
+            };
+
             SyllableOutput.Clear();
             List<string> strings = [];
 
@@ -249,52 +260,14 @@ namespace frickform
                 do
                 {
                     tries++;
-                    List<IPALetter> word = [];
-                    var pos = 0;
-
-                    // Onset
-                    word.AddRange(GenerateCluster(onset, consonants, acceptableFollowers, DisallowVoiceCrowding.Checked));
-                    // Vowel
-                    word.Add(vowels[Random.Next(0, vowels.Count)]);
-                    pos++;
-                    // Coda
-                    word.AddRange(GenerateCluster(coda, consonants, acceptableFollowers, DisallowVoiceCrowding.Checked));
-
-                    s = string.Join("", word);
+                    s = SyllableFactory.MakeSyllableString(settings);
+                    
                 } while (strings.Contains(s) && tries < 10);
                 if (tries < 10)
                     strings.Add(s);
             }
             strings.Sort();
             SyllableOutput.Lines = [.. strings];
-        }
-
-        private static Consonant[] GenerateCluster(
-            int length,
-            List<Consonant> consonants,
-            Dictionary<Manner, List<Manner>> followerManners,
-            bool preventCrowding
-            )
-        {
-            Consonant[] word = new Consonant[length];
-            for (int pos = 0; pos < length; pos++)
-                if (pos > 0)
-                {
-                    var lastletter = word[pos - 1];
-                    var acceptable = consonants.Where(x => followerManners[lastletter.Manner].Contains(x.Manner)).ToList();
-                    if (preventCrowding && lastletter.Voiced)
-                    {
-                        var unvoiced = acceptable.Where(x => !x.Voiced).ToList();
-                        foreach (var v in unvoiced)
-                            acceptable.Remove(v);
-                    }
-                    word[pos] = acceptable[Random.Next(0, acceptable.Count)];
-                }
-                else
-                {
-                    word[pos] = consonants[Random.Next(0, consonants.Count)];
-                }
-            return word;
         }
 
         private List<Manner> GetAcceptedFollowerTypes(Manner manner)
