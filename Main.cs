@@ -251,12 +251,12 @@ namespace frickative
                     var pos = 0;
 
                     // Onset
-                    word.AddRange(GenerateCluster(onset, consonants, acceptableFollowers));
+                    word.AddRange(GenerateCluster(onset, consonants, acceptableFollowers, DisallowVoiceCrowding.Checked));
                     // Vowel
                     word.Add(vowels[Random.Next(0, vowels.Count)]);
                     pos++;
                     // Coda
-                    word.AddRange(GenerateCluster(coda, consonants, acceptableFollowers));
+                    word.AddRange(GenerateCluster(coda, consonants, acceptableFollowers, DisallowVoiceCrowding.Checked));
 
                     s = string.Join("", word);
                 } while (strings.Contains(s) && tries < 10);
@@ -270,15 +270,23 @@ namespace frickative
         private static Consonant[] GenerateCluster(
             int length,
             List<Consonant> consonants,
-            Dictionary<Manner, List<Manner>> followerManners)
+            Dictionary<Manner, List<Manner>> followerManners,
+            bool preventCrowding
+            )
         {
             Consonant[] word = new Consonant[length];
             for (int pos = 0; pos < length; pos++)
                 if (pos > 0)
                 {
-                    var prevManner = ((Consonant)word[pos - 1]).Manner;
-                    var acceptable = consonants.Where(x => followerManners[prevManner].Contains(x.Manner)).ToArray();
-                    word[pos] = acceptable[Random.Next(0, acceptable.Length)];
+                    var lastword = word[pos - 1];
+                    var acceptable = consonants.Where(x => followerManners[lastword.Manner].Contains(x.Manner)).ToList();
+                    if (preventCrowding && lastword.Voiced)
+                    {
+                        var unvoiced = acceptable.Where(x => !x.Voiced).ToList();
+                        foreach (var v in unvoiced)
+                            acceptable.Remove(v);
+                    }
+                    word[pos] = acceptable[Random.Next(0, acceptable.Count)];
                 }
                 else
                 {
