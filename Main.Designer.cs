@@ -30,30 +30,22 @@
         {
             components = new System.ComponentModel.Container();
             splitContainerVowels = new SplitContainer();
-            flowLayoutPanel2 = new FlowLayoutPanel();
+            VowelsButtonPanel = new FlowLayoutPanel();
             SelectAllVowels = new Button();
             SelectNoneVowels = new Button();
             Vowels = new CheckedListBox();
-            ClusterAndOutputContainer = new SplitContainer();
-            splitContainer2 = new SplitContainer();
-            ClusterSettingsPanel = new FlowLayoutPanel();
-            ClusterMatrix = new TableLayoutPanel();
+            RightContainer = new SplitContainer();
             ClusterMatrixContextMenu = new ContextMenuStrip(components);
             selectAllClustersToolStripMenuItem = new ToolStripMenuItem();
             selectNoneClustersToolStripMenuItem = new ToolStripMenuItem();
             ResetClustersMenuItem = new ToolStripMenuItem();
-            label1 = new Label();
-            DisallowVoiceCrowding = new CheckBox();
-            flowLayoutPanel3 = new FlowLayoutPanel();
-            SyllableShape = new TextBox();
-            GenerateSyllables = new Button();
             SyllableOutput = new TextBox();
-            groupBox1 = new GroupBox();
+            VowelsGroup = new GroupBox();
             MainContainer = new SplitContainer();
             LetterSelectonPanel = new FlowLayoutPanel();
-            groupBox2 = new GroupBox();
-            splitContainer1 = new SplitContainer();
-            flowLayoutPanel1 = new FlowLayoutPanel();
+            DipthongsGroup = new GroupBox();
+            DipthongsContainer = new SplitContainer();
+            DipthongsButtonPanel = new FlowLayoutPanel();
             SelectAllDipthongs = new Button();
             SelectNoneDipthongs = new Button();
             Dipthongs = new CheckedListBox();
@@ -69,37 +61,45 @@
             consonantsToolStripMenuItem = new ToolStripMenuItem();
             selectAllConsonantsToolStripMenuItem = new ToolStripMenuItem();
             selectNoneToolStripMenuItem = new ToolStripMenuItem();
-            ToolTip = new ToolTip(components);
+            Tooltip = new ToolTip(components);
+            SyllableShapeInputPanel = new FlowLayoutPanel();
+            GenerateSyllables = new Button();
+            SyllableShape = new TextBox();
+            ClusterSettingsPanel = new FlowLayoutPanel();
+            DisallowVoiceCrowding = new CheckBox();
+            ClusterMatrix = new TableLayoutPanel();
+            ClusterMatrixLabel = new Label();
+            clusterAndShapeContainer = new SplitContainer();
             ((System.ComponentModel.ISupportInitialize)splitContainerVowels).BeginInit();
             splitContainerVowels.Panel1.SuspendLayout();
             splitContainerVowels.Panel2.SuspendLayout();
             splitContainerVowels.SuspendLayout();
-            flowLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)ClusterAndOutputContainer).BeginInit();
-            ClusterAndOutputContainer.Panel1.SuspendLayout();
-            ClusterAndOutputContainer.Panel2.SuspendLayout();
-            ClusterAndOutputContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)splitContainer2).BeginInit();
-            splitContainer2.Panel1.SuspendLayout();
-            splitContainer2.Panel2.SuspendLayout();
-            splitContainer2.SuspendLayout();
-            ClusterSettingsPanel.SuspendLayout();
-            ClusterMatrix.SuspendLayout();
+            VowelsButtonPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)RightContainer).BeginInit();
+            RightContainer.Panel1.SuspendLayout();
+            RightContainer.Panel2.SuspendLayout();
+            RightContainer.SuspendLayout();
             ClusterMatrixContextMenu.SuspendLayout();
-            flowLayoutPanel3.SuspendLayout();
-            groupBox1.SuspendLayout();
+            VowelsGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)MainContainer).BeginInit();
             MainContainer.Panel1.SuspendLayout();
             MainContainer.Panel2.SuspendLayout();
             MainContainer.SuspendLayout();
             LetterSelectonPanel.SuspendLayout();
-            groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
-            splitContainer1.Panel1.SuspendLayout();
-            splitContainer1.Panel2.SuspendLayout();
-            splitContainer1.SuspendLayout();
-            flowLayoutPanel1.SuspendLayout();
+            DipthongsGroup.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)DipthongsContainer).BeginInit();
+            DipthongsContainer.Panel1.SuspendLayout();
+            DipthongsContainer.Panel2.SuspendLayout();
+            DipthongsContainer.SuspendLayout();
+            DipthongsButtonPanel.SuspendLayout();
             mainMenuStrip.SuspendLayout();
+            SyllableShapeInputPanel.SuspendLayout();
+            ClusterSettingsPanel.SuspendLayout();
+            ClusterMatrix.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)clusterAndShapeContainer).BeginInit();
+            clusterAndShapeContainer.Panel1.SuspendLayout();
+            clusterAndShapeContainer.Panel2.SuspendLayout();
+            clusterAndShapeContainer.SuspendLayout();
             SuspendLayout();
             // 
             // splitContainerVowels
@@ -112,7 +112,7 @@
             // 
             // splitContainerVowels.Panel1
             // 
-            splitContainerVowels.Panel1.Controls.Add(flowLayoutPanel2);
+            splitContainerVowels.Panel1.Controls.Add(VowelsButtonPanel);
             // 
             // splitContainerVowels.Panel2
             // 
@@ -121,16 +121,16 @@
             splitContainerVowels.SplitterDistance = 40;
             splitContainerVowels.TabIndex = 0;
             // 
-            // flowLayoutPanel2
+            // VowelsButtonPanel
             // 
-            flowLayoutPanel2.AutoSize = true;
-            flowLayoutPanel2.Controls.Add(SelectAllVowels);
-            flowLayoutPanel2.Controls.Add(SelectNoneVowels);
-            flowLayoutPanel2.Dock = DockStyle.Fill;
-            flowLayoutPanel2.Location = new Point(0, 0);
-            flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(394, 40);
-            flowLayoutPanel2.TabIndex = 1;
+            VowelsButtonPanel.AutoSize = true;
+            VowelsButtonPanel.Controls.Add(SelectAllVowels);
+            VowelsButtonPanel.Controls.Add(SelectNoneVowels);
+            VowelsButtonPanel.Dock = DockStyle.Fill;
+            VowelsButtonPanel.Location = new Point(0, 0);
+            VowelsButtonPanel.Name = "VowelsButtonPanel";
+            VowelsButtonPanel.Size = new Size(394, 40);
+            VowelsButtonPanel.TabIndex = 1;
             // 
             // SelectAllVowels
             // 
@@ -169,77 +169,25 @@
             Vowels.TabIndex = 3;
             Vowels.ItemCheck += Vowels_ItemCheck;
             // 
-            // ClusterAndOutputContainer
+            // RightContainer
             // 
-            ClusterAndOutputContainer.BackColor = SystemColors.HotTrack;
-            ClusterAndOutputContainer.Dock = DockStyle.Fill;
-            ClusterAndOutputContainer.Location = new Point(0, 0);
-            ClusterAndOutputContainer.Name = "ClusterAndOutputContainer";
-            ClusterAndOutputContainer.Orientation = Orientation.Horizontal;
+            RightContainer.BackColor = SystemColors.HotTrack;
+            RightContainer.Dock = DockStyle.Fill;
+            RightContainer.Location = new Point(0, 0);
+            RightContainer.Name = "RightContainer";
+            RightContainer.Orientation = Orientation.Horizontal;
             // 
-            // ClusterAndOutputContainer.Panel1
+            // RightContainer.Panel1
             // 
-            ClusterAndOutputContainer.Panel1.Controls.Add(splitContainer2);
+            RightContainer.Panel1.Controls.Add(clusterAndShapeContainer);
             // 
-            // ClusterAndOutputContainer.Panel2
+            // RightContainer.Panel2
             // 
-            ClusterAndOutputContainer.Panel2.Controls.Add(SyllableOutput);
-            ClusterAndOutputContainer.Size = new Size(557, 776);
-            ClusterAndOutputContainer.SplitterDistance = 280;
-            ClusterAndOutputContainer.SplitterWidth = 10;
-            ClusterAndOutputContainer.TabIndex = 1;
-            // 
-            // splitContainer2
-            // 
-            splitContainer2.BackColor = SystemColors.ControlDark;
-            splitContainer2.Dock = DockStyle.Fill;
-            splitContainer2.FixedPanel = FixedPanel.Panel2;
-            splitContainer2.Location = new Point(0, 0);
-            splitContainer2.Name = "splitContainer2";
-            splitContainer2.Orientation = Orientation.Horizontal;
-            // 
-            // splitContainer2.Panel1
-            // 
-            splitContainer2.Panel1.AllowDrop = true;
-            splitContainer2.Panel1.BackColor = SystemColors.ControlDark;
-            splitContainer2.Panel1.Controls.Add(ClusterSettingsPanel);
-            // 
-            // splitContainer2.Panel2
-            // 
-            splitContainer2.Panel2.Controls.Add(flowLayoutPanel3);
-            splitContainer2.Size = new Size(557, 280);
-            splitContainer2.SplitterDistance = 227;
-            splitContainer2.SplitterWidth = 10;
-            splitContainer2.TabIndex = 0;
-            // 
-            // ClusterSettingsPanel
-            // 
-            ClusterSettingsPanel.AutoScroll = true;
-            ClusterSettingsPanel.Controls.Add(ClusterMatrix);
-            ClusterSettingsPanel.Controls.Add(DisallowVoiceCrowding);
-            ClusterSettingsPanel.Dock = DockStyle.Fill;
-            ClusterSettingsPanel.Location = new Point(0, 0);
-            ClusterSettingsPanel.Name = "ClusterSettingsPanel";
-            ClusterSettingsPanel.Size = new Size(557, 227);
-            ClusterSettingsPanel.TabIndex = 0;
-            // 
-            // ClusterMatrix
-            // 
-            ClusterMatrix.AutoSize = true;
-            ClusterMatrix.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            ClusterMatrix.BackColor = SystemColors.ControlDark;
-            ClusterMatrix.ColumnCount = 2;
-            ClusterMatrix.ColumnStyles.Add(new ColumnStyle());
-            ClusterMatrix.ColumnStyles.Add(new ColumnStyle());
-            ClusterMatrix.ContextMenuStrip = ClusterMatrixContextMenu;
-            ClusterMatrix.Controls.Add(label1, 0, 0);
-            ClusterMatrix.Location = new Point(3, 3);
-            ClusterMatrix.Name = "ClusterMatrix";
-            ClusterMatrix.RowCount = 2;
-            ClusterMatrix.RowStyles.Add(new RowStyle());
-            ClusterMatrix.RowStyles.Add(new RowStyle());
-            ClusterMatrix.Size = new Size(159, 101);
-            ClusterMatrix.TabIndex = 0;
+            RightContainer.Panel2.Controls.Add(SyllableOutput);
+            RightContainer.Size = new Size(557, 776);
+            RightContainer.SplitterDistance = 280;
+            RightContainer.SplitterWidth = 10;
+            RightContainer.TabIndex = 1;
             // 
             // ClusterMatrixContextMenu
             // 
@@ -271,60 +219,6 @@
             ResetClustersMenuItem.Text = "Reset";
             ResetClustersMenuItem.Click += ResetClusters_Click;
             // 
-            // label1
-            // 
-            label1.Location = new Point(3, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(153, 101);
-            label1.TabIndex = 0;
-            label1.Text = "Checked values indicate that Column can follow Row.";
-            // 
-            // DisallowVoiceCrowding
-            // 
-            DisallowVoiceCrowding.AutoSize = true;
-            DisallowVoiceCrowding.Checked = true;
-            DisallowVoiceCrowding.CheckState = CheckState.Checked;
-            DisallowVoiceCrowding.Location = new Point(168, 3);
-            DisallowVoiceCrowding.Name = "DisallowVoiceCrowding";
-            DisallowVoiceCrowding.Size = new Size(233, 29);
-            DisallowVoiceCrowding.TabIndex = 1;
-            DisallowVoiceCrowding.Text = "Disallow Voice Crowding";
-            ToolTip.SetToolTip(DisallowVoiceCrowding, "When checked, generator will not allow a voiceless consonant to fall between a voiced consonant and the vowel.");
-            DisallowVoiceCrowding.UseVisualStyleBackColor = true;
-            // 
-            // flowLayoutPanel3
-            // 
-            flowLayoutPanel3.AutoSize = true;
-            flowLayoutPanel3.BackColor = SystemColors.ControlDark;
-            flowLayoutPanel3.Controls.Add(SyllableShape);
-            flowLayoutPanel3.Controls.Add(GenerateSyllables);
-            flowLayoutPanel3.Dock = DockStyle.Fill;
-            flowLayoutPanel3.Location = new Point(0, 0);
-            flowLayoutPanel3.Name = "flowLayoutPanel3";
-            flowLayoutPanel3.Size = new Size(557, 43);
-            flowLayoutPanel3.TabIndex = 1;
-            // 
-            // SyllableShape
-            // 
-            SyllableShape.Anchor = AnchorStyles.Left;
-            SyllableShape.Location = new Point(3, 5);
-            SyllableShape.Name = "SyllableShape";
-            SyllableShape.PlaceholderText = "Syllable Shape";
-            SyllableShape.Size = new Size(292, 31);
-            SyllableShape.TabIndex = 1;
-            // 
-            // GenerateSyllables
-            // 
-            GenerateSyllables.Anchor = AnchorStyles.Left;
-            GenerateSyllables.AutoSize = true;
-            GenerateSyllables.Location = new Point(301, 3);
-            GenerateSyllables.Name = "GenerateSyllables";
-            GenerateSyllables.Size = new Size(184, 35);
-            GenerateSyllables.TabIndex = 0;
-            GenerateSyllables.Text = "Generate Syllables";
-            GenerateSyllables.UseVisualStyleBackColor = true;
-            GenerateSyllables.Click += GenerateSyllables_Click;
-            // 
             // SyllableOutput
             // 
             SyllableOutput.BackColor = SystemColors.Control;
@@ -340,16 +234,16 @@
             SyllableOutput.Size = new Size(557, 486);
             SyllableOutput.TabIndex = 0;
             // 
-            // groupBox1
+            // VowelsGroup
             // 
-            groupBox1.Controls.Add(splitContainerVowels);
-            groupBox1.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBox1.Location = new Point(3, 3);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(400, 350);
-            groupBox1.TabIndex = 3;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Vowels";
+            VowelsGroup.Controls.Add(splitContainerVowels);
+            VowelsGroup.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            VowelsGroup.Location = new Point(3, 3);
+            VowelsGroup.Name = "VowelsGroup";
+            VowelsGroup.Size = new Size(400, 350);
+            VowelsGroup.TabIndex = 3;
+            VowelsGroup.TabStop = false;
+            VowelsGroup.Text = "Vowels";
             // 
             // MainContainer
             // 
@@ -363,7 +257,7 @@
             // 
             // MainContainer.Panel2
             // 
-            MainContainer.Panel2.Controls.Add(ClusterAndOutputContainer);
+            MainContainer.Panel2.Controls.Add(RightContainer);
             MainContainer.Size = new Size(1567, 776);
             MainContainer.SplitterDistance = 1006;
             MainContainer.TabIndex = 4;
@@ -371,53 +265,54 @@
             // LetterSelectonPanel
             // 
             LetterSelectonPanel.AutoScroll = true;
-            LetterSelectonPanel.Controls.Add(groupBox1);
-            LetterSelectonPanel.Controls.Add(groupBox2);
+            LetterSelectonPanel.Controls.Add(VowelsGroup);
+            LetterSelectonPanel.Controls.Add(DipthongsGroup);
             LetterSelectonPanel.Dock = DockStyle.Fill;
             LetterSelectonPanel.Location = new Point(0, 0);
             LetterSelectonPanel.Name = "LetterSelectonPanel";
             LetterSelectonPanel.Size = new Size(1006, 776);
             LetterSelectonPanel.TabIndex = 0;
             // 
-            // groupBox2
+            // DipthongsGroup
             // 
-            groupBox2.Controls.Add(splitContainer1);
-            groupBox2.Location = new Point(409, 3);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(400, 350);
-            groupBox2.TabIndex = 6;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Dipthongs";
+            DipthongsGroup.Controls.Add(DipthongsContainer);
+            DipthongsGroup.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            DipthongsGroup.Location = new Point(409, 3);
+            DipthongsGroup.Name = "DipthongsGroup";
+            DipthongsGroup.Size = new Size(400, 350);
+            DipthongsGroup.TabIndex = 6;
+            DipthongsGroup.TabStop = false;
+            DipthongsGroup.Text = "Dipthongs";
             // 
-            // splitContainer1
+            // DipthongsContainer
             // 
-            splitContainer1.Dock = DockStyle.Fill;
-            splitContainer1.FixedPanel = FixedPanel.Panel1;
-            splitContainer1.Location = new Point(3, 27);
-            splitContainer1.Name = "splitContainer1";
-            splitContainer1.Orientation = Orientation.Horizontal;
+            DipthongsContainer.Dock = DockStyle.Fill;
+            DipthongsContainer.FixedPanel = FixedPanel.Panel1;
+            DipthongsContainer.Location = new Point(3, 27);
+            DipthongsContainer.Name = "DipthongsContainer";
+            DipthongsContainer.Orientation = Orientation.Horizontal;
             // 
-            // splitContainer1.Panel1
+            // DipthongsContainer.Panel1
             // 
-            splitContainer1.Panel1.Controls.Add(flowLayoutPanel1);
+            DipthongsContainer.Panel1.Controls.Add(DipthongsButtonPanel);
             // 
-            // splitContainer1.Panel2
+            // DipthongsContainer.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(Dipthongs);
-            splitContainer1.Size = new Size(394, 320);
-            splitContainer1.SplitterDistance = 40;
-            splitContainer1.TabIndex = 1;
+            DipthongsContainer.Panel2.Controls.Add(Dipthongs);
+            DipthongsContainer.Size = new Size(394, 320);
+            DipthongsContainer.SplitterDistance = 40;
+            DipthongsContainer.TabIndex = 1;
             // 
-            // flowLayoutPanel1
+            // DipthongsButtonPanel
             // 
-            flowLayoutPanel1.AutoSize = true;
-            flowLayoutPanel1.Controls.Add(SelectAllDipthongs);
-            flowLayoutPanel1.Controls.Add(SelectNoneDipthongs);
-            flowLayoutPanel1.Dock = DockStyle.Fill;
-            flowLayoutPanel1.Location = new Point(0, 0);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(394, 40);
-            flowLayoutPanel1.TabIndex = 1;
+            DipthongsButtonPanel.AutoSize = true;
+            DipthongsButtonPanel.Controls.Add(SelectAllDipthongs);
+            DipthongsButtonPanel.Controls.Add(SelectNoneDipthongs);
+            DipthongsButtonPanel.Dock = DockStyle.Fill;
+            DipthongsButtonPanel.Location = new Point(0, 0);
+            DipthongsButtonPanel.Name = "DipthongsButtonPanel";
+            DipthongsButtonPanel.Size = new Size(394, 40);
+            DipthongsButtonPanel.TabIndex = 1;
             // 
             // SelectAllDipthongs
             // 
@@ -476,7 +371,7 @@
             // 
             newToolStripMenuItem.Name = "newToolStripMenuItem";
             newToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.N;
-            newToolStripMenuItem.Size = new Size(213, 34);
+            newToolStripMenuItem.Size = new Size(270, 34);
             newToolStripMenuItem.Text = "New";
             newToolStripMenuItem.Click += NewLanguage_Click;
             // 
@@ -484,31 +379,31 @@
             // 
             openToolStripMenuItem.Enabled = false;
             openToolStripMenuItem.Name = "openToolStripMenuItem";
-            openToolStripMenuItem.Size = new Size(213, 34);
+            openToolStripMenuItem.Size = new Size(270, 34);
             openToolStripMenuItem.Text = "Open";
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(210, 6);
+            toolStripSeparator2.Size = new Size(267, 6);
             // 
             // saveToolStripMenuItem
             // 
             saveToolStripMenuItem.Enabled = false;
             saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new Size(213, 34);
+            saveToolStripMenuItem.Size = new Size(270, 34);
             saveToolStripMenuItem.Text = "Save";
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(210, 6);
+            toolStripSeparator1.Size = new Size(267, 6);
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             exitToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.F4;
-            exitToolStripMenuItem.Size = new Size(213, 34);
+            exitToolStripMenuItem.Size = new Size(270, 34);
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += Exit_Click;
             // 
@@ -540,6 +435,112 @@
             selectNoneToolStripMenuItem.Text = "Select None";
             selectNoneToolStripMenuItem.Click += SelectNoneConsonats_Click;
             // 
+            // SyllableShapeInputPanel
+            // 
+            SyllableShapeInputPanel.AutoSize = true;
+            SyllableShapeInputPanel.BackColor = SystemColors.ControlDark;
+            SyllableShapeInputPanel.Controls.Add(SyllableShape);
+            SyllableShapeInputPanel.Controls.Add(GenerateSyllables);
+            SyllableShapeInputPanel.Dock = DockStyle.Fill;
+            SyllableShapeInputPanel.Location = new Point(0, 0);
+            SyllableShapeInputPanel.Name = "SyllableShapeInputPanel";
+            SyllableShapeInputPanel.Size = new Size(557, 44);
+            SyllableShapeInputPanel.TabIndex = 1;
+            // 
+            // GenerateSyllables
+            // 
+            GenerateSyllables.Anchor = AnchorStyles.Left;
+            GenerateSyllables.AutoSize = true;
+            GenerateSyllables.Location = new Point(301, 3);
+            GenerateSyllables.Name = "GenerateSyllables";
+            GenerateSyllables.Size = new Size(184, 35);
+            GenerateSyllables.TabIndex = 0;
+            GenerateSyllables.Text = "Generate Syllables";
+            GenerateSyllables.UseVisualStyleBackColor = true;
+            GenerateSyllables.Click += GenerateSyllables_Click;
+            // 
+            // SyllableShape
+            // 
+            SyllableShape.Anchor = AnchorStyles.Left;
+            SyllableShape.Location = new Point(3, 5);
+            SyllableShape.Name = "SyllableShape";
+            SyllableShape.PlaceholderText = "Syllable Shape";
+            SyllableShape.Size = new Size(292, 31);
+            SyllableShape.TabIndex = 1;
+            // 
+            // ClusterSettingsPanel
+            // 
+            ClusterSettingsPanel.AutoScroll = true;
+            ClusterSettingsPanel.Controls.Add(ClusterMatrix);
+            ClusterSettingsPanel.Controls.Add(DisallowVoiceCrowding);
+            ClusterSettingsPanel.Dock = DockStyle.Fill;
+            ClusterSettingsPanel.Location = new Point(0, 0);
+            ClusterSettingsPanel.Name = "ClusterSettingsPanel";
+            ClusterSettingsPanel.Size = new Size(557, 226);
+            ClusterSettingsPanel.TabIndex = 0;
+            // 
+            // DisallowVoiceCrowding
+            // 
+            DisallowVoiceCrowding.AutoSize = true;
+            DisallowVoiceCrowding.Checked = true;
+            DisallowVoiceCrowding.CheckState = CheckState.Checked;
+            DisallowVoiceCrowding.Location = new Point(168, 3);
+            DisallowVoiceCrowding.Name = "DisallowVoiceCrowding";
+            DisallowVoiceCrowding.Size = new Size(233, 29);
+            DisallowVoiceCrowding.TabIndex = 1;
+            DisallowVoiceCrowding.Text = "Disallow Voice Crowding";
+            Tooltip.SetToolTip(DisallowVoiceCrowding, "When checked, generator will not allow a voiceless consonant to fall between a voiced consonant and the vowel.");
+            DisallowVoiceCrowding.UseVisualStyleBackColor = true;
+            // 
+            // ClusterMatrix
+            // 
+            ClusterMatrix.AutoSize = true;
+            ClusterMatrix.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            ClusterMatrix.BackColor = SystemColors.ControlDark;
+            ClusterMatrix.ColumnCount = 2;
+            ClusterMatrix.ColumnStyles.Add(new ColumnStyle());
+            ClusterMatrix.ColumnStyles.Add(new ColumnStyle());
+            ClusterMatrix.ContextMenuStrip = ClusterMatrixContextMenu;
+            ClusterMatrix.Controls.Add(ClusterMatrixLabel, 0, 0);
+            ClusterMatrix.Location = new Point(3, 3);
+            ClusterMatrix.Name = "ClusterMatrix";
+            ClusterMatrix.RowCount = 2;
+            ClusterMatrix.RowStyles.Add(new RowStyle());
+            ClusterMatrix.RowStyles.Add(new RowStyle());
+            ClusterMatrix.Size = new Size(159, 101);
+            ClusterMatrix.TabIndex = 0;
+            // 
+            // ClusterMatrixLabel
+            // 
+            ClusterMatrixLabel.Location = new Point(3, 0);
+            ClusterMatrixLabel.Name = "ClusterMatrixLabel";
+            ClusterMatrixLabel.Size = new Size(153, 101);
+            ClusterMatrixLabel.TabIndex = 0;
+            ClusterMatrixLabel.Text = "Checked values indicate that Column can follow Row.";
+            // 
+            // clusterAndShapeContainer
+            // 
+            clusterAndShapeContainer.BackColor = SystemColors.ControlDark;
+            clusterAndShapeContainer.Dock = DockStyle.Fill;
+            clusterAndShapeContainer.FixedPanel = FixedPanel.Panel2;
+            clusterAndShapeContainer.Location = new Point(0, 0);
+            clusterAndShapeContainer.Name = "clusterAndShapeContainer";
+            clusterAndShapeContainer.Orientation = Orientation.Horizontal;
+            // 
+            // clusterAndShapeContainer.Panel1
+            // 
+            clusterAndShapeContainer.Panel1.AllowDrop = true;
+            clusterAndShapeContainer.Panel1.BackColor = SystemColors.ControlDark;
+            clusterAndShapeContainer.Panel1.Controls.Add(ClusterSettingsPanel);
+            // 
+            // clusterAndShapeContainer.Panel2
+            // 
+            clusterAndShapeContainer.Panel2.Controls.Add(SyllableShapeInputPanel);
+            clusterAndShapeContainer.Size = new Size(557, 280);
+            clusterAndShapeContainer.SplitterDistance = 226;
+            clusterAndShapeContainer.SplitterWidth = 10;
+            clusterAndShapeContainer.TabIndex = 0;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -556,60 +557,54 @@
             splitContainerVowels.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainerVowels).EndInit();
             splitContainerVowels.ResumeLayout(false);
-            flowLayoutPanel2.ResumeLayout(false);
-            flowLayoutPanel2.PerformLayout();
-            ClusterAndOutputContainer.Panel1.ResumeLayout(false);
-            ClusterAndOutputContainer.Panel2.ResumeLayout(false);
-            ClusterAndOutputContainer.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)ClusterAndOutputContainer).EndInit();
-            ClusterAndOutputContainer.ResumeLayout(false);
-            splitContainer2.Panel1.ResumeLayout(false);
-            splitContainer2.Panel2.ResumeLayout(false);
-            splitContainer2.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)splitContainer2).EndInit();
-            splitContainer2.ResumeLayout(false);
-            ClusterSettingsPanel.ResumeLayout(false);
-            ClusterSettingsPanel.PerformLayout();
-            ClusterMatrix.ResumeLayout(false);
+            VowelsButtonPanel.ResumeLayout(false);
+            VowelsButtonPanel.PerformLayout();
+            RightContainer.Panel1.ResumeLayout(false);
+            RightContainer.Panel2.ResumeLayout(false);
+            RightContainer.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)RightContainer).EndInit();
+            RightContainer.ResumeLayout(false);
             ClusterMatrixContextMenu.ResumeLayout(false);
-            flowLayoutPanel3.ResumeLayout(false);
-            flowLayoutPanel3.PerformLayout();
-            groupBox1.ResumeLayout(false);
+            VowelsGroup.ResumeLayout(false);
             MainContainer.Panel1.ResumeLayout(false);
             MainContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)MainContainer).EndInit();
             MainContainer.ResumeLayout(false);
             LetterSelectonPanel.ResumeLayout(false);
-            groupBox2.ResumeLayout(false);
-            splitContainer1.Panel1.ResumeLayout(false);
-            splitContainer1.Panel1.PerformLayout();
-            splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
-            splitContainer1.ResumeLayout(false);
-            flowLayoutPanel1.ResumeLayout(false);
-            flowLayoutPanel1.PerformLayout();
+            DipthongsGroup.ResumeLayout(false);
+            DipthongsContainer.Panel1.ResumeLayout(false);
+            DipthongsContainer.Panel1.PerformLayout();
+            DipthongsContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)DipthongsContainer).EndInit();
+            DipthongsContainer.ResumeLayout(false);
+            DipthongsButtonPanel.ResumeLayout(false);
+            DipthongsButtonPanel.PerformLayout();
             mainMenuStrip.ResumeLayout(false);
             mainMenuStrip.PerformLayout();
+            SyllableShapeInputPanel.ResumeLayout(false);
+            SyllableShapeInputPanel.PerformLayout();
+            ClusterSettingsPanel.ResumeLayout(false);
+            ClusterSettingsPanel.PerformLayout();
+            ClusterMatrix.ResumeLayout(false);
+            clusterAndShapeContainer.Panel1.ResumeLayout(false);
+            clusterAndShapeContainer.Panel2.ResumeLayout(false);
+            clusterAndShapeContainer.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)clusterAndShapeContainer).EndInit();
+            clusterAndShapeContainer.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
         private SplitContainer splitContainerVowels;
-        private FlowLayoutPanel flowLayoutPanel2;
+        private FlowLayoutPanel VowelsButtonPanel;
         private Button SelectAllVowels;
         private Button SelectNoneVowels;
         private CheckedListBox Vowels;
         private TableLayoutPanel tableLayoutPanel1;
-        private FlowLayoutPanel flowLayoutPanel3;
-        private TextBox SyllableShape;
-        private Button GenerateSyllables;
-        private SplitContainer splitContainer2;
-        private TableLayoutPanel ClusterMatrix;
-        private SplitContainer ClusterAndOutputContainer;
-        private Label label1;
+        private SplitContainer RightContainer;
         private Label label3;
-        private GroupBox groupBox1;
+        private GroupBox VowelsGroup;
         private SplitContainer MainContainer;
         private FlowLayoutPanel LetterSelectonPanel;
         private ContextMenuStrip ClusterMatrixContextMenu;
@@ -628,15 +623,21 @@
         private ToolStripMenuItem consonantsToolStripMenuItem;
         private ToolStripMenuItem selectAllConsonantsToolStripMenuItem;
         private ToolStripMenuItem selectNoneToolStripMenuItem;
-        private GroupBox groupBox2;
-        private SplitContainer splitContainer1;
-        private FlowLayoutPanel flowLayoutPanel1;
+        private GroupBox DipthongsGroup;
+        private SplitContainer DipthongsContainer;
+        private FlowLayoutPanel DipthongsButtonPanel;
         private Button SelectAllDipthongs;
         private Button SelectNoneDipthongs;
         private CheckedListBox Dipthongs;
         private TextBox SyllableOutput;
+        private ToolTip Tooltip;
+        private SplitContainer clusterAndShapeContainer;
         private FlowLayoutPanel ClusterSettingsPanel;
+        private TableLayoutPanel ClusterMatrix;
+        private Label ClusterMatrixLabel;
         private CheckBox DisallowVoiceCrowding;
-        private ToolTip ToolTip;
+        private FlowLayoutPanel SyllableShapeInputPanel;
+        private TextBox SyllableShape;
+        private Button GenerateSyllables;
     }
 }
