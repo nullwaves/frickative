@@ -278,9 +278,9 @@ namespace frickative
             for (int pos = 0; pos < length; pos++)
                 if (pos > 0)
                 {
-                    var lastword = word[pos - 1];
-                    var acceptable = consonants.Where(x => followerManners[lastword.Manner].Contains(x.Manner)).ToList();
-                    if (preventCrowding && lastword.Voiced)
+                    var lastletter = word[pos - 1];
+                    var acceptable = consonants.Where(x => followerManners[lastletter.Manner].Contains(x.Manner)).ToList();
+                    if (preventCrowding && lastletter.Voiced)
                     {
                         var unvoiced = acceptable.Where(x => !x.Voiced).ToList();
                         foreach (var v in unvoiced)
