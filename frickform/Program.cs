@@ -1,4 +1,4 @@
-namespace frickative
+namespace frickform
 {
     internal static class Program
     {

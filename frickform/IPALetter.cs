@@ -1,4 +1,4 @@
-﻿namespace frickative
+﻿namespace frickform
 {
     public enum Place
     {

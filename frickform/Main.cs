@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace frickative
+namespace frickform
 {
     public partial class Main : Form
     {
@@ -312,13 +312,13 @@ namespace frickative
 
         private void Exit_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you'd like to quit?", "frickative", MessageBoxButtons.YesNo);
+            var result = MessageBox.Show("Are you sure you'd like to quit?", "frickform", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes) { Application.Exit(); }
         }
 
         private void NewLanguage_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you'd like to clear all changes?", "frickative", MessageBoxButtons.YesNo);
+            var result = MessageBox.Show("Are you sure you'd like to clear all changes?", "frickform", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes) { SetInitialState(); }
         }
 
