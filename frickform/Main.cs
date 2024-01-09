@@ -1,5 +1,4 @@
 using conlanger;
-using System.Text.RegularExpressions;
 
 namespace frickform
 {
@@ -89,7 +88,7 @@ namespace frickform
             return container;
         }
 
-        private CheckedListBox? GetBoxFromButton(Button btn)
+        private static CheckedListBox? GetBoxFromButton(Button btn)
         {
             return btn.Parent?.Parent?.Parent?.FindControl<CheckedListBox>();
         }
@@ -208,15 +207,11 @@ namespace frickform
 
         private void GenerateSyllables_Click(object sender, EventArgs e)
         {
-            var shapeInput = SyllableShape.Text.Trim().ToLower();
-            if (!SyllableShapePattern().IsMatch(shapeInput))
+            if (!SyllableShape.TryParse(SyllableShapeInput.Text.Trim().ToLower(), out var shape))
             {
-                _ = MessageBox.Show("Syllable shape must be in format \"CVC\", and is not case-sensitve.");
-                return;
+                _ = MessageBox.Show("Syllable shape must be in format \"cvc\", and is not case-sensitve.");
             }
-            var sParts = shapeInput.Split('v');
-            var onset = sParts[0].Length;
-            var coda = sParts[1].Length;
+            
             var consonants = new List<Consonant>();
             foreach (var box in ConsonantBoxes)
                 consonants.AddRange(box.CheckedItems.Cast<Consonant>().ToList());
@@ -242,8 +237,7 @@ namespace frickform
 
             var settings = new SyllableFactorySettings()
             {
-                OnsetLength = onset,
-                CodaLength = coda,
+                Shape = shape,
                 Consonants = consonants,
                 Vowels = vowels,
                 AllowCrowding = !DisallowVoiceCrowding.Checked,
@@ -279,9 +273,6 @@ namespace frickform
                     accepts.Add((Manner)i);
             return accepts;
         }
-
-        [GeneratedRegex("^c*v{1}c*$")]
-        private static partial Regex SyllableShapePattern();
 
         private void ResetClusters_Click(object sender, EventArgs e) => SetInitialClusterState();
 

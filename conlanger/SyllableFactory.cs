@@ -2,8 +2,7 @@
 {
     public class SyllableFactorySettings
     {
-        public int OnsetLength {  get; set; }
-        public int CodaLength { get; set; }
+        public SyllableShape Shape { get; set; }
         public List<Consonant> Consonants { get; set; }
         public List<IPALetter> Vowels { get; set; }
         public Dictionary<Manner, List<Manner>> Clusters { get; set; }
@@ -11,6 +10,7 @@
 
         public SyllableFactorySettings()
         {
+            Shape = new();
             Clusters = [];
             Consonants = [];
             Vowels = [];
@@ -25,12 +25,12 @@
             var pos = 0;
 
             // Onset
-            word.AddRange(GenerateCluster(settings.OnsetLength, settings.Consonants, settings.Clusters, settings.AllowCrowding));
+            word.AddRange(GenerateCluster(settings.Shape.Onset, settings.Consonants, settings.Clusters, settings.AllowCrowding));
             // Vowel
             word.Add(settings.Vowels[RandomService.Instance.Next(0, settings.Vowels.Count)]);
             pos++;
             // Coda
-            word.AddRange(GenerateCluster(settings.CodaLength, settings.Consonants, settings.Clusters, settings.AllowCrowding));
+            word.AddRange(GenerateCluster(settings.Shape.Coda, settings.Consonants, settings.Clusters, settings.AllowCrowding));
 
             return string.Join("", word);
         }
