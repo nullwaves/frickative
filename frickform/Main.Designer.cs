@@ -601,9 +601,7 @@
         private Button SelectAllVowels;
         private Button SelectNoneVowels;
         private CheckedListBox Vowels;
-        private TableLayoutPanel tableLayoutPanel1;
         private SplitContainer RightContainer;
-        private Label label3;
         private GroupBox VowelsGroup;
         private SplitContainer MainContainer;
         private FlowLayoutPanel LetterSelectonPanel;
