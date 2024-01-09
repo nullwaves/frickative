@@ -1,3 +1,4 @@
+using conlanger;
 using System.Text.RegularExpressions;
 
 namespace frickform
