@@ -10,6 +10,8 @@ namespace frickform
         public List<CheckedListBox> ConsonantBoxes;
         public CheckedListBox Vowels, Dipthongs;
 
+        #region Construct/Init
+
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public Main()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -17,9 +19,15 @@ namespace frickform
             InitializeComponent();
             Text = $"Frickative v{Application.ProductVersion}";
             ConsonantBoxes = [];
+            //PopulateSyllableShapeInputs();
             PopulateLetterSelection();
             PopulateClusterMatrix();
         }
+
+        //private void PopulateSyllableShapeInputs()
+        //{
+            
+        //}
 
         private void PopulateLetterSelection()
         {
@@ -30,6 +38,80 @@ namespace frickform
                 LetterSelectonPanel.Controls.Add(CreateConsonantsBox(manner));
             }
         }
+
+        private void PopulateClusterMatrix()
+        {
+            // Cluster Matrix
+            AcceptedClusters = new CheckBox[Manners.Length, Manners.Length];
+            ClusterMatrix.RowCount = ClusterMatrix.ColumnCount = Manners.Length + 1;
+            foreach (var m in Manners)
+            {
+                Label onset = new()
+                {
+                    Text = m.ToString(),
+                    AutoSize = true,
+                    Font = new(DefaultFont, FontStyle.Bold)
+                };
+                VerticalLabel coda = new()
+                {
+                    Text = m.ToString(),
+                    AutoSize = false,
+                    Anchor = AnchorStyles.Bottom,
+                    Font = new(DefaultFont, FontStyle.Bold)
+                };
+                coda.Width = coda.PreferredHeight;
+                coda.Height = coda.PreferredWidth;
+                coda.Dock = DockStyle.Fill;
+                var x = (int)m;
+                ClusterMatrix.Controls.Add(onset, 0, x + 1);
+                ClusterMatrix.Controls.Add(coda, x + 1, 0);
+                foreach (var n in Manners)
+                {
+                    var y = (int)n;
+                    CheckBox checkbox = new() { Checked = x != y };
+                    AcceptedClusters[x, y] = checkbox;
+                    ClusterMatrix.Controls.Add(checkbox, y + 1, x + 1);
+                }
+            }
+            ClusterMatrix.ColumnStyles.Clear();
+            ClusterMatrix.RowStyles.Clear();
+            _ = ClusterMatrix.ColumnStyles.Add(new(SizeType.AutoSize));
+            _ = ClusterMatrix.RowStyles.Add(new(SizeType.AutoSize));
+            for (int i = 1; i < ClusterMatrix.ColumnCount; i++)
+            {
+                _ = ClusterMatrix.ColumnStyles.Add(new(SizeType.Absolute, 30));
+                _ = ClusterMatrix.RowStyles.Add(new(SizeType.AutoSize));
+            }
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+            SetInitialState();
+        }
+
+        private void SetInitialState()
+        {
+            Vowels.SetAllChecked(true);
+            Dipthongs.SetAllChecked(true);
+            foreach (var box in ConsonantBoxes)
+                box.SetAllChecked(true);
+            SetInitialClusterState();
+            DisallowVoiceCrowding.Checked = true;
+        }
+
+        private void SetInitialClusterState()
+        {
+            foreach (CheckBox box in AcceptedClusters)
+            {
+                box.Checked = true;
+            }
+            for (int i = 0; i < Manners.Length; i++)
+                AcceptedClusters[i, i].Checked = false;
+        }
+
+        #endregion
+
+        #region Control Factories
 
         private GroupBox CreateVowelsBox()
         {
@@ -117,75 +199,7 @@ namespace frickform
             return btn.Parent?.Parent?.Parent?.FindControl<CheckedListBox>();
         }
 
-        private void PopulateClusterMatrix()
-        {
-            // Cluster Matrix
-            AcceptedClusters = new CheckBox[Manners.Length, Manners.Length];
-            ClusterMatrix.RowCount = ClusterMatrix.ColumnCount = Manners.Length + 1;
-            foreach (var m in Manners)
-            {
-                Label onset = new()
-                {
-                    Text = m.ToString(),
-                    AutoSize = true,
-                    Font = new(DefaultFont, FontStyle.Bold)
-                };
-                VerticalLabel coda = new()
-                {
-                    Text = m.ToString(),
-                    AutoSize = false,
-                    Anchor = AnchorStyles.Bottom,
-                    Font = new(DefaultFont, FontStyle.Bold)
-                };
-                coda.Width = coda.PreferredHeight;
-                coda.Height = coda.PreferredWidth;
-                coda.Dock = DockStyle.Fill;
-                var x = (int)m;
-                ClusterMatrix.Controls.Add(onset, 0, x + 1);
-                ClusterMatrix.Controls.Add(coda, x + 1, 0);
-                foreach (var n in Manners)
-                {
-                    var y = (int)n;
-                    CheckBox checkbox = new() { Checked = x != y };
-                    AcceptedClusters[x, y] = checkbox;
-                    ClusterMatrix.Controls.Add(checkbox, y + 1, x + 1);
-                }
-            }
-            ClusterMatrix.ColumnStyles.Clear();
-            ClusterMatrix.RowStyles.Clear();
-            _ = ClusterMatrix.ColumnStyles.Add(new(SizeType.AutoSize));
-            _ = ClusterMatrix.RowStyles.Add(new(SizeType.AutoSize));
-            for (int i = 1; i < ClusterMatrix.ColumnCount; i++)
-            {
-                _ = ClusterMatrix.ColumnStyles.Add(new(SizeType.Absolute, 30));
-                _ = ClusterMatrix.RowStyles.Add(new(SizeType.AutoSize));
-            }
-        }
-
-        private void SetInitialState()
-        {
-            Vowels.SetAllChecked(true);
-            Dipthongs.SetAllChecked(true);
-            foreach (var box in ConsonantBoxes)
-                box.SetAllChecked(true);
-            SetInitialClusterState();
-            DisallowVoiceCrowding.Checked = true;
-        }
-
-        private void SetInitialClusterState()
-        {
-            foreach (CheckBox box in AcceptedClusters)
-            {
-                box.Checked = true;
-            }
-            for (int i = 0; i < Manners.Length; i++)
-                AcceptedClusters[i, i].Checked = false;
-        }
-
-        private void Main_Load(object sender, EventArgs e)
-        {
-            SetInitialState();
-        }
+        #endregion
 
         #region Select All/None Buttons
 
@@ -291,6 +305,8 @@ namespace frickform
             return accepts;
         }
 
+        #region MainToolStrip Events
+
         private void ResetClusters_Click(object sender, EventArgs e) => SetInitialClusterState();
 
         private void Exit_Click(object sender, EventArgs e)
@@ -345,5 +361,7 @@ namespace frickform
                     Dipthongs.Items.Remove(dip);
             }
         }
+        
+        #endregion
     }
 }
