@@ -350,14 +350,14 @@
             selectAllConsonantsToolStripMenuItem.Name = "selectAllConsonantsToolStripMenuItem";
             selectAllConsonantsToolStripMenuItem.Size = new Size(208, 34);
             selectAllConsonantsToolStripMenuItem.Text = "Select All";
-            selectAllConsonantsToolStripMenuItem.Click += SelectAllConsonats_Click;
+            selectAllConsonantsToolStripMenuItem.Click += SelectAllConsonants_Click;
             // 
             // selectNoneToolStripMenuItem
             // 
             selectNoneToolStripMenuItem.Name = "selectNoneToolStripMenuItem";
             selectNoneToolStripMenuItem.Size = new Size(208, 34);
             selectNoneToolStripMenuItem.Text = "Select None";
-            selectNoneToolStripMenuItem.Click += SelectNoneConsonats_Click;
+            selectNoneToolStripMenuItem.Click += SelectNoneConsonants_Click;
             // 
             // Main
             // 

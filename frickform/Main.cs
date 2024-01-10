@@ -169,6 +169,7 @@ namespace frickform
             foreach (var box in ConsonantBoxes)
                 box.SetAllChecked(true);
             SetInitialClusterState();
+            DisallowVoiceCrowding.Checked = true;
         }
 
         private void SetInitialClusterState()
@@ -200,16 +201,6 @@ namespace frickform
             if (sender is null) return;
             var checkbox = GetBoxFromButton((Button)sender);
             checkbox?.SetAllChecked(false);
-        }
-
-        private void SelectAllVowels_Click(object sender, EventArgs e)
-        {
-            Vowels.SetAllChecked(true);
-        }
-
-        private void SelectNoneVowels_Click(object sender, EventArgs e)
-        {
-            Vowels.SetAllChecked(false);
         }
 
         private void SelectAllClusters_Click(object sender, EventArgs e)
@@ -314,13 +305,13 @@ namespace frickform
             if (result == DialogResult.Yes) { SetInitialState(); }
         }
 
-        private void SelectAllConsonats_Click(object sender, EventArgs e)
+        private void SelectAllConsonants_Click(object sender, EventArgs e)
         {
             foreach (var box in ConsonantBoxes)
                 box.SetAllChecked(true);
         }
 
-        private void SelectNoneConsonats_Click(object sender, EventArgs e)
+        private void SelectNoneConsonants_Click(object sender, EventArgs e)
         {
             foreach (var box in ConsonantBoxes)
                 box.SetAllChecked(false);
@@ -353,16 +344,6 @@ namespace frickform
                 foreach (var dip in noLongerAvailable)
                     Dipthongs.Items.Remove(dip);
             }
-        }
-
-        private void SelectAllDipthongs_Click(object sender, EventArgs e)
-        {
-            Dipthongs.SetAllChecked(true);
-        }
-
-        private void SelectNoneDipthongs_Click(object sender, EventArgs e)
-        {
-            Dipthongs.SetAllChecked(false);
         }
     }
 }
