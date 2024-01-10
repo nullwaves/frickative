@@ -19,20 +19,16 @@
 
     public static class SyllableFactory
     {
-        public static string MakeSyllableString(SyllableFactorySettings settings)
+        public static Syllable MakeSyllable(SyllableFactorySettings settings)
         {
-            List<IPALetter> word = [];
-            var pos = 0;
-
+            Syllable word = new();
             // Onset
             word.AddRange(GenerateCluster(settings.Shape.Onset, settings.Consonants, settings.Clusters, settings.AllowCrowding));
             // Vowel
             word.Add(settings.Vowels[RandomService.Instance.Next(0, settings.Vowels.Count)]);
-            pos++;
             // Coda
             word.AddRange(GenerateCluster(settings.Shape.Coda, settings.Consonants, settings.Clusters, settings.AllowCrowding));
-
-            return string.Join("", word);
+            return word;
         }
 
         private static Consonant[] GenerateCluster(

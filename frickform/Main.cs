@@ -254,7 +254,7 @@ namespace frickform
                 do
                 {
                     tries++;
-                    s = SyllableFactory.MakeSyllableString(settings);
+                    s = SyllableFactory.MakeSyllable(settings).ToString();
                     
                 } while (strings.Contains(s) && tries < 10);
                 if (tries < 10)
