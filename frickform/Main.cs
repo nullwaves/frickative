@@ -8,6 +8,7 @@ namespace frickform
         public static readonly Random Random = new();
         public CheckBox[,] AcceptedClusters;
         public List<CheckedListBox> ConsonantBoxes;
+        public CheckedListBox Vowels, Dipthongs;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public Main()
@@ -16,31 +17,57 @@ namespace frickform
             InitializeComponent();
             Text = $"Frickative v{Application.ProductVersion}";
             ConsonantBoxes = [];
-            Vowels.DataSource = Vowel.All;
-            Vowels.DisplayMember = "DisplayString";
-            Dipthongs.DisplayMember = "DisplayString";
-            PopulateConsonants();
+            PopulateLetterSelection();
             PopulateClusterMatrix();
         }
 
-        private void PopulateConsonants()
+        private void PopulateLetterSelection()
         {
+            LetterSelectonPanel.Controls.Add(CreateVowelsBox());
+            LetterSelectonPanel.Controls.Add(CreateDipthongsBox());
             foreach (var manner in Manners)
             {
                 LetterSelectonPanel.Controls.Add(CreateConsonantsBox(manner));
             }
         }
 
-        private GroupBox CreateConsonantsBox(Manner manner)
+        private GroupBox CreateVowelsBox()
         {
-            var data = Consonant.All.Where(x => x.Manner == manner).ToArray();
+#pragma warning disable CS8601, CS8602, CS8622 // CreateFrickContainer and its contents are not nullable
+            var box = CreateFrickContainer("Vowels", Vowel.All);
+            Vowels = box.FindControl<CheckedListBox>();
+            Vowels.ItemCheck += Vowels_ItemCheck;
+            return box;
+#pragma warning restore CS8601, CS8602, CS8622
+        }
 
-            GroupBox container = new()
+        private GroupBox CreateDipthongsBox()
+        {
+#pragma warning disable CS8601 // Possible null reference assignment.
+            var box = CreateFrickContainer("Dipthongs", null);
+            Dipthongs = box.FindControl<CheckedListBox>();
+            return box;
+#pragma warning restore CS8601 // Possible null reference assignment.
+        }
+
+        private static Button CreateFrickButton(string text)
+        {
+            return new()
             {
-                Text = $"Pulmonic Consonants - {manner}",
-                Height = 350,
-                Width = 400,
-                Font = new("Segue UI Semibold", 9, FontStyle.Bold),
+                AutoSize = true,
+                BackColor = SystemColors.ButtonFace,
+                Text = text,
+                Font = new("Segoe UI", 9)
+            };
+        }
+
+        private GroupBox CreateFrickContainer(string text, object? data)
+        {
+            var container = new GroupBox()
+            {
+                Text = text,
+                Size = new(400, 350),
+                Font = new("Segoe UI Semibold", 9, FontStyle.Bold)
             };
             SplitContainer split = new()
             {
@@ -53,21 +80,9 @@ namespace frickform
             {
                 Dock = DockStyle.Fill,
             };
-            Button selectAll = new()
-            {
-                AutoSize = true,
-                BackColor = SystemColors.ButtonFace,
-                Text = "Select All",
-                Font = new("Segoe UI", 9),
-            };
+            Button selectAll = CreateFrickButton("Select All");
             selectAll.Click += ConsonantBoxSelectAll_Click;
-            Button selectNone = new()
-            {
-                AutoSize = true,
-                BackColor = SystemColors.ButtonFace,
-                Text = "Select None",
-                Font = new("Segoe UI", 9),
-            };
+            Button selectNone = CreateFrickButton("Select None");
             selectNone.Click += ConsonantBoxSelectNone_Click;
             CheckedListBox checkbox = new()
             {
@@ -79,12 +94,21 @@ namespace frickform
                 DisplayMember = "DisplayString",
             };
 
-            ConsonantBoxes.Add(checkbox);
-
             buttonContainer.Controls.AddRange([selectAll, selectNone]);
             split.Panel1.Controls.Add(buttonContainer);
             split.Panel2.Controls.Add(checkbox);
             container.Controls.Add(split);
+            return container;
+        }
+
+        private GroupBox CreateConsonantsBox(Manner manner)
+        {
+            var data = Consonant.All.Where(x => x.Manner == manner).ToArray();
+
+            GroupBox container = CreateFrickContainer($"Pulmonic Consonants - {manner}", data);
+#pragma warning disable CS8604 // Possible null reference argument.
+            ConsonantBoxes.Add(container.FindControl<CheckedListBox>());
+#pragma warning restore CS8604 // Possible null reference argument.
             return container;
         }
 
@@ -141,6 +165,7 @@ namespace frickform
         private void SetInitialState()
         {
             Vowels.SetAllChecked(true);
+            Dipthongs.SetAllChecked(true);
             foreach (var box in ConsonantBoxes)
                 box.SetAllChecked(true);
             SetInitialClusterState();
@@ -210,6 +235,7 @@ namespace frickform
             if (!SyllableShape.TryParse(SyllableShapeInput.Text.Trim().ToLower(), out var shape))
             {
                 _ = MessageBox.Show("Syllable shape must be in format \"cvc\", and is not case-sensitve.");
+                return;
             }
             
             var consonants = new List<Consonant>();

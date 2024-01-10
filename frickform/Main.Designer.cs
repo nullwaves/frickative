@@ -29,11 +29,6 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            splitContainerVowels = new SplitContainer();
-            VowelsButtonPanel = new FlowLayoutPanel();
-            SelectAllVowels = new Button();
-            SelectNoneVowels = new Button();
-            Vowels = new CheckedListBox();
             RightContainer = new SplitContainer();
             clusterAndShapeContainer = new SplitContainer();
             ClusterSettingsPanel = new FlowLayoutPanel();
@@ -48,15 +43,8 @@
             SyllableShapeInput = new TextBox();
             GenerateSyllables = new Button();
             SyllableOutput = new TextBox();
-            VowelsGroup = new GroupBox();
             MainContainer = new SplitContainer();
             LetterSelectonPanel = new FlowLayoutPanel();
-            DipthongsGroup = new GroupBox();
-            DipthongsContainer = new SplitContainer();
-            DipthongsButtonPanel = new FlowLayoutPanel();
-            SelectAllDipthongs = new Button();
-            SelectNoneDipthongs = new Button();
-            Dipthongs = new CheckedListBox();
             mainMenuStrip = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             newToolStripMenuItem = new ToolStripMenuItem();
@@ -70,11 +58,6 @@
             selectAllConsonantsToolStripMenuItem = new ToolStripMenuItem();
             selectNoneToolStripMenuItem = new ToolStripMenuItem();
             Tooltip = new ToolTip(components);
-            ((System.ComponentModel.ISupportInitialize)splitContainerVowels).BeginInit();
-            splitContainerVowels.Panel1.SuspendLayout();
-            splitContainerVowels.Panel2.SuspendLayout();
-            splitContainerVowels.SuspendLayout();
-            VowelsButtonPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)RightContainer).BeginInit();
             RightContainer.Panel1.SuspendLayout();
             RightContainer.Panel2.SuspendLayout();
@@ -87,87 +70,12 @@
             ClusterMatrix.SuspendLayout();
             ClusterMatrixContextMenu.SuspendLayout();
             SyllableShapeInputPanel.SuspendLayout();
-            VowelsGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)MainContainer).BeginInit();
             MainContainer.Panel1.SuspendLayout();
             MainContainer.Panel2.SuspendLayout();
             MainContainer.SuspendLayout();
-            LetterSelectonPanel.SuspendLayout();
-            DipthongsGroup.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)DipthongsContainer).BeginInit();
-            DipthongsContainer.Panel1.SuspendLayout();
-            DipthongsContainer.Panel2.SuspendLayout();
-            DipthongsContainer.SuspendLayout();
-            DipthongsButtonPanel.SuspendLayout();
             mainMenuStrip.SuspendLayout();
             SuspendLayout();
-            // 
-            // splitContainerVowels
-            // 
-            splitContainerVowels.Dock = DockStyle.Fill;
-            splitContainerVowels.FixedPanel = FixedPanel.Panel1;
-            splitContainerVowels.Location = new Point(3, 27);
-            splitContainerVowels.Name = "splitContainerVowels";
-            splitContainerVowels.Orientation = Orientation.Horizontal;
-            // 
-            // splitContainerVowels.Panel1
-            // 
-            splitContainerVowels.Panel1.Controls.Add(VowelsButtonPanel);
-            // 
-            // splitContainerVowels.Panel2
-            // 
-            splitContainerVowels.Panel2.Controls.Add(Vowels);
-            splitContainerVowels.Size = new Size(394, 320);
-            splitContainerVowels.SplitterDistance = 40;
-            splitContainerVowels.TabIndex = 0;
-            // 
-            // VowelsButtonPanel
-            // 
-            VowelsButtonPanel.AutoSize = true;
-            VowelsButtonPanel.Controls.Add(SelectAllVowels);
-            VowelsButtonPanel.Controls.Add(SelectNoneVowels);
-            VowelsButtonPanel.Dock = DockStyle.Fill;
-            VowelsButtonPanel.Location = new Point(0, 0);
-            VowelsButtonPanel.Name = "VowelsButtonPanel";
-            VowelsButtonPanel.Size = new Size(394, 40);
-            VowelsButtonPanel.TabIndex = 1;
-            // 
-            // SelectAllVowels
-            // 
-            SelectAllVowels.AutoSize = true;
-            SelectAllVowels.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SelectAllVowels.Location = new Point(3, 3);
-            SelectAllVowels.Name = "SelectAllVowels";
-            SelectAllVowels.Size = new Size(112, 35);
-            SelectAllVowels.TabIndex = 0;
-            SelectAllVowels.Text = "Select All";
-            SelectAllVowels.UseVisualStyleBackColor = true;
-            SelectAllVowels.Click += SelectAllVowels_Click;
-            // 
-            // SelectNoneVowels
-            // 
-            SelectNoneVowels.AutoSize = true;
-            SelectNoneVowels.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SelectNoneVowels.Location = new Point(121, 3);
-            SelectNoneVowels.Name = "SelectNoneVowels";
-            SelectNoneVowels.Size = new Size(123, 35);
-            SelectNoneVowels.TabIndex = 1;
-            SelectNoneVowels.Text = "Select None";
-            SelectNoneVowels.UseVisualStyleBackColor = true;
-            SelectNoneVowels.Click += SelectNoneVowels_Click;
-            // 
-            // Vowels
-            // 
-            Vowels.CheckOnClick = true;
-            Vowels.Dock = DockStyle.Fill;
-            Vowels.Font = new Font("Times New Roman", 12F, FontStyle.Bold);
-            Vowels.FormattingEnabled = true;
-            Vowels.HorizontalScrollbar = true;
-            Vowels.Location = new Point(0, 0);
-            Vowels.Name = "Vowels";
-            Vowels.Size = new Size(394, 276);
-            Vowels.TabIndex = 3;
-            Vowels.ItemCheck += Vowels_ItemCheck;
             // 
             // RightContainer
             // 
@@ -208,7 +116,7 @@
             // 
             clusterAndShapeContainer.Panel2.Controls.Add(SyllableShapeInputPanel);
             clusterAndShapeContainer.Size = new Size(557, 280);
-            clusterAndShapeContainer.SplitterDistance = 220;
+            clusterAndShapeContainer.SplitterDistance = 208;
             clusterAndShapeContainer.SplitterWidth = 10;
             clusterAndShapeContainer.TabIndex = 0;
             // 
@@ -220,7 +128,7 @@
             ClusterSettingsPanel.Dock = DockStyle.Fill;
             ClusterSettingsPanel.Location = new Point(0, 0);
             ClusterSettingsPanel.Name = "ClusterSettingsPanel";
-            ClusterSettingsPanel.Size = new Size(557, 220);
+            ClusterSettingsPanel.Size = new Size(557, 208);
             ClusterSettingsPanel.TabIndex = 0;
             // 
             // ClusterMatrix
@@ -301,7 +209,7 @@
             SyllableShapeInputPanel.Dock = DockStyle.Fill;
             SyllableShapeInputPanel.Location = new Point(0, 0);
             SyllableShapeInputPanel.Name = "SyllableShapeInputPanel";
-            SyllableShapeInputPanel.Size = new Size(557, 50);
+            SyllableShapeInputPanel.Size = new Size(557, 62);
             SyllableShapeInputPanel.TabIndex = 1;
             // 
             // SyllableShapeInput
@@ -340,17 +248,6 @@
             SyllableOutput.Size = new Size(557, 486);
             SyllableOutput.TabIndex = 0;
             // 
-            // VowelsGroup
-            // 
-            VowelsGroup.Controls.Add(splitContainerVowels);
-            VowelsGroup.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            VowelsGroup.Location = new Point(3, 3);
-            VowelsGroup.Name = "VowelsGroup";
-            VowelsGroup.Size = new Size(400, 350);
-            VowelsGroup.TabIndex = 3;
-            VowelsGroup.TabStop = false;
-            VowelsGroup.Text = "Vowels";
-            // 
             // MainContainer
             // 
             MainContainer.Dock = DockStyle.Fill;
@@ -371,90 +268,11 @@
             // LetterSelectonPanel
             // 
             LetterSelectonPanel.AutoScroll = true;
-            LetterSelectonPanel.Controls.Add(VowelsGroup);
-            LetterSelectonPanel.Controls.Add(DipthongsGroup);
             LetterSelectonPanel.Dock = DockStyle.Fill;
             LetterSelectonPanel.Location = new Point(0, 0);
             LetterSelectonPanel.Name = "LetterSelectonPanel";
             LetterSelectonPanel.Size = new Size(1006, 776);
             LetterSelectonPanel.TabIndex = 0;
-            // 
-            // DipthongsGroup
-            // 
-            DipthongsGroup.Controls.Add(DipthongsContainer);
-            DipthongsGroup.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            DipthongsGroup.Location = new Point(409, 3);
-            DipthongsGroup.Name = "DipthongsGroup";
-            DipthongsGroup.Size = new Size(400, 350);
-            DipthongsGroup.TabIndex = 6;
-            DipthongsGroup.TabStop = false;
-            DipthongsGroup.Text = "Dipthongs";
-            // 
-            // DipthongsContainer
-            // 
-            DipthongsContainer.Dock = DockStyle.Fill;
-            DipthongsContainer.FixedPanel = FixedPanel.Panel1;
-            DipthongsContainer.Location = new Point(3, 27);
-            DipthongsContainer.Name = "DipthongsContainer";
-            DipthongsContainer.Orientation = Orientation.Horizontal;
-            // 
-            // DipthongsContainer.Panel1
-            // 
-            DipthongsContainer.Panel1.Controls.Add(DipthongsButtonPanel);
-            // 
-            // DipthongsContainer.Panel2
-            // 
-            DipthongsContainer.Panel2.Controls.Add(Dipthongs);
-            DipthongsContainer.Size = new Size(394, 320);
-            DipthongsContainer.SplitterDistance = 40;
-            DipthongsContainer.TabIndex = 1;
-            // 
-            // DipthongsButtonPanel
-            // 
-            DipthongsButtonPanel.AutoSize = true;
-            DipthongsButtonPanel.Controls.Add(SelectAllDipthongs);
-            DipthongsButtonPanel.Controls.Add(SelectNoneDipthongs);
-            DipthongsButtonPanel.Dock = DockStyle.Fill;
-            DipthongsButtonPanel.Location = new Point(0, 0);
-            DipthongsButtonPanel.Name = "DipthongsButtonPanel";
-            DipthongsButtonPanel.Size = new Size(394, 40);
-            DipthongsButtonPanel.TabIndex = 1;
-            // 
-            // SelectAllDipthongs
-            // 
-            SelectAllDipthongs.AutoSize = true;
-            SelectAllDipthongs.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SelectAllDipthongs.Location = new Point(3, 3);
-            SelectAllDipthongs.Name = "SelectAllDipthongs";
-            SelectAllDipthongs.Size = new Size(112, 35);
-            SelectAllDipthongs.TabIndex = 0;
-            SelectAllDipthongs.Text = "Select All";
-            SelectAllDipthongs.UseVisualStyleBackColor = true;
-            SelectAllDipthongs.Click += SelectAllDipthongs_Click;
-            // 
-            // SelectNoneDipthongs
-            // 
-            SelectNoneDipthongs.AutoSize = true;
-            SelectNoneDipthongs.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SelectNoneDipthongs.Location = new Point(121, 3);
-            SelectNoneDipthongs.Name = "SelectNoneDipthongs";
-            SelectNoneDipthongs.Size = new Size(123, 35);
-            SelectNoneDipthongs.TabIndex = 1;
-            SelectNoneDipthongs.Text = "Select None";
-            SelectNoneDipthongs.UseVisualStyleBackColor = true;
-            SelectNoneDipthongs.Click += SelectNoneDipthongs_Click;
-            // 
-            // Dipthongs
-            // 
-            Dipthongs.CheckOnClick = true;
-            Dipthongs.Dock = DockStyle.Fill;
-            Dipthongs.Font = new Font("Times New Roman", 12F, FontStyle.Bold);
-            Dipthongs.FormattingEnabled = true;
-            Dipthongs.HorizontalScrollbar = true;
-            Dipthongs.Location = new Point(0, 0);
-            Dipthongs.Name = "Dipthongs";
-            Dipthongs.Size = new Size(394, 276);
-            Dipthongs.TabIndex = 3;
             // 
             // mainMenuStrip
             // 
@@ -552,13 +370,6 @@
             Name = "Main";
             Text = "Frickative";
             Load += Main_Load;
-            splitContainerVowels.Panel1.ResumeLayout(false);
-            splitContainerVowels.Panel1.PerformLayout();
-            splitContainerVowels.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)splitContainerVowels).EndInit();
-            splitContainerVowels.ResumeLayout(false);
-            VowelsButtonPanel.ResumeLayout(false);
-            VowelsButtonPanel.PerformLayout();
             RightContainer.Panel1.ResumeLayout(false);
             RightContainer.Panel2.ResumeLayout(false);
             RightContainer.Panel2.PerformLayout();
@@ -575,20 +386,10 @@
             ClusterMatrixContextMenu.ResumeLayout(false);
             SyllableShapeInputPanel.ResumeLayout(false);
             SyllableShapeInputPanel.PerformLayout();
-            VowelsGroup.ResumeLayout(false);
             MainContainer.Panel1.ResumeLayout(false);
             MainContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)MainContainer).EndInit();
             MainContainer.ResumeLayout(false);
-            LetterSelectonPanel.ResumeLayout(false);
-            DipthongsGroup.ResumeLayout(false);
-            DipthongsContainer.Panel1.ResumeLayout(false);
-            DipthongsContainer.Panel1.PerformLayout();
-            DipthongsContainer.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)DipthongsContainer).EndInit();
-            DipthongsContainer.ResumeLayout(false);
-            DipthongsButtonPanel.ResumeLayout(false);
-            DipthongsButtonPanel.PerformLayout();
             mainMenuStrip.ResumeLayout(false);
             mainMenuStrip.PerformLayout();
             ResumeLayout(false);
@@ -596,13 +397,7 @@
         }
 
         #endregion
-        private SplitContainer splitContainerVowels;
-        private FlowLayoutPanel VowelsButtonPanel;
-        private Button SelectAllVowels;
-        private Button SelectNoneVowels;
-        private CheckedListBox Vowels;
         private SplitContainer RightContainer;
-        private GroupBox VowelsGroup;
         private SplitContainer MainContainer;
         private FlowLayoutPanel LetterSelectonPanel;
         private ContextMenuStrip ClusterMatrixContextMenu;
@@ -621,12 +416,6 @@
         private ToolStripMenuItem consonantsToolStripMenuItem;
         private ToolStripMenuItem selectAllConsonantsToolStripMenuItem;
         private ToolStripMenuItem selectNoneToolStripMenuItem;
-        private GroupBox DipthongsGroup;
-        private SplitContainer DipthongsContainer;
-        private FlowLayoutPanel DipthongsButtonPanel;
-        private Button SelectAllDipthongs;
-        private Button SelectNoneDipthongs;
-        private CheckedListBox Dipthongs;
         private TextBox SyllableOutput;
         private ToolTip Tooltip;
         private SplitContainer clusterAndShapeContainer;
