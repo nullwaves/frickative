@@ -219,12 +219,12 @@ namespace frickform
 
         private GroupBox CreateMoraBox()
         {
-            var box = CreateGroupBox("MoraList");
+            var box = CreateGroupBox("Mora");
             var split = CreateHSplit();
             var check = new CheckBox()
             {
                 AutoSize = true,
-                Text = "Allow MoraList",
+                Text = "Allow Mora",
                 Margin = new(5),
             };
             check.CheckedChanged += AllowMora_CheckedChanged;
