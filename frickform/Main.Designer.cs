@@ -58,6 +58,8 @@
             selectAllConsonantsToolStripMenuItem = new ToolStripMenuItem();
             selectNoneToolStripMenuItem = new ToolStripMenuItem();
             Tooltip = new ToolTip(components);
+            NumberOfSyllables = new TextBox();
+            GenerateWords = new Button();
             ((System.ComponentModel.ISupportInitialize)RightContainer).BeginInit();
             RightContainer.Panel1.SuspendLayout();
             RightContainer.Panel2.SuspendLayout();
@@ -116,7 +118,7 @@
             // 
             clusterAndShapeContainer.Panel2.Controls.Add(SyllableShapeInputPanel);
             clusterAndShapeContainer.Size = new Size(557, 280);
-            clusterAndShapeContainer.SplitterDistance = 208;
+            clusterAndShapeContainer.SplitterDistance = 178;
             clusterAndShapeContainer.SplitterWidth = 10;
             clusterAndShapeContainer.TabIndex = 0;
             // 
@@ -128,7 +130,7 @@
             ClusterSettingsPanel.Dock = DockStyle.Fill;
             ClusterSettingsPanel.Location = new Point(0, 0);
             ClusterSettingsPanel.Name = "ClusterSettingsPanel";
-            ClusterSettingsPanel.Size = new Size(557, 208);
+            ClusterSettingsPanel.Size = new Size(557, 178);
             ClusterSettingsPanel.TabIndex = 0;
             // 
             // ClusterMatrix
@@ -206,10 +208,12 @@
             SyllableShapeInputPanel.BackColor = SystemColors.ControlDark;
             SyllableShapeInputPanel.Controls.Add(SyllableShapeInput);
             SyllableShapeInputPanel.Controls.Add(GenerateSyllables);
+            SyllableShapeInputPanel.Controls.Add(NumberOfSyllables);
+            SyllableShapeInputPanel.Controls.Add(GenerateWords);
             SyllableShapeInputPanel.Dock = DockStyle.Fill;
             SyllableShapeInputPanel.Location = new Point(0, 0);
             SyllableShapeInputPanel.Name = "SyllableShapeInputPanel";
-            SyllableShapeInputPanel.Size = new Size(557, 62);
+            SyllableShapeInputPanel.Size = new Size(557, 92);
             SyllableShapeInputPanel.TabIndex = 1;
             // 
             // SyllableShapeInput
@@ -359,6 +363,27 @@
             selectNoneToolStripMenuItem.Text = "Select None";
             selectNoneToolStripMenuItem.Click += SelectNoneConsonants_Click;
             // 
+            // NumberOfSyllables
+            // 
+            NumberOfSyllables.Anchor = AnchorStyles.Left;
+            NumberOfSyllables.Location = new Point(3, 46);
+            NumberOfSyllables.Name = "NumberOfSyllables";
+            NumberOfSyllables.PlaceholderText = "# of Syllables/Word";
+            NumberOfSyllables.Size = new Size(292, 31);
+            NumberOfSyllables.TabIndex = 3;
+            // 
+            // GenerateWords
+            // 
+            GenerateWords.Anchor = AnchorStyles.Left;
+            GenerateWords.AutoSize = true;
+            GenerateWords.Location = new Point(301, 44);
+            GenerateWords.Name = "GenerateWords";
+            GenerateWords.Size = new Size(184, 35);
+            GenerateWords.TabIndex = 2;
+            GenerateWords.Text = "Generate Words";
+            GenerateWords.UseVisualStyleBackColor = true;
+            GenerateWords.Click += this.GenerateWords_Click;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -426,5 +451,7 @@
         private FlowLayoutPanel SyllableShapeInputPanel;
         private TextBox SyllableShapeInput;
         private Button GenerateSyllables;
+        private TextBox NumberOfSyllables;
+        private Button GenerateWords;
     }
 }
