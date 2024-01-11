@@ -10,12 +10,12 @@ namespace frickform
         public List<CheckedListBox> ConsonantBoxes;
         public CheckedListBox Vowels, Dipthongs;
         public TextBox PShapes, MShapes, UShapes;
-        public CheckBox AllowMoraCheck;
-        public CheckedListBox MoraList;
+        //public CheckBox AllowMoraCheck;
+        //public CheckedListBox MoraList;
 
         public bool AllowCrowding => !DisallowVoiceCrowding.Checked;
-        public bool AllowMora => AllowMoraCheck.Checked;
-        public List<IPALetter> Mora => MoraList.CheckedItems.Cast<IPALetter>().ToList();
+        //public bool AllowMora => AllowMoraCheck.Checked;
+        //public List<IPALetter> Mora => MoraList.CheckedItems.Cast<IPALetter>().ToList();
         public List<SyllableShape> PrimaryShapes
         {
             get
@@ -113,8 +113,8 @@ namespace frickform
             var box3 = CreateShapeInputBox("Ultimate Shapes");
             LetterSelectonPanel.Controls.Add(box3);
             UShapes = box3.FindControl<TextBox>();
-            var mora = CreateMoraBox();
-            LetterSelectonPanel.Controls.Add(mora);
+            //var mora = CreateMoraBox();
+            //LetterSelectonPanel.Controls.Add(mora);
 #pragma warning restore CS8601 // Possible null reference assignment.
         }
 
@@ -217,27 +217,27 @@ namespace frickform
             return container;
         }
 
-        private GroupBox CreateMoraBox()
-        {
-            var box = CreateGroupBox("Mora");
-            var split = CreateHSplit();
-            var check = new CheckBox()
-            {
-                AutoSize = true,
-                Text = "Allow Mora",
-                Margin = new(5),
-            };
-            check.CheckedChanged += AllowMora_CheckedChanged;
-            var list = CreateCheckedList();
-            split.Panel1.Controls.Add(new FlowLayoutPanel() { Dock = DockStyle.Fill, Controls = { check } });
-            split.Panel2.Controls.Add(list);
-            box.Controls.Add(split);
+        //private GroupBox CreateMoraBox()
+        //{
+        //    var box = CreateGroupBox("Mora");
+        //    var split = CreateHSplit();
+        //    var check = new CheckBox()
+        //    {
+        //        AutoSize = true,
+        //        Text = "Allow Mora",
+        //        Margin = new(5),
+        //    };
+        //    check.CheckedChanged += AllowMora_CheckedChanged;
+        //    var list = CreateCheckedList();
+        //    split.Panel1.Controls.Add(new FlowLayoutPanel() { Dock = DockStyle.Fill, Controls = { check } });
+        //    split.Panel2.Controls.Add(list);
+        //    box.Controls.Add(split);
 
-            AllowMoraCheck = check;
-            MoraList = list;
+        //    AllowMoraCheck = check;
+        //    MoraList = list;
 
-            return box;
-        }
+        //    return box;
+        //}
 
         private GroupBox CreateVowelsBox()
         {
@@ -464,8 +464,8 @@ namespace frickform
                 PrimaryShapes = PrimaryShapes,
                 MiddleShapes = MiddleShapes,
                 UltimateShapes = UltimateShapes,
-                AllowMora = AllowMora,
-                Mora = Mora,
+                //AllowMora = AllowMora,
+                //Mora = Mora,
                 SyllableSettings = sylSettings,
             };
 
@@ -556,24 +556,24 @@ namespace frickform
             }
         }
 
-        private void AllowMora_CheckedChanged(object? sender, EventArgs e)
-        {
-            if (sender is not CheckBox box) return;
-            if (box.Checked)
-            {
-                MoraList.Enabled = true;
-                foreach (var c in SelectedConsonants)
-                {
-                    if (!MoraList.Items.Contains(c))
-                        MoraList.Items.Add(c);
-                }
-            }
-            else
-            {
-                MoraList.Enabled = false;
-                MoraList.Items.Clear();
-            }
-        }
+        //private void AllowMora_CheckedChanged(object? sender, EventArgs e)
+        //{
+        //    if (sender is not CheckBox box) return;
+        //    if (box.Checked)
+        //    {
+        //        MoraList.Enabled = true;
+        //        foreach (var c in SelectedConsonants)
+        //        {
+        //            if (!MoraList.Items.Contains(c))
+        //                MoraList.Items.Add(c);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        MoraList.Enabled = false;
+        //        MoraList.Items.Clear();
+        //    }
+        //}
 
         #endregion
     }

@@ -5,8 +5,8 @@
         public List<SyllableShape> PrimaryShapes { get; set; }
         public List<SyllableShape> MiddleShapes { get; set; }
         public List<SyllableShape> UltimateShapes { get; set; }
-        public bool AllowMora { get; set; }
-        public List<IPALetter> Mora { get; set; }
+        //public bool AllowMora { get; set; }
+        //public List<IPALetter> Mora { get; set; }
 
         public SyllableFactorySettings SyllableSettings { get; set; }
         public List<Consonant> Consonants 
@@ -35,7 +35,7 @@
             PrimaryShapes = [];
             MiddleShapes = [];
             UltimateShapes = [];
-            Mora = [];
+            //Mora = [];
             SyllableSettings = new();
         }
     }
@@ -58,46 +58,30 @@
                 else if (syl > 0 && syl < length-1)
                 {
                     // Middle Syllable
-                    if (settings.AllowMora)
-                    {
-                        int roll = rand.Next(settings.MiddleShapes.Count + 1);
-                        if (roll == settings.MiddleShapes.Count)
-                        {
-                            word.Add(new Syllable() { SoundWord = { settings.Mora[rand.Next(settings.Mora.Count)] } });
-                        }
-                        else
-                        {
-                            sylSettings.Shape = settings.MiddleShapes[roll];
-                            word.Add(SyllableFactory.MakeSyllable(sylSettings));
-                        }
-                    }
-                    else
-                    {
+                    //if (settings.AllowMora)
+                    //{
+                    //    int roll = rand.Next(settings.MiddleShapes.Count + 1);
+                    //    if (roll == settings.MiddleShapes.Count)
+                    //    {
+                    //        word.Add(new Syllable() { SoundWord = { settings.Mora[rand.Next(settings.Mora.Count)] } });
+                    //    }
+                    //    else
+                    //    {
+                    //        sylSettings.Shape = settings.MiddleShapes[roll];
+                    //        word.Add(SyllableFactory.MakeSyllable(sylSettings));
+                    //    }
+                    //}
+                    //else
+                    //{
                         sylSettings.Shape = settings.MiddleShapes[rand.Next(settings.MiddleShapes.Count)];
                         word.Add(SyllableFactory.MakeSyllable(sylSettings));
-                    }
+                    //}
                 }
                 else if (length > 1 && syl == length-1)
                 {
                     // Ultimate Syllable
-                    if (settings.AllowMora)
-                    {
-                        int roll = rand.Next(settings.UltimateShapes.Count + 1);
-                        if (roll == settings.UltimateShapes.Count)
-                        {
-                            word.Add(new Syllable() { SoundWord = { settings.Mora[rand.Next(settings.Mora.Count)] } });
-                        }
-                        else
-                        {
-                            sylSettings.Shape = settings.UltimateShapes[roll];
-                            word.Add(SyllableFactory.MakeSyllable(sylSettings));
-                        }
-                    }
-                    else
-                    {
-                        sylSettings.Shape = settings.UltimateShapes[rand.Next(settings.UltimateShapes.Count)];
-                        word.Add(SyllableFactory.MakeSyllable(sylSettings));
-                    }
+                    sylSettings.Shape = settings.UltimateShapes[rand.Next(settings.UltimateShapes.Count)];
+                    word.Add(SyllableFactory.MakeSyllable(sylSettings));
                 }
             }
             return word;
