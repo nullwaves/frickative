@@ -9,6 +9,83 @@ namespace frickform
         public CheckBox[,] AcceptedClusters;
         public List<CheckedListBox> ConsonantBoxes;
         public CheckedListBox Vowels, Dipthongs;
+        public TextBox PShapes, MShapes, UShapes;
+        //public CheckBox AllowMoraCheck;
+        //public CheckedListBox MoraList;
+
+        public bool AllowCrowding => !DisallowVoiceCrowding.Checked;
+        //public bool AllowMora => AllowMoraCheck.Checked;
+        //public List<IPALetter> Mora => MoraList.CheckedItems.Cast<IPALetter>().ToList();
+        public List<SyllableShape> PrimaryShapes
+        {
+            get
+            {
+                var shapes = new List<SyllableShape>();
+                foreach (var line in PShapes.Lines)
+                {
+                    if (SyllableShape.TryParse(line.Trim(), out var shape))
+                        shapes.Add(shape);
+                    else
+                    {
+                        _ = MessageBox.Show($"Invalid shape '{line}' in Primary Shapes", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                return shapes;
+            }
+        }
+        public List<SyllableShape> MiddleShapes
+        {
+            get
+            {
+                var shapes = new List<SyllableShape>();
+                foreach (var line in MShapes.Lines)
+                {
+                    if (SyllableShape.TryParse(line.Trim(), out var shape))
+                        shapes.Add(shape);
+                    else
+                    {
+                        _ = MessageBox.Show($"Invalid shape '{line}' in Middle Shapes", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                return shapes;
+            }
+        }
+        public List<SyllableShape> UltimateShapes
+        {
+            get
+            {
+                var shapes = new List<SyllableShape>();
+                foreach (var line in UShapes.Lines)
+                {
+                    if (SyllableShape.TryParse(line.Trim(), out var shape))
+                        shapes.Add(shape);
+                    else
+                    {
+                        _ = MessageBox.Show($"Invalid shape '{line}' in Ultimate Shapes", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                return shapes;
+            }
+        }
+        public List<Consonant> SelectedConsonants
+        {
+            get
+            {
+                var consonants = new List<Consonant>();
+                foreach (var box in ConsonantBoxes)
+                    consonants.AddRange(box.CheckedItems.Cast<Consonant>().ToList());
+                return consonants;
+            }
+        }
+        public List<IPALetter> SelectedVowels
+        {
+            get
+            {
+                var vowels = Vowels.CheckedItems.Cast<IPALetter>().ToList();
+                vowels.AddRange(Dipthongs.CheckedItems.Cast<IPALetter>().ToList());
+                return vowels;
+            }
+        }
 
         #region Construct/Init
 
@@ -19,15 +96,27 @@ namespace frickform
             InitializeComponent();
             Text = $"Frickative v{Application.ProductVersion}";
             ConsonantBoxes = [];
-            //PopulateSyllableShapeInputs();
+            PopulateSyllableShapeInputs();
             PopulateLetterSelection();
             PopulateClusterMatrix();
         }
 
-        //private void PopulateSyllableShapeInputs()
-        //{
-            
-        //}
+        private void PopulateSyllableShapeInputs()
+        {
+#pragma warning disable CS8601 // Possible null reference assignment.
+            var box = CreateShapeInputBox("Primary Shapes");
+            LetterSelectonPanel.Controls.Add(box);
+            PShapes = box.FindControl<TextBox>();
+            var box2 = CreateShapeInputBox("Middle Shapes");
+            LetterSelectonPanel.Controls.Add(box2);
+            MShapes = box2.FindControl<TextBox>();
+            var box3 = CreateShapeInputBox("Ultimate Shapes");
+            LetterSelectonPanel.Controls.Add(box3);
+            UShapes = box3.FindControl<TextBox>();
+            //var mora = CreateMoraBox();
+            //LetterSelectonPanel.Controls.Add(mora);
+#pragma warning restore CS8601 // Possible null reference assignment.
+        }
 
         private void PopulateLetterSelection()
         {
@@ -97,6 +186,8 @@ namespace frickform
                 box.SetAllChecked(true);
             SetInitialClusterState();
             DisallowVoiceCrowding.Checked = true;
+            foreach (var box in new TextBox[] { PShapes, MShapes, UShapes })
+                box.Text = "cvc\r\nccvc\r\nvc";
         }
 
         private void SetInitialClusterState()
@@ -112,6 +203,41 @@ namespace frickform
         #endregion
 
         #region Control Factories
+
+        private static GroupBox CreateShapeInputBox(string text)
+        {
+            var container = CreateGroupBox(text);
+            var tbox = new TextBox()
+            {
+                Dock = DockStyle.Fill,
+                Font = new("Segoe UI", 9),
+                Multiline = true,
+            };
+            container.Controls.Add(tbox);
+            return container;
+        }
+
+        //private GroupBox CreateMoraBox()
+        //{
+        //    var box = CreateGroupBox("Mora");
+        //    var split = CreateHSplit();
+        //    var check = new CheckBox()
+        //    {
+        //        AutoSize = true,
+        //        Text = "Allow Mora",
+        //        Margin = new(5),
+        //    };
+        //    check.CheckedChanged += AllowMora_CheckedChanged;
+        //    var list = CreateCheckedList();
+        //    split.Panel1.Controls.Add(new FlowLayoutPanel() { Dock = DockStyle.Fill, Controls = { check } });
+        //    split.Panel2.Controls.Add(list);
+        //    box.Controls.Add(split);
+
+        //    AllowMoraCheck = check;
+        //    MoraList = list;
+
+        //    return box;
+        //}
 
         private GroupBox CreateVowelsBox()
         {
@@ -143,21 +269,42 @@ namespace frickform
             };
         }
 
-        private GroupBox CreateFrickContainer(string text, object? data)
+        private static GroupBox CreateGroupBox(string text)
         {
-            var container = new GroupBox()
+            return new()
             {
                 Text = text,
                 Size = new(400, 350),
                 Font = new("Segoe UI Semibold", 9, FontStyle.Bold)
             };
-            SplitContainer split = new()
+        }
+
+        private static SplitContainer CreateHSplit()
+        {
+            return new()
             {
                 Orientation = Orientation.Horizontal,
                 FixedPanel = FixedPanel.Panel1,
                 SplitterDistance = 40,
                 Dock = DockStyle.Fill
             };
+        }
+
+        private static CheckedListBox CreateCheckedList()
+        {
+            return new()
+            {
+                CheckOnClick = true,
+                Dock = DockStyle.Fill,
+                Font = new("Times New Roman", 12, FontStyle.Bold),
+                HorizontalScrollbar = true,
+            };
+        }
+
+        private GroupBox CreateFrickContainer(string text, object? data)
+        {
+            var container = CreateGroupBox(text);
+            var split = CreateHSplit();
             FlowLayoutPanel buttonContainer = new()
             {
                 Dock = DockStyle.Fill,
@@ -166,15 +313,9 @@ namespace frickform
             selectAll.Click += ConsonantBoxSelectAll_Click;
             Button selectNone = CreateFrickButton("Select None");
             selectNone.Click += ConsonantBoxSelectNone_Click;
-            CheckedListBox checkbox = new()
-            {
-                CheckOnClick = true,
-                Dock = DockStyle.Fill,
-                Font = new("Times New Roman", 12, FontStyle.Bold),
-                HorizontalScrollbar = true,
-                DataSource = data,
-                DisplayMember = "DisplayString",
-            };
+            var checkbox = CreateCheckedList();
+            checkbox.DataSource = data;
+            checkbox.DisplayMember = "DisplayString";
 
             buttonContainer.Controls.AddRange([selectAll, selectNone]);
             split.Panel1.Controls.Add(buttonContainer);
@@ -235,25 +376,11 @@ namespace frickform
 
         #endregion
 
-        private void GenerateSyllables_Click(object sender, EventArgs e)
+        private Dictionary<Manner, List<Manner>>? GetAcceptableFollowers()
         {
-            if (!SyllableShape.TryParse(SyllableShapeInput.Text.Trim().ToLower(), out var shape))
-            {
-                _ = MessageBox.Show("Syllable shape must be in format \"cvc\", and is not case-sensitve.");
-                return;
-            }
-            
-            var consonants = new List<Consonant>();
-            foreach (var box in ConsonantBoxes)
-                consonants.AddRange(box.CheckedItems.Cast<Consonant>().ToList());
-            var vowels = Vowels.CheckedItems.Cast<IPALetter>().ToList();
-            vowels.AddRange(Dipthongs.CheckedItems.Cast<IPALetter>().ToList());
-            if (vowels.Count < 1 || consonants.Count < 1)
-                return;
-
             Dictionary<Manner, List<Manner>> acceptableFollowers = [];
-            var manners = consonants.Select(x => x.Manner).Distinct().ToList();
-            if (manners is null) return;
+            var manners = SelectedConsonants.Select(x => x.Manner).Distinct().ToList();
+            if (manners is null) return null;
             foreach (var m in manners)
             {
                 var localManners = GetAcceptedFollowerTypes(m);
@@ -261,17 +388,34 @@ namespace frickform
                 if (localManners.Count < 1)
                 {
                     _ = MessageBox.Show($"{m} consonants have no acceptable followers.");
-                    return;
+                    return null;
                 }
                 acceptableFollowers[m] = localManners;
             }
+            return acceptableFollowers;
+        }
+
+        private void GenerateSyllables_Click(object sender, EventArgs e)
+        {
+            if (!SyllableShape.TryParse(SyllableShapeInput.Text.Trim().ToLower(), out var shape))
+            {
+                _ = MessageBox.Show("Syllable shape must be in format \"cvc\", and is not case-sensitve.");
+                return;
+            }
+            if (SelectedVowels.Count < 1 || SelectedConsonants.Count < 1)
+            {
+                _ = MessageBox.Show("Must select at least 1 Consonant and 1 Vowel.", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            var acceptableFollowers = GetAcceptableFollowers();
+            if (acceptableFollowers == null) return;
 
             var settings = new SyllableFactorySettings()
             {
                 Shape = shape,
-                Consonants = consonants,
-                Vowels = vowels,
-                AllowCrowding = !DisallowVoiceCrowding.Checked,
+                Consonants = SelectedConsonants,
+                Vowels = SelectedVowels,
+                AllowCrowding = AllowCrowding,
                 Clusters = acceptableFollowers
             };
 
@@ -286,13 +430,59 @@ namespace frickform
                 {
                     tries++;
                     s = SyllableFactory.MakeSyllable(settings).ToString();
-                    
+
                 } while (strings.Contains(s) && tries < 10);
                 if (tries < 10)
                     strings.Add(s);
             }
             strings.Sort();
             SyllableOutput.Lines = [.. strings];
+        }
+
+
+        private void GenerateWords_Click(object sender, EventArgs e)
+        {
+            if (SelectedVowels.Count < 1 || SelectedConsonants.Count < 1)
+            {
+                _ = MessageBox.Show("Must select at least 1 Consonant and 1 Vowel.", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            var acceptableFollowers = GetAcceptableFollowers();
+            if (acceptableFollowers == null) return;
+
+            var sylSettings = new SyllableFactorySettings()
+            {
+                Shape = new(),
+                Consonants = SelectedConsonants,
+                Vowels = SelectedVowels,
+                AllowCrowding = AllowCrowding,
+                Clusters = acceptableFollowers
+            };
+
+            var settings = new WordFactorySettings()
+            {
+                PrimaryShapes = PrimaryShapes,
+                MiddleShapes = MiddleShapes,
+                UltimateShapes = UltimateShapes,
+                //AllowMora = AllowMora,
+                //Mora = Mora,
+                SyllableSettings = sylSettings,
+            };
+
+            if(!int.TryParse(NumberOfSyllables.Text, out int length))
+            {
+                NumberOfSyllables.Clear();
+                NumberOfSyllables.Focus();
+                return;
+            }
+
+            var words = new List<Word>();
+            for (int i = 0; i < 1000; i++)
+            {
+                words.Add(WordFactory.MakeWord(settings, length));
+            }
+            SyllableOutput.Clear();
+            SyllableOutput.Text = string.Join(Environment.NewLine, words);
         }
 
         private List<Manner> GetAcceptedFollowerTypes(Manner manner)
@@ -333,6 +523,10 @@ namespace frickform
                 box.SetAllChecked(false);
         }
 
+        #endregion
+
+        #region Checkbox Events
+
         private void Vowels_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             var box = sender as CheckedListBox;
@@ -361,7 +555,26 @@ namespace frickform
                     Dipthongs.Items.Remove(dip);
             }
         }
-        
+
+        //private void AllowMora_CheckedChanged(object? sender, EventArgs e)
+        //{
+        //    if (sender is not CheckBox box) return;
+        //    if (box.Checked)
+        //    {
+        //        MoraList.Enabled = true;
+        //        foreach (var c in SelectedConsonants)
+        //        {
+        //            if (!MoraList.Items.Contains(c))
+        //                MoraList.Items.Add(c);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        MoraList.Enabled = false;
+        //        MoraList.Items.Clear();
+        //    }
+        //}
+
         #endregion
     }
 }
