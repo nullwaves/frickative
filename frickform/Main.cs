@@ -217,28 +217,6 @@ namespace frickform
             return container;
         }
 
-        //private GroupBox CreateMoraBox()
-        //{
-        //    var box = CreateGroupBox("Mora");
-        //    var split = CreateHSplit();
-        //    var check = new CheckBox()
-        //    {
-        //        AutoSize = true,
-        //        Text = "Allow Mora",
-        //        Margin = new(5),
-        //    };
-        //    check.CheckedChanged += AllowMora_CheckedChanged;
-        //    var list = CreateCheckedList();
-        //    split.Panel1.Controls.Add(new FlowLayoutPanel() { Dock = DockStyle.Fill, Controls = { check } });
-        //    split.Panel2.Controls.Add(list);
-        //    box.Controls.Add(split);
-
-        //    AllowMoraCheck = check;
-        //    MoraList = list;
-
-        //    return box;
-        //}
-
         private GroupBox CreateVowelsBox()
         {
 #pragma warning disable CS8601, CS8602, CS8622 // CreateFrickContainer and its contents are not nullable
@@ -438,7 +416,6 @@ namespace frickform
             strings.Sort();
             SyllableOutput.Lines = [.. strings];
         }
-
 
         private void GenerateWords_Click(object sender, EventArgs e)
         {
