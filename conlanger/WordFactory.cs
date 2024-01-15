@@ -18,6 +18,19 @@
         Fixed = 1
     }
 
+    public enum StressDirection
+    {
+        Primary,
+        Ultimate,
+    }
+
+    public enum StressDegree
+    {
+        First = 0,
+        Second = 1,
+        Third = 2
+    }
+
     public class WordFactorySettings
     {
         public List<SyllableShape> PrimaryShapes { get; set; }
@@ -49,6 +62,9 @@
         public CountBy CountBy { get; set; }
         public FootSize FootSize { get; set; }
         public StressSystem StressSystem { get; set; }
+        public bool Weighted { get; set; }
+        public StressDegree StressDegree { get; set; }
+        public StressDirection StressDirection { get; set; }
 
         public WordFactorySettings()
         {
@@ -95,7 +111,30 @@
             if (isFixed)
             {
                 // Fixed
-                throw new NotImplementedException();
+                if (isMoraic)
+                {
+                    throw new NotImplementedException();
+                }
+                else
+                {
+                    // Phonemix - Fixed
+                    int degree = (int)settings.StressDegree;
+                    int dir = settings.StressDirection is StressDirection.Primary ? 1 : -1;
+                    int initPos = dir > 0 ? degree : word.Count - (degree + 1);
+                    int slope = dir * foot;
+                    if (!settings.Weighted)
+                        // Unweighted
+                        for (int i = initPos; i > -1 && i < word.Count; i += slope)
+                            word[i].SyllabicStress = true;
+                    else
+                    {
+                        // Weighted - filter out light syllables.
+                        var syls = word.Syllables.Where(x => x.IsHeavy).ToList();
+                        initPos = dir > 0 ? degree : syls.Count - (degree + 1);
+                        for (int i = initPos; i > -1 && i < syls.Count; i += slope)
+                            syls[i].SyllabicStress = true;
+                    }
+                }
             }
             else
             {

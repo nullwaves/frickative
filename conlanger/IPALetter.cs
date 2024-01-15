@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace conlanger
+﻿namespace conlanger
 {
     public enum Place
     {

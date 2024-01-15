@@ -10,7 +10,8 @@ namespace frickform
         public List<CheckedListBox> ConsonantBoxes;
         public CheckedListBox Vowels, Dipthongs;
         public TextBox PShapes, MShapes, UShapes;
-        public ComboBox FootSizeInput, StressCountingInput, StressSystemInput;
+        public ComboBox FootSizeInput, StressCountingInput, StressSystemInput, StressDirectionInput, StressDegreeInput;
+        public CheckBox FixedIsWeighted;
 
         public bool AllowCrowding => !DisallowVoiceCrowding.Checked;
         public List<SyllableShape> PrimaryShapes
@@ -88,6 +89,9 @@ namespace frickform
         public FootSize FootSize => (FootSize)(FootSizeInput.SelectedItem ?? FootSize.Biambic);
         public CountBy CountBy => (CountBy)(StressCountingInput.SelectedItem ?? CountBy.Syllabic);
         public StressSystem StressSystem => (StressSystem)(StressSystemInput.SelectedItem ?? StressSystem.Phonemic);
+        public StressDegree StressDegree => (StressDegree)(StressDegreeInput.SelectedItem ?? StressDegree.First);
+        public StressDirection StressDirection => (StressDirection)(StressDirectionInput.SelectedItem ?? StressDirection.Primary);
+        public bool Weighted => FixedIsWeighted.Checked;
 
         #region Construct/Init
 
@@ -225,7 +229,7 @@ namespace frickform
             {
                 Dock = DockStyle.Fill,
             };
-            var table = new TableLayoutPanel() { Parent = flow, AutoSize = true, RowCount = 3, ColumnCount = 2 };
+            var table = new TableLayoutPanel() { Parent = flow, AutoSize = true, RowCount = 4, ColumnCount = 2 };
             // Foot Size
             table.Controls.Add(new Label() { Text = "Foot Size:", AutoSize = true }, 0, 0);
             var foot = new ComboBox() { DataSource = (FootSize[])Enum.GetValues(typeof(FootSize)) };
@@ -237,10 +241,31 @@ namespace frickform
             StressCountingInput = stype;
             table.Controls.Add(stype, 1, 1);
             // Stress System
-            table.Controls.Add(new Label() { Text = "Stess Type:", AutoSize = true }, 0, 2);
+            table.Controls.Add(new Label() { Text = "Stress Type:", AutoSize = true }, 0, 2);
             var ssys = new ComboBox() { DataSource = (StressSystem[])Enum.GetValues(typeof(StressSystem)) };
             StressSystemInput = ssys;
             table.Controls.Add(ssys, 1,2);
+            // Fixed Weighting
+            var weight = new CheckBox() { Text = "Weighted", AutoSize = true, Enabled = false };
+            table.Controls.Add(weight, 1, 3);
+            table.SetColumnSpan(weight, 2);
+            FixedIsWeighted = weight;
+            StressSystemInput.SelectedIndexChanged += StressSystemInput_SelectedIndexChanged;
+            // Stress Direction
+            table.Controls.Add(new Label() { Text = "Direction:", AutoSize = true }, 0, 4);
+            var direct = new ComboBox() 
+            { 
+                DataSource = (StressDirection[])Enum.GetValues(typeof(StressDirection)),
+                Enabled = false
+            };
+            StressDirectionInput = direct;
+            table.Controls.Add(direct, 1, 4);
+            // Stress Degree
+            table.Controls.Add(new Label() { Text = "Degree:", AutoSize = true }, 0, 5);
+            var degree = new ComboBox() { DataSource = (StressDegree[])Enum.GetValues(typeof(StressDegree)), Enabled = false };
+            StressDegreeInput = degree;
+            table.Controls.Add(degree, 1, 5);
+
             box.Controls.Add(flow);
             return box;
         }
@@ -473,6 +498,9 @@ namespace frickform
                 FootSize = FootSize,
                 CountBy = CountBy,
                 StressSystem = StressSystem,
+                StressDegree = StressDegree,
+                StressDirection = StressDirection,
+                Weighted = Weighted
             };
 
             if(!int.TryParse(NumberOfSyllables.Text, out int length))
@@ -560,6 +588,23 @@ namespace frickform
                 var noLongerAvailable = Dipthongs.Items.Cast<Dipthong>().Where(x => x.ParentVowels.Contains(vowel)).ToList();
                 foreach (var dip in noLongerAvailable)
                     Dipthongs.Items.Remove(dip);
+            }
+        }
+
+        private void StressSystemInput_SelectedIndexChanged(object? sender, EventArgs e)
+        {
+            if (StressSystem is StressSystem.Fixed)
+            {
+                FixedIsWeighted.Enabled = true;
+                StressDegreeInput.Enabled = true;
+                StressDirectionInput.Enabled = true;
+            }
+            else
+            {
+                FixedIsWeighted.Enabled = false;
+                FixedIsWeighted.Checked = false;
+                StressDegreeInput.Enabled = false;
+                StressDirectionInput.Enabled = false;
             }
         }
 
