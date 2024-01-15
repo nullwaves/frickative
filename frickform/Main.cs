@@ -10,12 +10,9 @@ namespace frickform
         public List<CheckedListBox> ConsonantBoxes;
         public CheckedListBox Vowels, Dipthongs;
         public TextBox PShapes, MShapes, UShapes;
-        //public CheckBox AllowMoraCheck;
-        //public CheckedListBox MoraList;
+        public ComboBox FootSizeInput, StressCountingInput, StressSystemInput;
 
         public bool AllowCrowding => !DisallowVoiceCrowding.Checked;
-        //public bool AllowMora => AllowMoraCheck.Checked;
-        //public List<IPALetter> Mora => MoraList.CheckedItems.Cast<IPALetter>().ToList();
         public List<SyllableShape> PrimaryShapes
         {
             get
@@ -87,6 +84,11 @@ namespace frickform
             }
         }
 
+        // Stress Settings
+        public FootSize FootSize => (FootSize)(FootSizeInput.SelectedItem ?? FootSize.Biambic);
+        public CountBy CountBy => (CountBy)(StressCountingInput.SelectedItem ?? CountBy.Syllabic);
+        public StressSystem StressSystem => (StressSystem)(StressSystemInput.SelectedItem ?? StressSystem.Phonemic);
+
         #region Construct/Init
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -113,9 +115,8 @@ namespace frickform
             var box3 = CreateShapeInputBox("Ultimate Shapes");
             LetterSelectonPanel.Controls.Add(box3);
             UShapes = box3.FindControl<TextBox>();
-            //var mora = CreateMoraBox();
-            //LetterSelectonPanel.Controls.Add(mora);
 #pragma warning restore CS8601 // Possible null reference assignment.
+            LetterSelectonPanel.Controls.Add(CreateStressSettingsBox());
         }
 
         private void PopulateLetterSelection()
@@ -215,6 +216,33 @@ namespace frickform
             };
             container.Controls.Add(tbox);
             return container;
+        }
+
+        private GroupBox CreateStressSettingsBox()
+        {
+            var box = CreateGroupBox("Stress");
+            var flow = new FlowLayoutPanel()
+            {
+                Dock = DockStyle.Fill,
+            };
+            var table = new TableLayoutPanel() { Parent = flow, AutoSize = true, RowCount = 3, ColumnCount = 2 };
+            // Foot Size
+            table.Controls.Add(new Label() { Text = "Foot Size:", AutoSize = true }, 0, 0);
+            var foot = new ComboBox() { DataSource = (FootSize[])Enum.GetValues(typeof(FootSize)) };
+            FootSizeInput = foot;
+            table.Controls.Add(foot, 1, 0);
+            // Counting System
+            table.Controls.Add(new Label() { Text = "Count By:", AutoSize = true }, 0, 1);
+            var stype = new ComboBox() { DataSource = (CountBy[])Enum.GetValues(typeof(CountBy)) };
+            StressCountingInput = stype;
+            table.Controls.Add(stype, 1, 1);
+            // Stress System
+            table.Controls.Add(new Label() { Text = "Stess Type:", AutoSize = true }, 0, 2);
+            var ssys = new ComboBox() { DataSource = (StressSystem[])Enum.GetValues(typeof(StressSystem)) };
+            StressSystemInput = ssys;
+            table.Controls.Add(ssys, 1,2);
+            box.Controls.Add(flow);
+            return box;
         }
 
         private GroupBox CreateVowelsBox()
@@ -441,9 +469,10 @@ namespace frickform
                 PrimaryShapes = PrimaryShapes,
                 MiddleShapes = MiddleShapes,
                 UltimateShapes = UltimateShapes,
-                //AllowMora = AllowMora,
-                //Mora = Mora,
                 SyllableSettings = sylSettings,
+                FootSize = FootSize,
+                CountBy = CountBy,
+                StressSystem = StressSystem,
             };
 
             if(!int.TryParse(NumberOfSyllables.Text, out int length))
@@ -509,11 +538,12 @@ namespace frickform
             var box = sender as CheckedListBox;
             if (box?.Items[e.Index] is not Vowel vowel || box is null)
                 throw new NullReferenceException("Vowel with checkstate to be changed was null");
+            if (vowel.Long) return;
             if (e.NewValue == CheckState.Checked)
             {
                 // Add new dipthongs to Dipthongs list
                 List<Dipthong> possible = [];
-                var vowels = box.CheckedItems.Cast<Vowel>();
+                var vowels = box.CheckedItems.Cast<Vowel>().Where(x => !x.Long);
                 foreach (var coda in vowels)
                 {
                     var dip = new Dipthong(vowel, coda);
@@ -532,25 +562,6 @@ namespace frickform
                     Dipthongs.Items.Remove(dip);
             }
         }
-
-        //private void AllowMora_CheckedChanged(object? sender, EventArgs e)
-        //{
-        //    if (sender is not CheckBox box) return;
-        //    if (box.Checked)
-        //    {
-        //        MoraList.Enabled = true;
-        //        foreach (var c in SelectedConsonants)
-        //        {
-        //            if (!MoraList.Items.Contains(c))
-        //                MoraList.Items.Add(c);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        MoraList.Enabled = false;
-        //        MoraList.Items.Clear();
-        //    }
-        //}
 
         #endregion
     }

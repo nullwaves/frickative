@@ -1,4 +1,6 @@
-﻿namespace conlanger
+﻿using System.Runtime.CompilerServices;
+
+namespace conlanger
 {
     public enum Place
     {
@@ -92,6 +94,7 @@
         public TongueHeight Position { get; set; }
         public TongueTip PositionTip { get; set; }
         public bool Rounded { get; set; }
+        public bool Long { get; set; }
         public override string DisplayString => $"{Symbol} - {Position} {PositionTip} {(Rounded ? "R" : "Unr")}ounded";
 
         public Vowel(string symbol, TongueHeight position, TongueTip tipPosition, bool round)
@@ -100,8 +103,21 @@
             Position = position;
             PositionTip = tipPosition;
             Rounded = round;
+            Long = false;
+            var longVowel = new Vowel()
+            {
+                Symbol = symbol + "\u02D0",
+                Position = position,
+                PositionTip = tipPosition,
+                Rounded = round,
+                Long = true
+            };
             All.Add(this);
+            All.Add(longVowel);
         }
+
+        private Vowel()
+        { }
 
         #region Static Declarations
         // Fronts

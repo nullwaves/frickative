@@ -3,7 +3,13 @@
     public class Word : IComparable<Word>
     {
         public List<Syllable> Syllables { get; set; }
-        
+
+        public Syllable this[int index]
+        {
+            get { return Syllables[index]; }
+            set { Syllables[index] = value; }
+        }
+        public int Count => Syllables.Count;
         public void Add(Syllable value) => Syllables.Add(value);
 
         public Word()

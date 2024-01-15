@@ -1,5 +1,23 @@
 ﻿namespace conlanger
 {
+    public enum FootSize
+    {
+        Biambic = 2,
+        Triambic = 3
+    }
+
+    public enum CountBy
+    {
+        Syllabic = 0,
+        Moraic = 1
+    }
+
+    public enum StressSystem
+    {
+        Phonemic = 0,
+        Fixed = 1
+    }
+
     public class WordFactorySettings
     {
         public List<SyllableShape> PrimaryShapes { get; set; }
@@ -27,6 +45,10 @@
             get { return SyllableSettings.AllowCrowding; }
             set { SyllableSettings.AllowCrowding = value; }
         }
+
+        public CountBy CountBy { get; set; }
+        public FootSize FootSize { get; set; }
+        public StressSystem StressSystem { get; set; }
 
         public WordFactorySettings()
         {
@@ -65,6 +87,36 @@
                     word.Add(SyllableFactory.MakeSyllable(sylSettings));
                 }
             }
+            // Apply Stress
+            // Directly To The Word
+            var foot = (int)settings.FootSize;
+            bool isFixed = settings.StressSystem == StressSystem.Fixed;
+            bool isMoraic = settings.CountBy == CountBy.Moraic;
+            if (isFixed)
+            {
+                // Fixed
+                throw new NotImplementedException();
+            }
+            else
+            {
+                // Phonemic
+                if (isMoraic)
+                {
+                    // Moraic
+                    throw new NotImplementedException();
+                }
+                else
+                {
+                    // Phonemic - Syllabic
+                    int initOffset = rand.Next(word.Count);
+                    word[initOffset].SyllabicStress = true;
+                    for (int pos = initOffset + foot; pos < word.Count; pos += foot)
+                        word[pos].SyllabicStress = true;
+                    for (int pos = initOffset - foot; pos > -1; pos -= foot)
+                        word[pos].SyllabicStress = true;
+                }
+            }
+
             return word;
         }
     }
