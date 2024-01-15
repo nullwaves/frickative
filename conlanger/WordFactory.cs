@@ -1,4 +1,6 @@
-﻿namespace conlanger
+﻿using System.Diagnostics;
+
+namespace conlanger
 {
     public enum FootSize
     {
@@ -29,6 +31,12 @@
         First = 0,
         Second = 1,
         Third = 2
+    }
+
+    public enum Moraism
+    {
+        Bimoraic = 2,
+        Trimoraic = 3,
     }
 
     public class WordFactorySettings
@@ -65,6 +73,7 @@
         public bool Weighted { get; set; }
         public StressDegree StressDegree { get; set; }
         public StressDirection StressDirection { get; set; }
+        public Moraism Moraism { get; set; }
 
         public WordFactorySettings()
         {
@@ -108,6 +117,7 @@
             var foot = (int)settings.FootSize;
             bool isFixed = settings.StressSystem == StressSystem.Fixed;
             bool isMoraic = settings.CountBy == CountBy.Moraic;
+            Debug.WriteLine($"{word} M={word.CountMora(settings.Moraism)}");
             if (isFixed)
             {
                 // Fixed
@@ -120,8 +130,8 @@
                     // Phonemix - Fixed
                     int degree = (int)settings.StressDegree;
                     int dir = settings.StressDirection is StressDirection.Primary ? 1 : -1;
-                    int initPos = dir > 0 ? degree : word.Count - (degree + 1);
                     int slope = dir * foot;
+                    int initPos = dir > 0 ? degree : word.Count - (degree + 1);
                     if (!settings.Weighted)
                         // Unweighted
                         for (int i = initPos; i > -1 && i < word.Count; i += slope)
@@ -141,8 +151,14 @@
                 // Phonemic
                 if (isMoraic)
                 {
-                    // Moraic
-                    throw new NotImplementedException();
+                    // Moraism
+                    int moraCount = word.CountMora(settings.Moraism);
+                    int initOffset = rand.Next(moraCount);
+                    word.AddMoraStress(initOffset, settings.Moraism);
+                    for (int pos = initOffset + foot; pos < moraCount; pos += foot)
+                        word.AddMoraStress(pos, settings.Moraism);
+                    for (int pos = initOffset - foot; pos > -1; pos -= foot)
+                        word.AddMoraStress(pos, settings.Moraism);
                 }
                 else
                 {
@@ -155,7 +171,6 @@
                         word[pos].SyllabicStress = true;
                 }
             }
-
             return word;
         }
     }

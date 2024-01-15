@@ -114,7 +114,7 @@
             All.Add(longVowel);
         }
 
-        private Vowel()
+        internal Vowel()
         { }
 
         #region Static Declarations
@@ -160,9 +160,12 @@
         #endregion
     }
 
-    public class Dipthong : IPALetter
+    public class Dipthong : Vowel
     {
         public Vowel[] ParentVowels { get; set; } = new Vowel[2];
+
+        private Dipthong()
+        { }
 
         public Dipthong(Vowel onsetVowel, Vowel codaVowel)
         {
@@ -170,6 +173,7 @@
                 throw new InvalidDataException("Cannot create dipthong from same onset and coda vowel.");
             ParentVowels = [onsetVowel, codaVowel];
             Symbol = DisplayString;
+            Long = true;
         }
 
         public override string DisplayString => $"{ParentVowels[0]}\u203F{ParentVowels[1]}";
