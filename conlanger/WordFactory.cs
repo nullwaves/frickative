@@ -117,13 +117,19 @@ namespace conlanger
             var foot = (int)settings.FootSize;
             bool isFixed = settings.StressSystem == StressSystem.Fixed;
             bool isMoraic = settings.CountBy == CountBy.Moraic;
-            Debug.WriteLine($"{word} M={word.CountMora(settings.Moraism)}");
             if (isFixed)
             {
                 // Fixed
                 if (isMoraic)
                 {
-                    throw new NotImplementedException();
+                    // Moraic - Fixed
+                    int degree = (int)settings.StressDegree;
+                    int dir = settings.StressDirection is StressDirection.Primary ? 1 : -1;
+                    int slope = dir * foot;
+                    int moraCount = word.CountMora(settings.Moraism);
+                    int initPos = dir > 0 ? degree : moraCount - (degree + 1);
+                    for (int i = initPos; i > -1 && i < moraCount; i += slope)
+                        word.AddMoraStress(i, settings.Moraism);
                 }
                 else
                 {
