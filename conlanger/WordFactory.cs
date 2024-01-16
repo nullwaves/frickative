@@ -120,12 +120,12 @@ namespace conlanger
             if (isFixed)
             {
                 // Fixed
+                int degree = foot == 2 && settings.StressDegree == StressDegree.Third ? 0 : (int)settings.StressDegree;
+                int dir = settings.StressDirection is StressDirection.Primary ? 1 : -1;
+                int slope = dir * foot;
                 if (isMoraic)
                 {
                     // Moraic - Fixed
-                    int degree = foot == 2 && settings.StressDegree == StressDegree.Third ? 0 : (int)settings.StressDegree;
-                    int dir = settings.StressDirection is StressDirection.Primary ? 1 : -1;
-                    int slope = dir * foot;
                     int moraCount = word.CountMora(settings.Moraism);
                     int initPos = dir > 0 ? degree : moraCount - (degree + 1);
                     for (int i = initPos; i > -1 && i < moraCount; i += slope)
@@ -134,9 +134,6 @@ namespace conlanger
                 else
                 {
                     // Phonemix - Fixed
-                    int degree = foot == 2 && settings.StressDegree == StressDegree.Third ? 0 : (int)settings.StressDegree;
-                    int dir = settings.StressDirection is StressDirection.Primary ? 1 : -1;
-                    int slope = dir * foot;
                     int initPos = dir > 0 ? degree : word.Count - (degree + 1);
                     if (!settings.Weighted)
                         // Unweighted
