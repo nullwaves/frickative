@@ -11,8 +11,9 @@ namespace frickform
         public List<CheckedListBox> ConsonantBoxes;
         public CheckedListBox Vowels, Dipthongs;
         public TextBox PShapes, MShapes, UShapes;
-        public ComboBox FootSizeInput, MoraismInput, StressCountingInput, StressSystemInput, StressDirectionInput, StressDegreeInput;
-        public CheckBox FixedIsWeighted;
+        public ComboBox FootSizeInput, MoraismInput, ResultantDirectionInput, StressCountingInput, StressSystemInput,
+            StressDirectionInput, StressDegreeInput;
+        public CheckBox FixedIsWeighted, ResultantStressInput;
 
         public bool AllowCrowding => !DisallowVoiceCrowding.Checked;
         public List<SyllableShape> PrimaryShapes
@@ -94,6 +95,8 @@ namespace frickform
         public StressDirection StressDirection => (StressDirection)(StressDirectionInput.SelectedItem ?? StressDirection.Primary);
         public bool Weighted => FixedIsWeighted.Checked;
         public Moraism Moraism => (Moraism)(MoraismInput.SelectedItem ?? Moraism.Bimoraic);
+        public bool ResultantStress => ResultantStressInput.Checked;
+        public StressDirection ResultantDirection => (StressDirection)(ResultantDirectionInput.SelectedItem ?? StressDirection.Primary);
 
         #region Construct/Init
 
@@ -229,13 +232,16 @@ namespace frickform
             var box = CreateGroupBox("Stress");
             var flow = new FlowLayoutPanel()
             {
+                AutoScroll = true,
                 Dock = DockStyle.Fill,
+                Font = new("Segoe UI", 9),
             };
             var table = new TableLayoutPanel() { Parent = flow, AutoSize = true, ColumnCount = 2 };
             // Foot Size
             table.Controls.Add(new Label() { Text = "Foot Size:", AutoSize = true }, 0, 0);
             var foot = new ComboBox() { DataSource = (FootSize[])Enum.GetValues(typeof(FootSize)) };
             FootSizeInput = foot;
+            FootSizeInput.SelectedValueChanged += FootSizeInput_SelectedValueChanged;
             table.Controls.Add(foot, 1, 0);
             // Counting System
             table.Controls.Add(new Label() { Text = "Count By:", AutoSize = true }, 0, 1);
@@ -273,6 +279,16 @@ namespace frickform
             var degree = new ComboBox() { DataSource = (StressDegree[])Enum.GetValues(typeof(StressDegree)), Enabled = false };
             StressDegreeInput = degree;
             table.Controls.Add(degree, 1, 6);
+            // Resultant Stress
+            var resultant = new CheckBox() { Text = "Resultant Stress", AutoSize = true, Enabled = false };
+            ResultantStressInput = resultant;
+            table.Controls.Add(resultant, 0, 7);
+            table.SetColumnSpan(resultant, 2);
+            // Resultant Direction
+            table.Controls.Add(new Label() { Text = "Resultant Direction:", AutoSize = true }, 0, 8);
+            var resDir = new ComboBox() { DataSource = (StressDirection[])Enum.GetValues(typeof(StressDirection)), Enabled = false };
+            ResultantDirectionInput = resDir;
+            table.Controls.Add(resDir, 1, 8);
 
             box.Controls.Add(flow);
             return box;
@@ -510,6 +526,8 @@ namespace frickform
                 StressDirection = StressDirection,
                 Weighted = Weighted,
                 Moraism = Moraism,
+                ResultantStress = ResultantStress,
+                ResultantDirection = ResultantDirection,
             };
 
             if(!int.TryParse(NumberOfSyllables.Text, out int length))
@@ -600,6 +618,21 @@ namespace frickform
                 var noLongerAvailable = Dipthongs.Items.Cast<Dipthong>().Where(x => x.ParentVowels.Contains(vowel)).ToList();
                 foreach (var dip in noLongerAvailable)
                     Dipthongs.Items.Remove(dip);
+            }
+        }
+
+        private void FootSizeInput_SelectedValueChanged(object? sender, EventArgs e)
+        {
+            if (FootSize is FootSize.Triambic)
+            {
+                ResultantStressInput.Enabled = true;
+                ResultantDirectionInput.Enabled = true;
+            }
+            else
+            {
+                ResultantStressInput.Enabled = false;
+                ResultantStressInput.Checked = false;
+                ResultantDirectionInput.Enabled = false;
             }
         }
 

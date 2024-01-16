@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace conlanger
+﻿namespace conlanger
 {
     public enum FootSize
     {
@@ -74,6 +72,8 @@ namespace conlanger
         public StressDegree StressDegree { get; set; }
         public StressDirection StressDirection { get; set; }
         public Moraism Moraism { get; set; }
+        public bool ResultantStress { get; set; }
+        public StressDirection ResultantDirection { get; set; }
 
         public WordFactorySettings()
         {
@@ -117,6 +117,10 @@ namespace conlanger
             var foot = (int)settings.FootSize;
             bool isFixed = settings.StressSystem == StressSystem.Fixed;
             bool isMoraic = settings.CountBy == CountBy.Moraic;
+            int secondary = settings.FootSize is FootSize.Triambic &&
+                settings.ResultantStress ?
+                settings.ResultantDirection is StressDirection.Primary ?
+                1 : -1 : 0; // 1 if Forward, -1 if Back, 0 if None
             if (isFixed)
             {
                 // Fixed
@@ -129,23 +133,53 @@ namespace conlanger
                     int moraCount = word.CountMora(settings.Moraism);
                     int initPos = dir > 0 ? degree : moraCount - (degree + 1);
                     for (int i = initPos; i > -1 && i < moraCount; i += slope)
-                        word.AddMoraStress(i, settings.Moraism);
+                    {
+                        word.AddMoraStress(i, Syllable.PrimaryStress, settings.Moraism);
+                        if (secondary != 0)
+                        {
+                            var spos = secondary + i;
+                            if (spos > -1 && spos < moraCount)
+                            {
+                                word.AddMoraStress(spos, Syllable.SecondaryStress, settings.Moraism);
+                            }
+                        }
+                    }
                 }
                 else
                 {
-                    // Phonemix - Fixed
+                    // Syllabic - Fixed
                     int initPos = dir > 0 ? degree : word.Count - (degree + 1);
                     if (!settings.Weighted)
                         // Unweighted
                         for (int i = initPos; i > -1 && i < word.Count; i += slope)
-                            word[i].SyllabicStress = true;
+                        {
+                            word[i].SyllabicStress = Syllable.PrimaryStress;
+                            if (secondary != 0)
+                            {
+                                var spos = secondary + i;
+                                if (spos > -1 && spos < word.Count)
+                                {
+                                    word[spos].SyllabicStress = Syllable.SecondaryStress;
+                                }
+                            }
+                        }
                     else
                     {
                         // Weighted - filter out light syllables.
                         var syls = word.Syllables.Where(x => x.IsHeavy).ToList();
                         initPos = dir > 0 ? degree : syls.Count - (degree + 1);
                         for (int i = initPos; i > -1 && i < syls.Count; i += slope)
-                            syls[i].SyllabicStress = true;
+                        {
+                            syls[i].SyllabicStress = Syllable.PrimaryStress;
+                            if (secondary != 0)
+                            {
+                                var spos = secondary + i;
+                                if (spos > -1 && spos < syls.Count)
+                                {
+                                    word[spos].SyllabicStress = Syllable.SecondaryStress;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -156,22 +190,37 @@ namespace conlanger
                 {
                     // Moraism
                     int moraCount = word.CountMora(settings.Moraism);
-                    int initOffset = rand.Next(moraCount);
-                    word.AddMoraStress(initOffset, settings.Moraism);
-                    for (int pos = initOffset + foot; pos < moraCount; pos += foot)
-                        word.AddMoraStress(pos, settings.Moraism);
-                    for (int pos = initOffset - foot; pos > -1; pos -= foot)
-                        word.AddMoraStress(pos, settings.Moraism);
+                    int initOffset = rand.Next(foot <= length ? foot : length);
+                    for (int pos = initOffset; pos < moraCount; pos += foot)
+                    {
+                        word.AddMoraStress(pos, Syllable.PrimaryStress, settings.Moraism);
+                        if (secondary != 0)
+                        {
+                            var spos = secondary + pos;
+                            if (spos > -1 && spos < moraCount)
+                            {
+                                word.AddMoraStress(spos, Syllable.SecondaryStress, settings.Moraism);
+                            }
+                        }
+                    }
                 }
                 else
                 {
                     // Phonemic - Syllabic
-                    int initOffset = rand.Next(word.Count);
-                    word[initOffset].SyllabicStress = true;
-                    for (int pos = initOffset + foot; pos < word.Count; pos += foot)
-                        word[pos].SyllabicStress = true;
-                    for (int pos = initOffset - foot; pos > -1; pos -= foot)
-                        word[pos].SyllabicStress = true;
+                    int initOffset = rand.Next(foot <= length ? foot : length);
+                    word[initOffset].SyllabicStress = Syllable.PrimaryStress;
+                    for (int pos = initOffset; pos < word.Count; pos += foot)
+                    {
+                        word[pos].SyllabicStress = Syllable.PrimaryStress;
+                        if (secondary != 0)
+                        {
+                            var spos = secondary + pos;
+                            if (spos > -1 && spos < word.Count)
+                            {
+                                word[spos].SyllabicStress = Syllable.SecondaryStress;
+                            }
+                        }
+                    }
                 }
             }
             return word;

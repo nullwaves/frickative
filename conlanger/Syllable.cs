@@ -1,5 +1,4 @@
-﻿using System.Runtime.Intrinsics.Arm;
-using System.Text;
+﻿using System.Text;
 
 namespace conlanger
 {
@@ -7,11 +6,12 @@ namespace conlanger
     public class Syllable : IComparable<Syllable>
     {
         public const char PrimaryStress = '\u02C8';
+        public const char SecondaryStress = '\u02CC';
         public const char MoraicBoundryMarker = ',';
 
         public List<IPALetter> SoundWord { get; set; }
-        public List<int> MoraStresses { get; set; }
-        public bool SyllabicStress { get; set; }
+        public Dictionary<int, char> MoraStresses { get; set; }
+        public char? SyllabicStress { get; set; }
         public Vowel? Nucleus => SoundWord.Where(x => x.GetType().InheritsFromOrIs(typeof(Vowel))).Cast<Vowel>().FirstOrDefault();
         public int NucleusIndex => Nucleus is null ? -1 : SoundWord.IndexOf(Nucleus);
         public bool HasOnset => NucleusIndex > 0;
@@ -51,8 +51,8 @@ namespace conlanger
             // stahp
             if (Nucleus is null) return ToString();
             var sb = new StringBuilder();
-            if (MoraStresses.Contains(0))
-                sb.Append(PrimaryStress);
+            if (MoraStresses.TryGetValue(0, out char value))
+                sb.Append(value);
             if (HasOnset)
                 sb.Append(string.Join("", Onset));
             if (!Nucleus.Long)
@@ -62,8 +62,8 @@ namespace conlanger
                 if (HasCoda)
                 {
                     sb.Append(MoraicBoundryMarker);
-                    if (MoraStresses.Contains(1))
-                        sb.Append(PrimaryStress);
+                    if (MoraStresses.TryGetValue(1, out char value1))
+                        sb.Append(value1);
                     sb.Append(string.Join("", Coda));
                 }
             }
@@ -73,14 +73,14 @@ namespace conlanger
                 {
                     sb.Append(dip.ParentVowels[0]);
                     sb.Append(MoraicBoundryMarker);
-                    if (MoraStresses.Contains(1))
-                        sb.Append(PrimaryStress);
+                    if (MoraStresses.TryGetValue(1, out char value1))
+                        sb.Append(value1);
                     sb.Append(dip.ParentVowels[1]);
                     if (moraism is Moraism.Trimoraic && HasCoda)
                     {
                         sb.Append(MoraicBoundryMarker);
-                        if (MoraStresses.Contains(2))
-                            sb.Append(PrimaryStress);
+                        if (MoraStresses.TryGetValue(2, out char value2))
+                            sb.Append(value2);
                     }
                     sb.Append(string.Join("", Coda));
                 }
@@ -95,14 +95,14 @@ namespace conlanger
                         ).First();
                     sb.Append(parent);
                     sb.Append(MoraicBoundryMarker);
-                    if (MoraStresses.Contains(1))
-                        sb.Append(PrimaryStress);
+                    if (MoraStresses.TryGetValue(1, out char value1))
+                        sb.Append(value1);
                     sb.Append(parent);
                     if (moraism is Moraism.Trimoraic && HasCoda)
                     {
                         sb.Append(MoraicBoundryMarker);
-                        if (MoraStresses.Contains(2))
-                            sb.Append(PrimaryStress);
+                        if (MoraStresses.TryGetValue(2, out char value2))
+                            sb.Append(value2);
                     }
                     sb.Append(string.Join("", Coda));
                 }
@@ -113,13 +113,13 @@ namespace conlanger
         public override string ToString()
         {
             var ret = string.Join("", SoundWord);
-            if (SyllabicStress) ret = $"{PrimaryStress}{ret}";
+            ret = $"{(SyllabicStress is not null ? SyllabicStress : string.Empty)}{ret}";
             return ret;
         }
 
-        public void AddMoraStress(int moraPosition)
+        public void AddMoraStress(int moraPosition, char marker)
         {
-            MoraStresses.Add(moraPosition);
+            MoraStresses.Add(moraPosition, marker);
         }
     }
 }

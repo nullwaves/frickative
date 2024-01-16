@@ -19,7 +19,7 @@ namespace conlanger
             Syllables = [];
         }
 
-        public void AddMoraStress(int moraPosition, Moraism moraism)
+        public void AddMoraStress(int moraPosition, char marker, Moraism moraism)
         {
             if (moraPosition < 0 || moraPosition > CountMora(moraism) - 1)
                 throw new ArgumentOutOfRangeException(nameof(moraPosition));
@@ -30,7 +30,7 @@ namespace conlanger
                 localPos -= Syllables[sylPos].CountMora(moraism);
                 sylPos++;
             }
-            Syllables[sylPos].AddMoraStress(localPos);
+            Syllables[sylPos].AddMoraStress(localPos, marker);
         }
 
         public int CountMora(Moraism moraism)
