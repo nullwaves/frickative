@@ -92,6 +92,7 @@
         public TongueHeight Position { get; set; }
         public TongueTip PositionTip { get; set; }
         public bool Rounded { get; set; }
+        public bool Long { get; set; }
         public override string DisplayString => $"{Symbol} - {Position} {PositionTip} {(Rounded ? "R" : "Unr")}ounded";
 
         public Vowel(string symbol, TongueHeight position, TongueTip tipPosition, bool round)
@@ -100,8 +101,21 @@
             Position = position;
             PositionTip = tipPosition;
             Rounded = round;
+            Long = false;
+            var longVowel = new Vowel()
+            {
+                Symbol = symbol + "\u02D0",
+                Position = position,
+                PositionTip = tipPosition,
+                Rounded = round,
+                Long = true
+            };
             All.Add(this);
+            All.Add(longVowel);
         }
+
+        internal Vowel()
+        { }
 
         #region Static Declarations
         // Fronts
@@ -146,9 +160,12 @@
         #endregion
     }
 
-    public class Dipthong : IPALetter
+    public class Dipthong : Vowel
     {
         public Vowel[] ParentVowels { get; set; } = new Vowel[2];
+
+        private Dipthong()
+        { }
 
         public Dipthong(Vowel onsetVowel, Vowel codaVowel)
         {
@@ -156,6 +173,7 @@
                 throw new InvalidDataException("Cannot create dipthong from same onset and coda vowel.");
             ParentVowels = [onsetVowel, codaVowel];
             Symbol = DisplayString;
+            Long = true;
         }
 
         public override string DisplayString => $"{ParentVowels[0]}\u203F{ParentVowels[1]}";

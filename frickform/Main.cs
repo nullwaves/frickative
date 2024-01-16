@@ -1,4 +1,5 @@
 using conlanger;
+using System.Text;
 
 namespace frickform
 {
@@ -10,12 +11,11 @@ namespace frickform
         public List<CheckedListBox> ConsonantBoxes;
         public CheckedListBox Vowels, Dipthongs;
         public TextBox PShapes, MShapes, UShapes;
-        //public CheckBox AllowMoraCheck;
-        //public CheckedListBox MoraList;
+        public ComboBox FootSizeInput, MoraismInput, ResultantDirectionInput, StressCountingInput, StressSystemInput,
+            StressDirectionInput, StressDegreeInput;
+        public CheckBox FixedIsWeighted, ResultantStressInput;
 
         public bool AllowCrowding => !DisallowVoiceCrowding.Checked;
-        //public bool AllowMora => AllowMoraCheck.Checked;
-        //public List<IPALetter> Mora => MoraList.CheckedItems.Cast<IPALetter>().ToList();
         public List<SyllableShape> PrimaryShapes
         {
             get
@@ -87,6 +87,17 @@ namespace frickform
             }
         }
 
+        // Stress Settings
+        public FootSize FootSize => (FootSize)(FootSizeInput.SelectedItem ?? FootSize.Biambic);
+        public CountBy CountBy => (CountBy)(StressCountingInput.SelectedItem ?? CountBy.Syllabic);
+        public StressSystem StressSystem => (StressSystem)(StressSystemInput.SelectedItem ?? StressSystem.Phonemic);
+        public StressDegree StressDegree => (StressDegree)(StressDegreeInput.SelectedItem ?? StressDegree.First);
+        public StressDirection StressDirection => (StressDirection)(StressDirectionInput.SelectedItem ?? StressDirection.Primary);
+        public bool Weighted => FixedIsWeighted.Checked;
+        public Moraism Moraism => (Moraism)(MoraismInput.SelectedItem ?? Moraism.Bimoraic);
+        public bool ResultantStress => ResultantStressInput.Checked;
+        public StressDirection ResultantDirection => (StressDirection)(ResultantDirectionInput.SelectedItem ?? StressDirection.Primary);
+
         #region Construct/Init
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -113,9 +124,8 @@ namespace frickform
             var box3 = CreateShapeInputBox("Ultimate Shapes");
             LetterSelectonPanel.Controls.Add(box3);
             UShapes = box3.FindControl<TextBox>();
-            //var mora = CreateMoraBox();
-            //LetterSelectonPanel.Controls.Add(mora);
 #pragma warning restore CS8601 // Possible null reference assignment.
+            LetterSelectonPanel.Controls.Add(CreateStressSettingsBox());
         }
 
         private void PopulateLetterSelection()
@@ -215,6 +225,73 @@ namespace frickform
             };
             container.Controls.Add(tbox);
             return container;
+        }
+
+        private GroupBox CreateStressSettingsBox()
+        {
+            var box = CreateGroupBox("Stress");
+            var flow = new FlowLayoutPanel()
+            {
+                AutoScroll = true,
+                Dock = DockStyle.Fill,
+                Font = new("Segoe UI", 9),
+            };
+            var table = new TableLayoutPanel() { Parent = flow, AutoSize = true, ColumnCount = 2 };
+            // Foot Size
+            table.Controls.Add(new Label() { Text = "Foot Size:", AutoSize = true }, 0, 0);
+            var foot = new ComboBox() { DataSource = (FootSize[])Enum.GetValues(typeof(FootSize)) };
+            FootSizeInput = foot;
+            FootSizeInput.SelectedValueChanged += FootSizeInput_SelectedValueChanged;
+            table.Controls.Add(foot, 1, 0);
+            // Counting System
+            table.Controls.Add(new Label() { Text = "Count By:", AutoSize = true }, 0, 1);
+            var stype = new ComboBox() { DataSource = (CountBy[])Enum.GetValues(typeof(CountBy)) };
+            StressCountingInput = stype;
+            StressCountingInput.SelectedValueChanged += StressCountingInput_SelectedValueChanged;
+            table.Controls.Add(stype, 1, 1);
+            // Moraism
+            table.Controls.Add(new Label() { Text = "Moraism:", AutoSize = true }, 0, 2 );
+            var moraism = new ComboBox() { DataSource = (Moraism[])Enum.GetValues(typeof(Moraism)) };
+            MoraismInput = moraism;
+            table.Controls.Add(moraism, 1, 2);
+            // Stress System
+            table.Controls.Add(new Label() { Text = "Stress Type:", AutoSize = true }, 0, 3);
+            var ssys = new ComboBox() { DataSource = (StressSystem[])Enum.GetValues(typeof(StressSystem)) };
+            StressSystemInput = ssys;
+            table.Controls.Add(ssys, 1,3);
+            // Fixed Weighting
+            var weight = new CheckBox() { Text = "Weighted", AutoSize = true, Enabled = false };
+            table.Controls.Add(weight, 1, 4);
+            table.SetColumnSpan(weight, 2);
+            FixedIsWeighted = weight;
+            StressSystemInput.SelectedIndexChanged += StressSystemInput_SelectedIndexChanged;
+            // Stress Direction
+            table.Controls.Add(new Label() { Text = "Direction:", AutoSize = true }, 0, 5);
+            var direct = new ComboBox() 
+            { 
+                DataSource = (StressDirection[])Enum.GetValues(typeof(StressDirection)),
+                Enabled = false
+            };
+            StressDirectionInput = direct;
+            table.Controls.Add(direct, 1, 5);
+            // Stress Degree
+            table.Controls.Add(new Label() { Text = "Degree:", AutoSize = true }, 0, 6);
+            var degree = new ComboBox() { DataSource = (StressDegree[])Enum.GetValues(typeof(StressDegree)), Enabled = false };
+            StressDegreeInput = degree;
+            table.Controls.Add(degree, 1, 6);
+            // Resultant Stress
+            var resultant = new CheckBox() { Text = "Resultant Stress", AutoSize = true, Enabled = false };
+            ResultantStressInput = resultant;
+            table.Controls.Add(resultant, 0, 7);
+            table.SetColumnSpan(resultant, 2);
+            // Resultant Direction
+            table.Controls.Add(new Label() { Text = "Resultant Direction:", AutoSize = true }, 0, 8);
+            var resDir = new ComboBox() { DataSource = (StressDirection[])Enum.GetValues(typeof(StressDirection)), Enabled = false };
+            ResultantDirectionInput = resDir;
+            table.Controls.Add(resDir, 1, 8);
+
+            box.Controls.Add(flow);
+            return box;
         }
 
         private GroupBox CreateVowelsBox()
@@ -441,9 +518,16 @@ namespace frickform
                 PrimaryShapes = PrimaryShapes,
                 MiddleShapes = MiddleShapes,
                 UltimateShapes = UltimateShapes,
-                //AllowMora = AllowMora,
-                //Mora = Mora,
                 SyllableSettings = sylSettings,
+                FootSize = FootSize,
+                CountBy = CountBy,
+                StressSystem = StressSystem,
+                StressDegree = StressDegree,
+                StressDirection = StressDirection,
+                Weighted = Weighted,
+                Moraism = Moraism,
+                ResultantStress = ResultantStress,
+                ResultantDirection = ResultantDirection,
             };
 
             if(!int.TryParse(NumberOfSyllables.Text, out int length))
@@ -459,7 +543,10 @@ namespace frickform
                 words.Add(WordFactory.MakeWord(settings, length));
             }
             SyllableOutput.Clear();
-            SyllableOutput.Text = string.Join(Environment.NewLine, words);
+            var sb = new StringBuilder();
+            foreach (var item in words)
+                sb.AppendLine(CountBy is CountBy.Syllabic ? item.ToString() : item.Format(Moraism));
+            SyllableOutput.Text = sb.ToString(); ;
         }
 
         private List<Manner> GetAcceptedFollowerTypes(Manner manner)
@@ -509,11 +596,12 @@ namespace frickform
             var box = sender as CheckedListBox;
             if (box?.Items[e.Index] is not Vowel vowel || box is null)
                 throw new NullReferenceException("Vowel with checkstate to be changed was null");
+            if (vowel.Long) return;
             if (e.NewValue == CheckState.Checked)
             {
                 // Add new dipthongs to Dipthongs list
                 List<Dipthong> possible = [];
-                var vowels = box.CheckedItems.Cast<Vowel>();
+                var vowels = box.CheckedItems.Cast<Vowel>().Where(x => !x.Long);
                 foreach (var coda in vowels)
                 {
                     var dip = new Dipthong(vowel, coda);
@@ -533,24 +621,58 @@ namespace frickform
             }
         }
 
-        //private void AllowMora_CheckedChanged(object? sender, EventArgs e)
-        //{
-        //    if (sender is not CheckBox box) return;
-        //    if (box.Checked)
-        //    {
-        //        MoraList.Enabled = true;
-        //        foreach (var c in SelectedConsonants)
-        //        {
-        //            if (!MoraList.Items.Contains(c))
-        //                MoraList.Items.Add(c);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        MoraList.Enabled = false;
-        //        MoraList.Items.Clear();
-        //    }
-        //}
+        private void FootSizeInput_SelectedValueChanged(object? sender, EventArgs e)
+        {
+            if (FootSize is FootSize.Triambic)
+            {
+                ResultantStressInput.Enabled = true;
+                ResultantDirectionInput.Enabled = true;
+            }
+            else
+            {
+                ResultantStressInput.Enabled = false;
+                ResultantStressInput.Checked = false;
+                ResultantDirectionInput.Enabled = false;
+            }
+        }
+
+        private void StressSystemInput_SelectedIndexChanged(object? sender, EventArgs e)
+        {
+            if (StressSystem is StressSystem.Fixed)
+            {
+                FixedIsWeighted.Enabled = !(CountBy == CountBy.Moraic);
+                StressDegreeInput.Enabled = true;
+                StressDirectionInput.Enabled = true;
+            }
+            else
+            {
+                FixedIsWeighted.Enabled = false;
+                FixedIsWeighted.Checked = false;
+                StressDegreeInput.Enabled = false;
+                StressDirectionInput.Enabled = false;
+            }
+        }
+
+        private void StressCountingInput_SelectedValueChanged(object? sender, EventArgs e)
+        {
+            if (CountBy is CountBy.Moraic)
+            {
+                MoraismInput.Enabled = true;
+                if (FixedIsWeighted.Enabled)
+                {
+                    FixedIsWeighted.Checked = false;
+                    FixedIsWeighted.Enabled = false;
+                }
+            }
+            else
+            {
+                MoraismInput.Enabled = false;
+                if (StressSystem is StressSystem.Fixed)
+                {
+                    FixedIsWeighted.Enabled = true;
+                }
+            }
+        }
 
         #endregion
     }
