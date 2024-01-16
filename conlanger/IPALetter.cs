@@ -70,6 +70,8 @@
 
     public class Vowel : IPALetter
     {
+        public const char LongVowelMarker = '\u02d0';
+
         public enum TongueHeight
         {
             Close,
@@ -93,7 +95,9 @@
         public TongueTip PositionTip { get; set; }
         public bool Rounded { get; set; }
         public bool Long { get; set; }
-        public override string DisplayString => $"{Symbol} - {Position} {PositionTip} {(Rounded ? "R" : "Unr")}ounded";
+        public override string DisplayString => Long ?
+            $"{Symbol} - Long {Symbol.Replace($"{LongVowelMarker}", "")}" :
+            $"{Symbol} - {Position} {PositionTip} {(Rounded ? "R" : "Unr")}ounded";
 
         public Vowel(string symbol, TongueHeight position, TongueTip tipPosition, bool round)
         {
