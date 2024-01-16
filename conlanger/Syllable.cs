@@ -69,9 +69,8 @@ namespace conlanger
             }
             else
             {
-                if (Nucleus is Dipthong)
+                if (Nucleus is Dipthong dip)
                 {
-                    Dipthong dip = (Dipthong)Nucleus;
                     sb.Append(dip.ParentVowels[0]);
                     sb.Append(MoraicBoundryMarker);
                     if (MoraStresses.Contains(1))

@@ -46,11 +46,11 @@ namespace conlanger
         public string Format(Moraism moraism)
         {
             var sb = new StringBuilder();
-            sb.Append("[");
+            sb.Append('[');
             foreach (var item in Syllables)
                 sb.Append(item.Format(moraism) + ".");
             sb.Remove(sb.Length - 1, 1);
-            sb.Append("]");
+            sb.Append(']');
             return sb.ToString();
         }
 

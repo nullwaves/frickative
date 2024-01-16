@@ -607,7 +607,7 @@ namespace frickform
         {
             if (StressSystem is StressSystem.Fixed)
             {
-                FixedIsWeighted.Enabled = true;
+                FixedIsWeighted.Enabled = !(CountBy == CountBy.Moraic);
                 StressDegreeInput.Enabled = true;
                 StressDirectionInput.Enabled = true;
             }
@@ -625,10 +625,19 @@ namespace frickform
             if (CountBy is CountBy.Moraic)
             {
                 MoraismInput.Enabled = true;
+                if (FixedIsWeighted.Enabled)
+                {
+                    FixedIsWeighted.Checked = false;
+                    FixedIsWeighted.Enabled = false;
+                }
             }
             else
             {
                 MoraismInput.Enabled = false;
+                if (StressSystem is StressSystem.Fixed)
+                {
+                    FixedIsWeighted.Enabled = true;
+                }
             }
         }
 
